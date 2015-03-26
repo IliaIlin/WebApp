@@ -1,4 +1,4 @@
-package ForClasses;
+package java.ForClasses;
 
 import java.sql.SQLException;
 
@@ -7,7 +7,7 @@ import java.sql.SQLException;
  */
 public class TestConnect {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataBaseDaoImpl dataBaseDao = new DataBaseDaoImpl("PAI", "11");
+        DataBaseStudentDaoImpl dataBaseDao = new DataBaseStudentDaoImpl("PAI", "11");
 /*        dataBaseDao.getAllStudents();
         ResultSet resultSet = dataBaseDao.getResultSet();
         resultSet.next();
