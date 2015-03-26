@@ -10,13 +10,12 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-
-
     final private static String INSERT_GROUP = "INSERT INTO GROUPS VALUES ( ? , ? )";
     final private static String DELETE_GROUP = "DELETE FROM GROUPS WHERE GROUP_NUMBER = ?";
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS WHERE GROUP_NUMBER = ? AND FACULTY = ?";
     final private static String UPDATE_GROUP = "UPDATE GROUPS SET FACULTY = ? WHERE GROUP_NUMBER = ?";
+
 
     public DataBaseGroupDaoImpl(Connection connection) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 

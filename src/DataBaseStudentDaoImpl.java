@@ -11,6 +11,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     private ResultSet resultSet;
 
     final private static String INSERT_STUDENT = "INSERT INTO STUDENTS VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval, ?)";
+    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS(NAME, GROUP_NUMBER, DATE, ID)"
+            + "VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
     final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS";
     final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
@@ -42,18 +44,28 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public void setGroup(int id, int numberGroup) throws SQLException {
-        preparedStatement = connection.prepareStatement(SET_GROUP);
-        preparedStatement.setInt(1, id);
+    public ResultSet insertStudent(String name, int numberGroup, String date) throws SQLException {
+        preparedStatement = connection.prepareStatement(INSERT_STUDENT_WITHOUT_CURATOR);
+        preparedStatement.setString(1, name);
         preparedStatement.setInt(2, numberGroup);
+        preparedStatement.setString(3, date);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet;
+    }
+
+    @Override
+    public void setGroup(int numberGroup, int id) throws SQLException {
+        preparedStatement = connection.prepareStatement(SET_GROUP);
+        preparedStatement.setInt(1, numberGroup);
+        preparedStatement.setInt(2, id);
         resultSet = preparedStatement.executeQuery();
     }
 
     @Override
-    public void setCurator(int idStudent, int idCurator) throws SQLException {
+    public void setCurator(int idCurator, int idStudent) throws SQLException {
         preparedStatement = connection.prepareStatement(SET_CURATOR);
-        preparedStatement.setInt(1, idStudent);
-        preparedStatement.setInt(2, idCurator);
+        preparedStatement.setInt(1, idCurator);
+        preparedStatement.setInt(2, idStudent);
         resultSet = preparedStatement.executeQuery();
     }
 
@@ -81,7 +93,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         resultSet = preparedStatement.executeQuery();
         return resultSet;
     }
-
 
 
 }
