@@ -14,6 +14,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
     final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS";
     final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
+    final private static String SET_GROUP = "UPDATE STUDENTS SET GROUP_NUMBER = ? WHERE ID = ?";
+    final private static String SET_CURATOR = "UPDATE STUDENTS SET CURATOR = ? WHERE ID = ?";
 
     public DataBaseStudentDaoImpl(Connection connection) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 
@@ -29,15 +31,31 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
 
     @Override
-    public void insertStudent(String name, int numberGroup, String date, int idCurator) throws SQLException {
+    public ResultSet insertStudent(String name, int numberGroup, String date, int idCurator) throws SQLException {
         preparedStatement = connection.prepareStatement(INSERT_STUDENT);
         preparedStatement.setString(1, name);
         preparedStatement.setInt(2, numberGroup);
         preparedStatement.setString(3, date);
         preparedStatement.setInt(4, idCurator);
         resultSet = preparedStatement.executeQuery();
+        return resultSet;
     }
 
+    @Override
+    public void setGroup(int id, int numberGroup) throws SQLException {
+        preparedStatement = connection.prepareStatement(SET_GROUP);
+        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(2, numberGroup);
+        resultSet = preparedStatement.executeQuery();
+    }
+
+    @Override
+    public void setCurator(int idStudent, int idCurator) throws SQLException {
+        preparedStatement = connection.prepareStatement(SET_CURATOR);
+        preparedStatement.setInt(1, idStudent);
+        preparedStatement.setInt(2, idCurator);
+        resultSet = preparedStatement.executeQuery();
+    }
 
     @Override
     public void deleteStudents(int id) throws SQLException {
@@ -49,9 +67,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
 
     @Override
-    public void selectStudents(String s) throws SQLException { //!!!!!!!!!!!!!!!!!!!!!!!!
+    public ResultSet selectStudents(String s) throws SQLException { //!!!!!!!!!!!!!!!!!!!!!!!!
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
+        return resultSet;
 
 
     }
@@ -63,8 +82,5 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
 
-    public ResultSet getResultSet() {
-        return resultSet;
-    }
 
 }

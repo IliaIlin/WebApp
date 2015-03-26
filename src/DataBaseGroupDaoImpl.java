@@ -37,11 +37,12 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public void insertGroup(int numberGroup, String faculty) throws SQLException {
+    public ResultSet insertGroup(int numberGroup, String faculty) throws SQLException {
         preparedStatement = connection.prepareStatement(INSERT_GROUP);
         preparedStatement.setInt(1, numberGroup);
         preparedStatement.setString(2, faculty);
         resultSet = preparedStatement.executeQuery();
+        return resultSet;
     }
 
     @Override
@@ -64,14 +65,12 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public void getAllGroups() throws SQLException {
+    public ResultSet getAllGroups() throws SQLException {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
-    }
-
-
-    public ResultSet getResultSet() {
         return resultSet;
     }
+
+
 
 }

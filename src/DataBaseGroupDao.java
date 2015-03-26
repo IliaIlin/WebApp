@@ -1,3 +1,4 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -5,7 +6,7 @@ import java.sql.SQLException;
  */
 public interface DataBaseGroupDao  {
 
-    public void insertGroup(int numberGroup, String faculty) throws SQLException;
+    public ResultSet insertGroup(int numberGroup, String faculty) throws SQLException;
 
     public void deleteGroups(int numberGroup) throws SQLException;
 
@@ -13,6 +14,6 @@ public interface DataBaseGroupDao  {
 
     public void selectGroups(String s) throws SQLException;
 
-    public void getAllGroups() throws SQLException;
+    public ResultSet getAllGroups() throws SQLException;
 
 }
