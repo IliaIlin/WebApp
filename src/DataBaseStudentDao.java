@@ -14,7 +14,7 @@ public interface DataBaseStudentDao {
 
     public void deleteStudents(int id) throws SQLException;
 
-    public void getAllStudents() throws SQLException;
+    public ResultSet getAllStudents() throws SQLException;
 
     public void setGroup(int id, int numberGroup) throws SQLException;
 

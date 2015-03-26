@@ -76,9 +76,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public void getAllStudents() throws SQLException {
+    public ResultSet getAllStudents() throws SQLException {
         preparedStatement = connection.prepareStatement(SELECT_ALL_STUDENTS);
         resultSet = preparedStatement.executeQuery();
+        return resultSet;
     }
 
 
