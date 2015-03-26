@@ -1,5 +1,3 @@
-package java.ForClasses;
-
 import java.sql.SQLException;
 
 /**
@@ -11,7 +9,7 @@ public interface DataBaseGroupDao  {
 
     public void deleteGroups(int numberGroup) throws SQLException;
 
-    public void updateGroups(String s);
+    public void updateGroups(int numberGroup, String faculty) throws SQLException;
 
     public void selectGroups(String s) throws SQLException;
 

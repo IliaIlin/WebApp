@@ -1,5 +1,3 @@
-package java.ForClasses;
-
 import java.sql.SQLException;
 
 /**
@@ -9,7 +7,7 @@ public interface DataBaseStudentDao {
 
     public void updateStudents(String s);
 
-    public void insertStudent(String name, int numberGroup, String date) throws SQLException;
+    public void insertStudent(String name, int numberGroup, String date,int idCurator) throws SQLException;
 
     public void selectStudents(String s) throws SQLException;
 

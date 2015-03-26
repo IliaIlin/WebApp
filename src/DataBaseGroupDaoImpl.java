@@ -1,7 +1,4 @@
-package java.ForClasses;
-
 import java.sql.*;
-import java.util.Locale;
 
 /**
  * Created by Саша on 26.03.2015.
@@ -13,28 +10,28 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    final private static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    final private static String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
 
 
     final private static String INSERT_GROUP = "INSERT INTO GROUPS VALUES ( ? , ? )";
     final private static String DELETE_GROUP = "DELETE FROM GROUPS WHERE GROUP_NUMBER = ?";
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS WHERE GROUP_NUMBER = ? AND FACULTY = ?";
+    final private static String UPDATE_GROUP = "UPDATE GROUPS SET FACULTY = ? WHERE GROUP_NUMBER = ?";
 
-    public DataBaseGroupDaoImpl(String login, String password) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
-        Locale.setDefault(Locale.ENGLISH);
+    public DataBaseGroupDaoImpl(Connection connection) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 
-        Class.forName(DRIVER_NAME).newInstance();
-
-        connection = DriverManager.getConnection(URL, login, password);
-//        statement = connection.createStatement();
+        this.connection = connection;
 
     }
 
 
     @Override
-    public void updateGroups(String s) {
+    public void updateGroups(int numberGroup, String faculty) throws SQLException {
+        preparedStatement = connection.prepareStatement(UPDATE_GROUP);
+        preparedStatement.setInt(2, numberGroup);
+        preparedStatement.setString(1, faculty);
+        resultSet = preparedStatement.executeQuery();
+
 
     }
 
