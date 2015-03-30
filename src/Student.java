@@ -1,64 +1,49 @@
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
-@XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Student implements Serializable {
 
-    private String name;
-    private Group groupOfStudent;
-    private Date dateOfEnrollment;
-    public final long ID;
+    private final String NAME;
+    private final Group GROUP_STUDENT;
+    private final Date DATE_ENROLLMENT;
+    private final long ID;
+    private final long ID_CURATOR;
 
-    private Student() {  //без этого конструктора не создается xml
-        this.ID = -1;
+
+    Student(String name, Date dateOfEnrollment, Group groupOfStudent, long id) {
+        this.NAME = name;
+        this.GROUP_STUDENT = groupOfStudent;
+        this.DATE_ENROLLMENT = dateOfEnrollment;
+        this.ID = id;
+        ID_CURATOR = -1;
     }
 
-    Student(String name, Date dateOfEnrollment, Group groupOfStudent) {
-        this.name = name;
-        this.groupOfStudent = groupOfStudent;
-        this.dateOfEnrollment = dateOfEnrollment;
-        this.ID = idGenerator();
-
+    public Student(String NAME, Group GROUP_STUDENT, Date DATE_ENROLLMENT, long ID, long ID_CURATOR) {
+        this.NAME = NAME;
+        this.GROUP_STUDENT = GROUP_STUDENT;
+        this.DATE_ENROLLMENT = DATE_ENROLLMENT;
+        this.ID = ID;
+        this.ID_CURATOR = ID_CURATOR;
     }
 
-    public String getName() {
-        return name;
+    public String getNAME() {
+        return NAME;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Group getGROUP_STUDENT() {
+        return GROUP_STUDENT;
     }
 
-    public Group getGroupOfStudent() {
-        return groupOfStudent;
+    public Date getDATE_ENROLLMENT() {
+        return DATE_ENROLLMENT;
     }
 
-    public void setGroupOfStudent(Group groupOfStudent) {
-        this.groupOfStudent = groupOfStudent;
-    }
-
-    public Date getDateOfEnrollment() {
-        return dateOfEnrollment;
-    }
-
-    public void setDateOfEnrollment(Date date) {
-        this.dateOfEnrollment = date;
-    }
-
-    public long getIdNumber() {
+    public long getID() {
         return ID;
     }
 
-
-    private long idGenerator() {
-        long result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (groupOfStudent != null ? groupOfStudent.hashCode() : 0);
-        result = 31 * result + (dateOfEnrollment != null ? dateOfEnrollment.hashCode() : 0);
-        result = 31 * result + (System.nanoTime() ^ (System.nanoTime() >>> 32));
-        return Math.abs(result);
+    public long getID_CURATOR() {
+        return ID_CURATOR;
     }
+
 }

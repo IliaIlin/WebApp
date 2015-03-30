@@ -12,7 +12,7 @@ public interface DataBaseStudentDao {
 
     public ResultSet insertStudent(String name, int numberGroup, String date) throws SQLException;
 
-    public ResultSet selectStudents(String s) throws SQLException;
+    public ResultSet selectStudents(String param[], String arg[]) throws SQLException;
 
     public void deleteStudents(int id) throws SQLException;
 

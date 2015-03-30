@@ -15,7 +15,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + "VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
     final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS";
-    final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
+    //  final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
+    final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ";
     final private static String SET_GROUP = "UPDATE STUDENTS SET GROUP_NUMBER = ? WHERE ID = ?";
     final private static String SET_CURATOR = "UPDATE STUDENTS SET CURATOR = ? WHERE ID = ?";
 
@@ -80,8 +81,19 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
 
     @Override
-    public ResultSet selectStudents(String s) throws SQLException { //!!!!!!!!!!!!!!!!!!!!!!!!
-        preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
+    public ResultSet selectStudents(String param[], String arg[]) throws SQLException { //!!!!!!!!!!!!!!!!!!!!!!!!
+        String statement = SELECT_STUDENTS;
+        for (int i = 0; i < param.length; i++) {
+            statement += " " + param[i] + " = ? ";
+            if (i != param.length - 1) {
+                statement += " AND ";
+            }
+        }
+        preparedStatement = connection.prepareStatement(statement);
+        for (int i = 0; i < arg.length; i++) {
+            preparedStatement.setString(i + 1, arg[i]);
+        }
+
         resultSet = preparedStatement.executeQuery();
         return resultSet;
 
@@ -96,4 +108,17 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+

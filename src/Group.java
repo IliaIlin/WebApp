@@ -1,41 +1,30 @@
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
+
 public class Group implements Serializable {
 
-    private int groupNumber;
-    private String faculty;
+    private int GROUP_NUMBER;
+    private String FACULTY;
 
     private Group() {
     }
 
     Group(int groupNumber) {
-        this.groupNumber = groupNumber;
+        this.GROUP_NUMBER = groupNumber;
     }
 
     Group(int groupNumber, String faculty) {
-        this.groupNumber = groupNumber;
-        this.faculty = faculty;
+        this.GROUP_NUMBER = groupNumber;
+        this.FACULTY = faculty;
     }
 
-    public int getGroupNumber() {
-        return groupNumber;
+    public int getGROUP_NUMBER() {
+        return GROUP_NUMBER;
     }
 
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
+    public String getFACULTY() {
+        return FACULTY == null ? "" : FACULTY;
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
 
 }
