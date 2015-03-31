@@ -6,8 +6,6 @@ public class Group implements Serializable {
     private int GROUP_NUMBER;
     private String FACULTY;
 
-    private Group() {
-    }
 
     Group(int groupNumber) {
         this.GROUP_NUMBER = groupNumber;

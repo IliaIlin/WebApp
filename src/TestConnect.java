@@ -37,12 +37,13 @@ public class TestConnect {
 //                    + resultSet.getString(curator));
 //        }
 
-        ArrayList<Group> groups  = dataBaseGroupDao.getAllGroups();
-        System.out.println(groups.size());
+        ArrayList<Student> students  = dataBaseStudentDao.getAllStudents();
 
-        for (int i = 0; i < groups.size(); i++) {
-            Group group = groups.get(i);
-            System.out.println(group.getGROUP_NUMBER() + " --- " + group.getFACULTY());
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            System.out.println(student.getNAME() + " --- " + student.getGROUP_STUDENT()
+            + " --- " + student.getDATE_ENROLLMENT() + " --- "
+            + student.getID() + " --- " + student.getID_CURATOR());
         }
 
     }
