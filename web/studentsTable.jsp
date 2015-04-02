@@ -20,7 +20,10 @@
         <div class="header">
             <h1>Students Table</h1>
         </div>
-        <div id="centerColumnStudents">   
+        <div id="centerColumnStudents"> 
+                    <form name="Add" action="studentAddition.jsp">
+                <input type="submit" value="Add Student" />
+            </form>
             <table border="1" >
                 <thead>
                     <tr>
@@ -40,10 +43,10 @@
                             Student student = students.get(i);
                     %>
                     <tr>
-                        <td> <%=String.valueOf(student.getNAME())%></td>
-                        <td> <%=String.valueOf(student.getGROUP_STUDENT())%></td>
+                        <td> <a href=""><%=String.valueOf(student.getNAME())%></a></td>
+                        <td> <a href=""><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
                         <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
-                        <td> <%=String.valueOf(student.getID_CURATOR())%></td>
+                        <td> <a href=""><%=String.valueOf(student.getID_CURATOR())%></a></td>
                     </tr>
                     <%
                         }
@@ -51,27 +54,20 @@
                 </tbody>
             </table>
         </div>
-        <div class="indexRightColumn">
-            <form name="Add" action="studentAddition.jsp">
-                <input type="submit" value="Add Student" />
-            </form>
-        </div> 
-                
         <%
             if (request.getParameter("Name") != null
-                   && request.getParameter("Date") != null) {
-                if(request.getParameter("Curators")=="-1"){  // addition without curator
+                    && request.getParameter("Date") != null) {
+                if (request.getParameter("Curators") == "-1") {  // addition without curator
                     dataBaseStudentDao.insertStudent(request.getParameter("Name"),
                             Integer.parseInt(request.getParameter("GroupNumbers")),
-                                    request.getParameter("Date"));
+                            request.getParameter("Date"));
+                } else {
+                    dataBaseStudentDao.insertStudent(request.getParameter("Name"),
+                            Integer.parseInt(request.getParameter("GroupNumbers")),
+                            request.getParameter("Date"), Integer.parseInt(request.getParameter("Curators")));
+
                 }
-                else{
-                   dataBaseStudentDao.insertStudent(request.getParameter("Name"),
-                           Integer.parseInt(request.getParameter("GroupNumbers")),
-                           request.getParameter("Date"),Integer.parseInt(request.getParameter("Curators")));
-                                   
-                } 
             }
-            %>
+        %>
     </body>
 </html>

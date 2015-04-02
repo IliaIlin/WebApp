@@ -21,6 +21,9 @@
             <h1>Groups Table</h1>
         </div>
         <div id="centerColumnGroups">
+            <form name="Add" action="groupAddition.jsp">
+                <input type="submit" value="Add Group" />
+            </form>
             <table border="1" >
                 <thead>
                     <tr>
@@ -47,7 +50,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="indexRightColumn">
-        </div>
+                <%
+            if (request.getParameter("GroupNo") != null
+                    && request.getParameter("Faculty") != null) {
+                    dataBaseGroupDao.insertGroup(Integer.parseInt(request.getParameter("GroupNo")),
+                            request.getParameter("Faculty"));
+            }
+        %>
+        
     </body>
 </html>

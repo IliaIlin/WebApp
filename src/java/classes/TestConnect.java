@@ -7,9 +7,9 @@ import java.sql.SQLException;
  */
 public class TestConnect {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
-        DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-        DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+        //DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+       // DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
+       // DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
         //     dataBaseDao.getAllStudents();
         //   ResultSet resultSet = dataBaseDao.getResultSet();
         // resultSet.next();
@@ -45,9 +45,6 @@ public class TestConnect {
    //         + " --- " + student.getDATE_ENROLLMENT() + " --- "
    //         + student.getID() + " --- " + student.getID_CURATOR());
    //     }
-        for(int i=66;i<=74;i++){
-            dataBaseStudentDao.deleteStudents(i);
-        }
-        
+       
     }
 }

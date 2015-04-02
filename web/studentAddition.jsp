@@ -21,10 +21,10 @@
     <body>
             <h1 style="margin-top: 100px">Student Addition</h1>
             <form name="studentAddition" action="studentsTable.jsp" actionmethod="GET"> 
-                <div class="input">
+                <div class="inputStudent">
                 Name:<input type="text" name="Name" value=""/>
                 </div>
-                <div class="input">
+                <div class="inputStudent">
                 Group number:<select name="GroupNumbers">
                     <%
                         DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
@@ -36,10 +36,10 @@
                     %>
                 </select>
                 </div>
-                <div class="input">
+                <div class="inputStudent">
                 Date:<input type="date" name="Date" value="dd.mm.yy" />
                 </div>  
-                <div class="input">
+                <div class="inputStudent">
                 Curator ID:<select name="Curators">
                     <option>-1</option>
                     <% DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
