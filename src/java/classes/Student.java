@@ -1,9 +1,11 @@
+package classes;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Student implements Serializable {
 
-    private final String NAME;
+    private String NAME;
     private final int GROUP_STUDENT;
     private final Date DATE_ENROLLMENT;
     private final long ID;
@@ -28,6 +30,9 @@ public class Student implements Serializable {
 
     public String getNAME() {
         return NAME;
+    }
+    public void setNAME(String name) {
+        NAME=name;
     }
 
     public int getGROUP_STUDENT() {

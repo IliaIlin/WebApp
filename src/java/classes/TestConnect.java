@@ -1,13 +1,13 @@
-import java.sql.ResultSet;
+package classes;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by Саша on 18.03.2015.
  */
 public class TestConnect {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataSource dataSource = new DataSource("PAI", "11");
+        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
         //     dataBaseDao.getAllStudents();
@@ -37,14 +37,17 @@ public class TestConnect {
 //                    + resultSet.getString(curator));
 //        }
 
-        ArrayList<Student> students  = dataBaseStudentDao.getAllStudents();
+     //   ArrayList<Student> students  = dataBaseStudentDao.getAllStudents();
 
-        for (int i = 0; i < students.size(); i++) {
-            Student student = students.get(i);
-            System.out.println(student.getNAME() + " --- " + student.getGROUP_STUDENT()
-            + " --- " + student.getDATE_ENROLLMENT() + " --- "
-            + student.getID() + " --- " + student.getID_CURATOR());
+   //     for (int i = 0; i < students.size(); i++) {
+   //         Student student = students.get(i);
+   //         System.out.println(student.getNAME() + " --- " + student.getGROUP_STUDENT()
+   //         + " --- " + student.getDATE_ENROLLMENT() + " --- "
+   //         + student.getID() + " --- " + student.getID_CURATOR());
+   //     }
+        for(int i=66;i<=74;i++){
+            dataBaseStudentDao.deleteStudents(i);
         }
-
+        
     }
 }

@@ -9,9 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" rel="stylesheet" href="css/Style.css"/>
         <title>Help Page</title>
     </head>
     <body>
-        <h1>Help Page</h1>
+        <h1 class="header">Help Page</h1>
     </body>
 </html>
