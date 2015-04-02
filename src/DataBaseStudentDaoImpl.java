@@ -21,6 +21,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ";
     final private static String SET_GROUP = "UPDATE STUDENTS SET GROUP_NUMBER = ? WHERE ID = ?";
     final private static String SET_CURATOR = "UPDATE STUDENTS SET CURATOR = ? WHERE ID = ?";
+    final private static String UPDATE_CURATOR = "UPDATE STUDENTS SET CURATOR = NULL WHERE CURATOR = ?";
 
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_GROUP_NUMBER = 2;
@@ -76,6 +77,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     public void deleteStudents(int id) throws SQLException {
         preparedStatement = connection.prepareStatement(DELETE_STUDENT);
         preparedStatement.setInt(1, id);
+        resultSet = preparedStatement.executeQuery();
+        // trigger not work!!!
+        preparedStatement = connection.prepareStatement(UPDATE_CURATOR);
+        preparedStatement.setInt(1,id);
         resultSet = preparedStatement.executeQuery();
 
     }
