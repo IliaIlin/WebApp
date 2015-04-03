@@ -13,8 +13,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     private ArrayList<Student> students;
 
     final private static String INSERT_STUDENT = "INSERT INTO STUDENTS VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval, ?)";
-    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS(NAME, GROUP_NUMBER, DATE, ID)"
-            + "VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
+    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS (NAME, GROUP_NUMBER, \"DATE\", ID) VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
     final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS";
     //  final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
@@ -34,8 +33,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         this.connection = connection;
 
     }
-
-
 
 
     @Override
@@ -80,7 +77,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         resultSet = preparedStatement.executeQuery();
         // trigger not work!!!
         preparedStatement = connection.prepareStatement(UPDATE_CURATOR);
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
         resultSet = preparedStatement.executeQuery();
 
     }
@@ -127,8 +124,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             students.add(student);
         }
     }
-
-
 
 
 }

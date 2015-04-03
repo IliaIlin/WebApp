@@ -37,13 +37,14 @@ public class TestConnect {
 //                    + resultSet.getString(curator));
 //        }
 
-        ArrayList<Student> students  = dataBaseStudentDao.getAllStudents();
+        dataBaseStudentDao.insertStudent("sszczc", 1002, "11.11.21");
+        ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
 
         for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
             System.out.println(student.getNAME() + " --- " + student.getGROUP_STUDENT()
-            + " --- " + student.getDATE_ENROLLMENT() + " --- "
-            + student.getID() + " --- " + student.getID_CURATOR());
+                    + " --- " + student.getDATE_ENROLLMENT() + " --- "
+                    + student.getID() + " --- " + student.getID_CURATOR());
         }
 
     }
