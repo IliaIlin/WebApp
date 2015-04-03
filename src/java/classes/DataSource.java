@@ -1,4 +1,3 @@
-package java.classes;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +22,7 @@ public class DataSource {
         connection = DriverManager.getConnection(URL, login, password);
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return connection;
     }
 }

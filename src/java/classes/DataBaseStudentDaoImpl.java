@@ -1,18 +1,13 @@
-package java.classes;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by Саша on 04.03.2015.
  */
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
-
-    private Connection connection;
-    // private Statement statement;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
-    private ArrayList<Student> students;
 
     final private static String INSERT_STUDENT = "INSERT INTO STUDENTS VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval, ?)";
     final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS (NAME, GROUP_NUMBER, \"DATE\", ID) VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
@@ -23,12 +18,16 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String SET_GROUP = "UPDATE STUDENTS SET GROUP_NUMBER = ? WHERE ID = ?";
     final private static String SET_CURATOR = "UPDATE STUDENTS SET CURATOR = ? WHERE ID = ?";
     final private static String UPDATE_CURATOR = "UPDATE STUDENTS SET CURATOR = NULL WHERE CURATOR = ?";
-
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_GROUP_NUMBER = 2;
     final private static int INDEX_COLUMB_DATE = 3;
     final private static int INDEX_COLUMB_ID = 4;
     final private static int INDEX_COLUMB_ID_CURATOR = 5;
+    private Connection connection;
+    // private Statement statement;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    private ArrayList<Student> students;
 
     public DataBaseStudentDaoImpl(Connection connection) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 
