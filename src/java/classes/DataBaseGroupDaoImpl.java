@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     final private static String INSERT_GROUP = "INSERT INTO GROUPS_TEST VALUES ( ? , ? , ID_GROUP.nextval)";
-    final private static String DELETE_GROUP = "DELETE FROM GROUPS_TEST WHERE GROUP_NUMBER IN (";
+    final private static String DELETE_GROUP = "DELETE FROM GROUPS_TEST WHERE ID IN (";
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS_TEST";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS_TEST WHERE ";
     //   final private static String UPDATE_GROUP = "UPDATE GROUPS_TEST SET FACULTY = ?, GROUP_NUMBER = ? WHERE  ID = ?";
@@ -44,7 +44,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(statement);
         int i;
         for (i = 1; i <= arg.length; i++) {
-            preparedStatement.setString(i, arg[i]);
+            preparedStatement.setString(i, arg[i - 1]);
         }
         preparedStatement.setLong(i, id);
         resultSet = preparedStatement.executeQuery();
@@ -72,6 +72,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         statement += ")";
         preparedStatement = connection.prepareStatement(statement);
+
         for (int i = 0; i < id.length; i++) {
             preparedStatement.setInt(i + 1, id[i]);
         }
