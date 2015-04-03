@@ -1,4 +1,5 @@
-import java.sql.ResultSet;
+package java.classes;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
