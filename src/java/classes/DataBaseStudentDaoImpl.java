@@ -9,20 +9,22 @@ import java.util.ArrayList;
  */
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
-    final private static String INSERT_STUDENT = "INSERT INTO STUDENTS VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval, ?)";
-    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS (NAME, GROUP_NUMBER, \"DATE\", ID) VALUES ( ? , ? , to_date( ? , 'DD.MM.YY') , id.nextval)";
-    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID = ?";
-    final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS";
+    final private static String INSERT_STUDENT = "INSERT INTO STUDENTS_TEST VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
+    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
+    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS_TEST WHERE ID  IN ( ";
+    final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS_TEST";
     //  final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
-    final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ";
-    final private static String SET_GROUP = "UPDATE STUDENTS SET GROUP_NUMBER = ? WHERE ID = ?";
-    final private static String SET_CURATOR = "UPDATE STUDENTS SET CURATOR = ? WHERE ID = ?";
-    final private static String UPDATE_CURATOR = "UPDATE STUDENTS SET CURATOR = NULL WHERE CURATOR = ?";
+    final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS_TEST WHERE ";
+    final private static String SET_GROUP = "UPDATE STUDENTS_TEST SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
+    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST SET CURATOR = ? WHERE ID = ?";
+    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST SET CURATOR = NULL WHERE CURATOR IN ( ";
+
     final private static int INDEX_COLUMB_NAME = 1;
-    final private static int INDEX_COLUMB_GROUP_NUMBER = 2;
+    final private static int INDEX_COLUMB_ID_GROUP = 2;
     final private static int INDEX_COLUMB_DATE = 3;
     final private static int INDEX_COLUMB_ID = 4;
     final private static int INDEX_COLUMB_ID_CURATOR = 5;
+
     private Connection connection;
     // private Statement statement;
     private PreparedStatement preparedStatement;
@@ -37,17 +39,17 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
 
     @Override
-    public void insertStudent(String name, int numberGroup, String date, int idCurator) throws SQLException {
+    public void insertStudent(String name, int numberGroup, String date, long idCurator) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(INSERT_STUDENT);
         preparedStatement.setString(1, name);
         preparedStatement.setInt(2, numberGroup);
         preparedStatement.setString(3, date);
-        preparedStatement.setInt(4, idCurator);
+        preparedStatement.setLong(4, idCurator);
         resultSet = preparedStatement.executeQuery();
     }
 
     @Override
-    public void insertStudent(String name, int numberGroup, String date) throws SQLException {
+    public void insertStudent(String name, int numberGroup, String date) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(INSERT_STUDENT_WITHOUT_CURATOR);
         preparedStatement.setString(1, name);
         preparedStatement.setInt(2, numberGroup);
@@ -56,29 +58,50 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public void setGroup(int numberGroup, int id) throws SQLException {
+    public void setGroup(int numberGroup, long id) throws SQLException {   //ok
         preparedStatement = connection.prepareStatement(SET_GROUP);
         preparedStatement.setInt(1, numberGroup);
-        preparedStatement.setInt(2, id);
+        preparedStatement.setLong(2, id);
         resultSet = preparedStatement.executeQuery();
     }
 
     @Override
-    public void setCurator(int idCurator, int idStudent) throws SQLException {
+    public void setCurator(long idCurator, long idStudent) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(SET_CURATOR);
-        preparedStatement.setInt(1, idCurator);
-        preparedStatement.setInt(2, idStudent);
+        preparedStatement.setLong(1, idCurator);
+        preparedStatement.setLong(2, idStudent);
         resultSet = preparedStatement.executeQuery();
     }
 
     @Override
-    public void deleteStudents(int id) throws SQLException {
-        preparedStatement = connection.prepareStatement(DELETE_STUDENT);
-        preparedStatement.setInt(1, id);
+    public void deleteStudents(long id[]) throws SQLException {  //ok
+        String statement = DELETE_STUDENT;
+        if (id.length == 0) return;
+        statement += " ?";
+        for (int i = 1; i < id.length; i++) {
+            statement += " , ?";
+        }
+        statement += ")";
+        preparedStatement = connection.prepareStatement(statement);
+
+        for (int i = 0; i < id.length; i++) {
+            preparedStatement.setLong(i + 1, id[i]);
+        }
         resultSet = preparedStatement.executeQuery();
         // trigger not work!!!
-        preparedStatement = connection.prepareStatement(UPDATE_CURATOR);
-        preparedStatement.setInt(1, id);
+
+        statement = UPDATE_CURATOR;
+        if (id.length == 0) return;
+        statement += " ?";
+        for (int i = 1; i < id.length; i++) {
+            statement += " , ?";
+        }
+        statement += ")";
+        preparedStatement = connection.prepareStatement(statement);
+
+        for (int i = 0; i < id.length; i++) {
+            preparedStatement.setLong(i + 1, id[i]);
+        }
         resultSet = preparedStatement.executeQuery();
 
     }
@@ -118,7 +141,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         Student student;
         while (resultSet.next()) {
             student = new Student(resultSet.getString(INDEX_COLUMB_NAME),
-                    resultSet.getInt(INDEX_COLUMB_GROUP_NUMBER),
+                    resultSet.getInt(INDEX_COLUMB_ID_GROUP),
                     resultSet.getDate(INDEX_COLUMB_DATE),
                     resultSet.getLong(INDEX_COLUMB_ID),
                     resultSet.getLong(INDEX_COLUMB_ID_CURATOR));

@@ -63,7 +63,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     }
 
     @Override
-    public void deleteGroups(int id[]) throws SQLException {  //ok
+    public void deleteGroups(long[] id) throws SQLException {  //ok
         String statement = DELETE_GROUP;
         if (id.length == 0) return;
         statement += " ?";
@@ -74,7 +74,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(statement);
 
         for (int i = 0; i < id.length; i++) {
-            preparedStatement.setInt(i + 1, id[i]);
+            preparedStatement.setLong(i + 1, id[i]);
         }
 
         resultSet = preparedStatement.executeQuery();

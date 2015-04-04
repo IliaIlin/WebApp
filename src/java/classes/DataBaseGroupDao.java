@@ -11,7 +11,7 @@ public interface DataBaseGroupDao {
 
     public ResultSet insertGroup(int numberGroup, String faculty) throws SQLException;
 
-    public void deleteGroups(int id[]) throws SQLException;
+    public void deleteGroups(long[] id) throws SQLException;
 
     public void updateGroups(long id, String param[], String arg[]) throws SQLException;
 

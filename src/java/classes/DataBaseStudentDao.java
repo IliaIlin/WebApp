@@ -6,18 +6,18 @@ import java.util.ArrayList;
  */
 public interface DataBaseStudentDao {
 
-    public void insertStudent(String name, int numberGroup, String date, int idCurator) throws SQLException;
+    public void insertStudent(String name, int numberGroup, String date, long idCurator) throws SQLException;
 
     public void insertStudent(String name, int numberGroup, String date) throws SQLException;
 
     public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException;
 
-    public void deleteStudents(int id) throws SQLException;
+    public void deleteStudents(long id[]) throws SQLException;
 
     public ArrayList<Student> getAllStudents() throws SQLException;
 
-    public void setGroup(int numberGroup, int id) throws SQLException;
+    public void setGroup(int numberGroup, long id) throws SQLException;
 
-    public void setCurator(int idCurator, int idStudent) throws SQLException;
+    public void setCurator(long idCurator, long idStudent) throws SQLException;
 
 }
