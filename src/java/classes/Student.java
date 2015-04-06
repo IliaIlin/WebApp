@@ -47,4 +47,14 @@ public class Student implements Serializable {
         return ID_CURATOR;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "NAME='" + NAME + '\'' +
+                ", GROUP_STUDENT=" + GROUP_STUDENT +
+                ", DATE_ENROLLMENT=" + DATE_ENROLLMENT +
+                ", ID=" + ID +
+                ", ID_CURATOR=" + ID_CURATOR +
+                '}';
+    }
 }

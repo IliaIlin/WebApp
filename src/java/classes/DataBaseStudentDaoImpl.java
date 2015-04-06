@@ -9,15 +9,33 @@ import java.util.ArrayList;
  */
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
-    final private static String INSERT_STUDENT = "INSERT INTO STUDENTS_TEST VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
-    final private static String INSERT_STUDENT_WITHOUT_CURATOR = "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
+    final private static String INSERT_STUDENT =
+            "INSERT INTO STUDENTS_TEST " +
+                    "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , " +
+                    "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
+
+    final private static String INSERT_STUDENT_WITHOUT_CURATOR =
+            "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) " +
+                    "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , " +
+                    "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
+
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS_TEST WHERE ID  IN ( ";
-    final private static String SELECT_ALL_STUDENTS = "SELECT * FROM STUDENTS_TEST";
-    //  final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS WHERE ID = ? AND GROUP_NUMBER = ? AND NAME = ? AND DATE = ?";
-    final private static String SELECT_STUDENTS = "SELECT * FROM STUDENTS_TEST WHERE ";
-    final private static String SET_GROUP = "UPDATE STUDENTS_TEST SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
-    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST SET CURATOR = ? WHERE ID = ?";
-    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST SET CURATOR = NULL WHERE CURATOR IN ( ";
+
+    final private static String SELECT_STUDENTS =
+            "SELECT STUDENTS_TEST.\"NAME\", GROUPS_TEST.\"GROUP_NUMBER\", " +
+                    "STUDENTS_TEST.\"DATE\",STUDENTS_TEST.\"ID\",STUDENTS_TEST.\"CURATOR\" " +
+                    "FROM STUDENTS_TEST, GROUPS_TEST " +
+                    "WHERE STUDENTS_TEST.\"GROUP_ID\" = GROUPS_TEST.\"ID\"";
+
+
+    final private static String SET_GROUP = "UPDATE STUDENTS_TEST " +
+            "SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
+
+    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST " +
+            "SET CURATOR = ? WHERE ID = ?";
+
+    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST " +
+            "SET CURATOR = NULL WHERE CURATOR IN ( ";
 
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_ID_GROUP = 2;
@@ -108,13 +126,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
 
     @Override
-    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException { //!!!!!!!!!!!!!!!!!!!!!!!!
+    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException {  //OK
         String statement = SELECT_STUDENTS;
         for (int i = 0; i < param.length; i++) {
-            statement += " " + param[i] + " = ? ";
-            if (i != param.length - 1) {
-                statement += " AND ";
-            }
+            statement += " AND " + param[i] + " = ? ";
         }
         preparedStatement = connection.prepareStatement(statement);
         for (int i = 0; i < arg.length; i++) {
@@ -129,8 +144,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public ArrayList<Student> getAllStudents() throws SQLException {
-        preparedStatement = connection.prepareStatement(SELECT_ALL_STUDENTS);
+    public ArrayList<Student> getAllStudents() throws SQLException {  //OK
+        preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
         return students;
