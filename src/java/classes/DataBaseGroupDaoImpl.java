@@ -130,8 +130,8 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     public ArrayList<Integer> getGroupNumbers() throws SQLException {
         preparedStatement = connection.prepareStatement(SELECT_GROUP_NUMBERS);
         resultSet = preparedStatement.executeQuery();
-        ArrayList<Integer> groups  = new ArrayList<>();
-        while (resultSet.next()){
+        ArrayList<Integer> groups = new ArrayList<>();
+        while (resultSet.next()) {
             groups.add(resultSet.getInt(INDEX_COLUMB_NUMBER_GROUP));
         }
         return groups;
