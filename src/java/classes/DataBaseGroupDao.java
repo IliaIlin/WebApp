@@ -19,5 +19,7 @@ public interface DataBaseGroupDao {
 
     public ArrayList<Group> getAllGroups() throws SQLException;
 
+    public ArrayList<Integer> getGroupNumbers() throws SQLException;
+
 
 }
