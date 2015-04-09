@@ -13,16 +13,16 @@
         <title>Index_Page</title>
     </head>
     <body>
-            <div class="header">
-                <h1>Student Directory</h1>
-            </div>
-            <div class="indexLeftColumn">    
-                <a href="studentsTable.jsp"><img src="graduated.png" width="398" height="364" alt="graduated"/></a>
-                <p>Students Table</p>
-            </div>
-            <div class="indexRightColumn">
-                <a href="groupsTable.jsp"><img src="membership-icon.png" width="398" height="364" alt="membership-icon"/></a>
-                <p>Groups Table</p>
-            </div>
+        <div class="header">
+            <h1>Student Directory</h1>
+        </div>
+        <div class="indexLeftColumn">    
+            <a href="studentsTable.jsp"><img src="graduated.png" width="398" height="364" alt="graduated"/></a>
+            <p>Students Table</p>
+        </div>
+        <div class="indexRightColumn">
+            <a href="groupsTable.jsp"><img src="membership-icon.png" width="398" height="364" alt="membership-icon"/></a>
+            <p>Groups Table</p>
+        </div>
         <a href="help.jsp">Help</a>
 </html>

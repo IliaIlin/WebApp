@@ -24,9 +24,13 @@
             <form name="Add" action="groupAddition.jsp">
                 <input type="submit" value="Add Group" />
             </form>
+            <form name="Delete" action="groupsTable.jsp.jsp">
+                <input type="submit" value="DeleteGroups" />
+            </form>
             <table border="1" >
                 <thead>
                     <tr>
+                        <th></th>
                         <th style="width:100px">group №</th>
                         <th style="width:100px">Faculty</th>
                     </tr>
@@ -41,6 +45,7 @@
             Group group = groups.get(i);
               %>
               <tr>
+                  <td><input type="checkbox" name="groups"</td>
                   <td> <%=String.valueOf(group.getGROUP_NUMBER())%></td>
                   <td> <%=String.valueOf(group.getFACULTY())%></td>
               </tr>
@@ -49,14 +54,6 @@
         %>
                 </tbody>
             </table>
-        </div>
-                <%
-            if (request.getParameter("GroupNo") != null
-                    && request.getParameter("Faculty") != null) {
-                    dataBaseGroupDao.insertGroup(Integer.parseInt(request.getParameter("GroupNo")),
-                            request.getParameter("Faculty"));
-            }
-        %>
-        
+        </div>       
     </body>
 </html>
