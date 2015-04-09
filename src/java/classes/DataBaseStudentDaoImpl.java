@@ -1,6 +1,3 @@
-package classes;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,6 +48,16 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static int INDEX_COLUMB_DATE = 3;
     final private static int INDEX_COLUMB_ID = 4;
     final private static int INDEX_COLUMB_ID_CURATOR = 5;
+
+    final private static String NAME = "NAME";
+    final private static String GROUP_NUMBER = "GROUP_NUMBER";
+    final private static String DATE = "DATE";
+    final private static String CURATOR = "CURATOR";
+
+    final private ArrayList<Integer> nameParam = new ArrayList<>();
+    final private ArrayList<Integer> groupParam = new ArrayList<>();
+    final private ArrayList<Integer> dateParam = new ArrayList<>();
+    final private ArrayList<Integer> curatorParam = new ArrayList<>();
 
     private Connection connection;
     // private Statement statement;
@@ -139,18 +146,70 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException {  //OK
         String statement = SELECT_STUDENTS;
         for (int i = 0; i < param.length; i++) {
-            statement += " AND " + param[i] + " = ? ";
-        }
-        preparedStatement = connection.prepareStatement(statement);
-        for (int i = 0; i < arg.length; i++) {
-            preparedStatement.setString(i + 1, arg[i]);
+            switch (param[i].toUpperCase()) {
+                case NAME:
+                    nameParam.add(i);
+                    break;
+                case GROUP_NUMBER:
+                    groupParam.add(i);
+                    break;
+                case DATE:
+                    dateParam.add(i);
+                    break;
+                case CURATOR:
+                    curatorParam.add(i);
+                    break;
+            }
         }
 
+
+        if (nameParam.size() > 0) {
+            statement += " AND NAME IN ( ?";
+            for (int i = 1; i < nameParam.size(); i++) {
+                statement += " , ? ";
+            }
+            statement += " )";
+        }
+        if (dateParam.size() > 0) {
+            statement += "AND \"DATE\" IN ( ?";
+            for (int i = 1; i < dateParam.size(); i++) {
+                statement += " , ? ";
+            }
+            statement += " )";
+        }
+        if (curatorParam.size() > 0) {
+            statement += "AND CURATOR IN ( ?";
+            for (int i = 1; i < curatorParam.size(); i++) {
+                statement += " , ? ";
+            }
+            statement += " )";
+        }
+        if (groupParam.size() > 0) {
+            statement += "AND GROUP_ID IN ( (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
+            for (int i = 1; i < groupParam.size(); i++) {
+                statement += " , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
+            }
+            statement += " )";
+        }
+
+        preparedStatement = connection.prepareStatement(statement);
+        int j = 1;
+        for (int i = 0; i < nameParam.size(); i++) {
+            preparedStatement.setString(j++, arg[nameParam.get(i)]);
+        }
+        for (int i = 0; i < dateParam.size(); i++) {
+            preparedStatement.setString(j++, arg[dateParam.get(i)]);
+        }
+        for (int i = 0; i < curatorParam.size(); i++) {
+            preparedStatement.setString(j++, arg[curatorParam.get(i)]);
+        }
+        for (int i = 0; i < groupParam.size(); i++) {
+            preparedStatement.setString(j++, arg[groupParam.get(i)]);
+        }
+        System.out.println(statement);
         resultSet = preparedStatement.executeQuery();
         createStudents();
         return students;
-
-
     }
 
     @Override
