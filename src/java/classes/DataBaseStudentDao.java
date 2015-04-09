@@ -21,4 +21,9 @@ public interface DataBaseStudentDao {
 
     public void setCurator(long idCurator, long idStudent) throws SQLException;
 
+    public void setName(String name, long idStudent) throws SQLException;
+
+    public void setDate(String date, long idStudent) throws SQLException;
+
+
 }

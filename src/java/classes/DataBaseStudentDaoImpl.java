@@ -35,6 +35,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String SET_CURATOR = "UPDATE STUDENTS_TEST " +
             "SET CURATOR = ? WHERE ID = ?";
 
+    final private static String SET_NAME = "UPDATE STUDENTS_TEST " +
+            "SET NAME = ? WHERE ID = ?";
+
+    final private static String SET_DATE = "UPDATE STUDENTS_TEST " +
+            "SET \"DATE\" = ? WHERE ID = ?";
+
     final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST " +
             "SET CURATOR = NULL WHERE CURATOR IN ( ";
 
@@ -107,8 +113,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             preparedStatement.setLong(i + 1, id[i]);
         }
         resultSet = preparedStatement.executeQuery();
-        // trigger not work!!!
 
+
+        // trigger not work!!!
         statement = UPDATE_CURATOR;
         if (id.length == 0) return;
         statement += " ?";
@@ -142,6 +149,22 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         return students;
 
 
+    }
+
+    @Override
+    public void setName(String name, long idStudent) throws SQLException {
+        preparedStatement = connection.prepareStatement(SET_NAME);
+        preparedStatement.setString(1, name);
+        preparedStatement.setLong(2, idStudent);
+        resultSet = preparedStatement.executeQuery();
+    }
+
+    @Override
+    public void setDate(String date, long idStudent) throws SQLException {
+        preparedStatement = connection.prepareStatement(SET_DATE);
+        preparedStatement.setString(1, date);
+        preparedStatement.setLong(2, idStudent);
+        resultSet = preparedStatement.executeQuery();
     }
 
     @Override
