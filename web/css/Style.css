@@ -30,12 +30,16 @@ body {
     width:150px;
     margin-top:100px;
 }
+#Criteria{
+    border:1px black;
+    background-color:beige;
+}
 #centerColumnStudents {
-    margin: 20px 300px 100px 300px;
+    margin: 20px 200px 100px 200px;
     text-align: center;
 }
 #centerColumnGroups {
-    margin: 20px 400px 100px 400px;
+    margin: 20px 350px 100px 350px;
 }
 #button{
     margin-top:30px;

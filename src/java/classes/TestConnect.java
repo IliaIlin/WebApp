@@ -1,3 +1,5 @@
+package classes;
+
 
 
 import java.sql.SQLException;
@@ -8,9 +10,13 @@ import java.util.ArrayList;
  */
 public class TestConnect {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataSource dataSource = new DataSource("pai", "11");
+        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+        ArrayList<Student> students=dataBaseStudentDao.selectStudents(new String[]{"NAME"},new String[]{"GG"});
+        for(int i=0; i<students.size();i++){
+            System.out.println(students.get(i).getID_CURATOR());
+        }
         //     dataBaseDao.getAllStudents();
         //   ResultSet resultSet = dataBaseDao.getResultSet();
         // resultSet.next();
@@ -24,9 +30,9 @@ public class TestConnect {
         //    dataBaseGroupDao.insertGroup(1002, "1");
 
 
-        ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"NAME","NAME","GROUP_NUMBER"},new String[]{"M","ark","1007"});
+       // ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"NAME","NAME","GROUP_NUMBER"},new String[]{"M","ark","1007"});
 
-            System.out.println(students);
+      //      System.out.println(students);
 
 
 //        ArrayList<Group> groups = dataBaseGroupDao.getAllGroups();

@@ -1,3 +1,5 @@
+package classes;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,39 +11,40 @@ import java.util.ArrayList;
  */
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
-    final private static String INSERT_STUDENT =
-            "INSERT INTO STUDENTS_TEST " +
-                    "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , " +
-                    "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
+    final private static String INSERT_STUDENT
+            = "INSERT INTO STUDENTS_TEST "
+            + "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , "
+            + // "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
+            "to_date( ? , 'YYYY-MM-DD') , ID_STUDENTS.nextval, ?)";
 
-    final private static String INSERT_STUDENT_WITHOUT_CURATOR =
-            "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) " +
-                    "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , " +
-                    "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
+    final private static String INSERT_STUDENT_WITHOUT_CURATOR
+            = "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) "
+            + "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , "
+            + //  "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
+            "to_date( ? , 'YYYY-MM-DD') , ID_STUDENTS.nextval)";
 
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS_TEST WHERE ID  IN ( ";
 
-    final private static String SELECT_STUDENTS =
-            "SELECT STUDENTS_TEST.\"NAME\", GROUPS_TEST.\"GROUP_NUMBER\", " +
-                    "STUDENTS_TEST.\"DATE\",STUDENTS_TEST.\"ID\",STUDENTS_TEST.\"CURATOR\" " +
-                    "FROM STUDENTS_TEST, GROUPS_TEST " +
-                    "WHERE STUDENTS_TEST.\"GROUP_ID\" = GROUPS_TEST.\"ID\"";
+    final private static String SELECT_STUDENTS
+            = "SELECT STUDENTS_TEST.\"NAME\", GROUPS_TEST.\"GROUP_NUMBER\", "
+            + "STUDENTS_TEST.\"DATE\",STUDENTS_TEST.\"ID\",STUDENTS_TEST.\"CURATOR\" "
+            + "FROM STUDENTS_TEST, GROUPS_TEST "
+            + "WHERE STUDENTS_TEST.\"GROUP_ID\" = GROUPS_TEST.\"ID\"";
 
+    final private static String SET_GROUP = "UPDATE STUDENTS_TEST "
+            + "SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
 
-    final private static String SET_GROUP = "UPDATE STUDENTS_TEST " +
-            "SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
+    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST "
+            + "SET CURATOR = ? WHERE ID = ?";
 
-    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST " +
-            "SET CURATOR = ? WHERE ID = ?";
+    final private static String SET_NAME = "UPDATE STUDENTS_TEST "
+            + "SET NAME = ? WHERE ID = ?";
 
-    final private static String SET_NAME = "UPDATE STUDENTS_TEST " +
-            "SET NAME = ? WHERE ID = ?";
+    final private static String SET_DATE = "UPDATE STUDENTS_TEST "
+            + "SET \"DATE\" = ? WHERE ID = ?";
 
-    final private static String SET_DATE = "UPDATE STUDENTS_TEST " +
-            "SET \"DATE\" = ? WHERE ID = ?";
-
-    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST " +
-            "SET CURATOR = NULL WHERE CURATOR IN ( ";
+    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST "
+            + "SET CURATOR = NULL WHERE CURATOR IN ( ";
 
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_ID_GROUP = 2;
@@ -70,7 +73,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         this.connection = connection;
 
     }
-
 
     @Override
     public void insertStudent(String name, int numberGroup, String date, long idCurator) throws SQLException {  //ok
@@ -110,7 +112,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     @Override
     public void deleteStudents(long id[]) throws SQLException {  //ok
         String statement = DELETE_STUDENT;
-        if (id.length == 0) return;
+        if (id.length == 0) {
+            return;
+        }
         statement += " ?";
         for (int i = 1; i < id.length; i++) {
             statement += " , ?";
@@ -123,10 +127,11 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         }
         resultSet = preparedStatement.executeQuery();
 
-
         // trigger not work!!!
         statement = UPDATE_CURATOR;
-        if (id.length == 0) return;
+        if (id.length == 0) {
+            return;
+        }
         statement += " ?";
         for (int i = 1; i < id.length; i++) {
             statement += " , ?";
@@ -140,7 +145,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         resultSet = preparedStatement.executeQuery();
 
     }
-
 
     @Override
     public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException {  //OK
@@ -161,7 +165,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                     break;
             }
         }
-
 
         if (nameParam.size() > 0) {
             statement += " AND NAME IN ( ?";
@@ -249,16 +252,4 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         }
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-

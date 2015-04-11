@@ -1,9 +1,12 @@
 <%-- 
-    Document   : groupsTable
+
+
+ment   : groupsTable
     Created on : Mar 27, 2015, 2:18:04 AM
     Author     : Илья
 --%>
 
+<%@page import="java.util.Enumeration"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,44 +19,59 @@
         <link rel="stylesheet" type="text/css" href="css/Style.css">
         <title>Groups Table</title>
     </head>
-    <body>       
+    <body>
+        <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+            if (request.getParameter("groups") != null) {
+                String[] idToDelete = request.getParameterValues("groups");
+                long[] id = new long[idToDelete.length];
+               for (int i = 0; i < idToDelete.length; i++) {
+                    id[i] = Long.parseLong(idToDelete[i]);
+                }
+                dataBaseGroupDao.deleteGroups(id);
+            }
+        %>
         <div class="header">
             <h1>Groups Table</h1>
         </div>
+
         <div id="centerColumnGroups">
             <form name="Add" action="groupAddition.jsp">
                 <input type="submit" value="Add Group" />
             </form>
-            <form name="Delete" action="groupsTable.jsp.jsp">
-                <input type="submit" value="DeleteGroups" />
-            </form>
-            <table border="1" >
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th style="width:100px">group №</th>
-                        <th style="width:100px">Faculty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <%
-                        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
-                        DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-                        ArrayList<Group> groups  = dataBaseGroupDao.getAllGroups();
+            <form name="Table" action="groupsTable.jsp" method="GET">
+                <input type="submit" value="Delete"/>
+                <table border="1" >
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:100px">group №</th>
+                            <th style="width:100px">Faculty</th>
+                            <th style="width:100px"></th>
+                            <th style="width:100px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            ArrayList<Group> groups = dataBaseGroupDao.getAllGroups();
+                            for (int i = 0; i < groups.size(); i++) {
+                                Group group = groups.get(i);
+                        %>
+                        <tr>
+                            <td><input type="checkbox" name="groups" value="<%=String.valueOf(group.getID())%>"/></td>
+                            <td> <%=String.valueOf(group.getGROUP_NUMBER())%></td>
+                            <td> <%=String.valueOf(group.getFACULTY())%></td>
+                            <td><a href="">Edit</a></td>
+                            <td><a href="">Delete</a></td>
+                        </tr>
 
-        for (int i = 0; i < groups.size(); i++) {
-            Group group = groups.get(i);
-              %>
-              <tr>
-                  <td><input type="checkbox" name="groups"</td>
-                  <td> <%=String.valueOf(group.getGROUP_NUMBER())%></td>
-                  <td> <%=String.valueOf(group.getFACULTY())%></td>
-              </tr>
-              <%
-        }
-        %>
-                </tbody>
-            </table>
-        </div>       
+                        <%
+                            }
+
+                        %>
+                    </tbody>
+                </table>
+            </form>
+        </div> 
     </body>
 </html>

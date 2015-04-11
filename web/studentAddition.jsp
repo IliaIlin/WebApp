@@ -31,7 +31,7 @@
                         DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
                         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                         ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
-                        for (int i=0; i<groupsNumber.size();i++) {%>
+                        for (int i = 0; i < groupsNumber.size(); i++) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
                     <%  }
                     %>
@@ -42,11 +42,11 @@
             </div>  
             <div class="inputStudent">
                 Curator ID:<select name="Curators">
-                    <option>0</option>
+                    <option value="0"></option>
                     <% DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
                         ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
                         for (Student student : students) {%>
-                    <option> <%=student.getID()%></option>
+                    <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>
                     <% }
                     %>
                 </select>
@@ -55,25 +55,22 @@
             <div id="button">
                 <input type="submit" value="Submit" />
             </div>
-             <% 
-             if (request.getParameter("Name") != null 
-             && !request.getParameter("Name").isEmpty()
-             && request.getParameter("Date") != null) {
-                 String dateInput= request.getParameter("Date");
-                String [] dateArray=dateInput.split("-");
-                String date=dateArray[2]+"."+dateArray[1]+"."+dateArray[0];
-             
-             if (Integer.parseInt(request.getParameter("Curators")) == 0){  // addition without curator
-             dataBaseStudentDao.insertStudent(request.getParameter("Name"),
-             Integer.parseInt(request.getParameter("GroupNumbers")),
-             date);
-             } else {
-             dataBaseStudentDao.insertStudent(request.getParameter("Name"),
-             Integer.parseInt(request.getParameter("GroupNumbers")),
-             date, Integer.parseInt(request.getParameter("Curators")));
-             }
-             } 
-        %>
+            <%
+                if (request.getParameter("Name") != null
+                        && !request.getParameter("Name").isEmpty()
+                        && request.getParameter("Date") != null) {
+                    String dateInput = request.getParameter("Date");
+                    if (request.getParameterValues("Curators")[0] == "0") {  // addition without curator
+                        dataBaseStudentDao.insertStudent(request.getParameter("Name"),
+                                Integer.parseInt(request.getParameter("GroupNumbers")),
+                                dateInput);
+                    } else {
+                        dataBaseStudentDao.insertStudent(request.getParameter("Name"),
+                                Integer.parseInt(request.getParameter("GroupNumbers")),
+                                dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
+                    }
+                }
+            %>
         </form>
-</body>
+    </body>
 </html>
