@@ -14,7 +14,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS_TEST";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS_TEST WHERE ";
     final private static String SELECT_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS_TEST";
-    final private static String SELECT_EMPTY_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS_TEST " +
+    final private static String SELECT_EMPTY_GROUP_NUMBERS = "SELECT ID FROM GROUPS_TEST " +
             "WHERE ID NOT IN (SELECT GROUP_ID FROM STUDENTS_TEST)";
     final private static String UPDATE_GROUP = "UPDATE GROUPS_TEST SET ";
     final private static int INDEX_COLUMB_NUMBER_GROUP = 1;
