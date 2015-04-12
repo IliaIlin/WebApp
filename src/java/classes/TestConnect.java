@@ -1,3 +1,5 @@
+package classes;
+
 
 
 
@@ -9,13 +11,13 @@ import java.util.ArrayList;
  */
 public class TestConnect {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataSource dataSource = new DataSource("pai", "11");
+        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-        ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
-        System.out.println(integers.toString());
-        ArrayList<Integer> integers1 = dataBaseGroupDao.getEmptyGroupNumbers();
-        System.out.println(integers1.toString());
+      //  ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
+    //    System.out.println(integers.toString());
+      
+      //  System.out.println(idToDeleteNoEmpty[1]);
         //     dataBaseDao.getAllStudents();
         //   ResultSet resultSet = dataBaseDao.getResultSet();
         // resultSet.next();

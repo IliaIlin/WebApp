@@ -1,3 +1,5 @@
+package classes;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -140,12 +142,12 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     }
 
     @Override
-    public ArrayList<Integer> getEmptyGroupNumbers() throws SQLException {
+    public ArrayList<Long> getEmptyGroupIDs() throws SQLException {
         preparedStatement = connection.prepareStatement(SELECT_EMPTY_GROUP_NUMBERS);
         resultSet = preparedStatement.executeQuery();
-        ArrayList<Integer> groups = new ArrayList<>();
+        ArrayList<Long> groups = new ArrayList<>();
         while (resultSet.next()) {
-            groups.add(resultSet.getInt(INDEX_COLUMB_NUMBER_GROUP));
+            groups.add(resultSet.getLong(INDEX_COLUMB_NUMBER_GROUP));
         }
         return groups;
     }

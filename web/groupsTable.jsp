@@ -6,6 +6,7 @@ ment   : groupsTable
     Author     : Илья
 --%>
 
+<%@page import="java.util.Arrays"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
@@ -21,14 +22,23 @@ ment   : groupsTable
     </head>
     <body>
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
-            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());           
             if (request.getParameter("groups") != null) {
+                ArrayList<Long> emptyIDs=dataBaseGroupDao.getEmptyGroupIDs();
                 String[] idToDelete = request.getParameterValues("groups");
-                long[] id = new long[idToDelete.length];
+                ArrayList<Long> id=new ArrayList<>();
                for (int i = 0; i < idToDelete.length; i++) {
-                    id[i] = Long.parseLong(idToDelete[i]);
-                }
-                dataBaseGroupDao.deleteGroups(id);
+                   if(emptyIDs.contains(Long.parseLong(idToDelete[i]))){
+                    id.add(Long.parseLong(idToDelete[i]));
+               }
+               }
+               long[] idToDeleteEmpty=new long[id.size()];
+               for(int i=0; i<id.size();i++){
+                   idToDeleteEmpty[i]=id.get(i);
+               }
+              if(idToDeleteEmpty.length!=0){
+               dataBaseGroupDao.deleteGroups(idToDeleteEmpty);
+              }
             }
         %>
         <div class="header">
