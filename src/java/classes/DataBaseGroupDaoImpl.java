@@ -1,6 +1,3 @@
-package classes;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +14,8 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS_TEST";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS_TEST WHERE ";
     final private static String SELECT_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS_TEST";
+    final private static String SELECT_EMPTY_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS_TEST " +
+            "WHERE ID NOT IN (SELECT GROUP_ID FROM STUDENTS_TEST)";
     final private static String UPDATE_GROUP = "UPDATE GROUPS_TEST SET ";
     final private static int INDEX_COLUMB_NUMBER_GROUP = 1;
     final private static int INDEX_COLUMB_FACULTY = 2;
@@ -132,6 +131,17 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     @Override
     public ArrayList<Integer> getGroupNumbers() throws SQLException {
         preparedStatement = connection.prepareStatement(SELECT_GROUP_NUMBERS);
+        resultSet = preparedStatement.executeQuery();
+        ArrayList<Integer> groups = new ArrayList<>();
+        while (resultSet.next()) {
+            groups.add(resultSet.getInt(INDEX_COLUMB_NUMBER_GROUP));
+        }
+        return groups;
+    }
+
+    @Override
+    public ArrayList<Integer> getEmptyGroupNumbers() throws SQLException {
+        preparedStatement = connection.prepareStatement(SELECT_EMPTY_GROUP_NUMBERS);
         resultSet = preparedStatement.executeQuery();
         ArrayList<Integer> groups = new ArrayList<>();
         while (resultSet.next()) {

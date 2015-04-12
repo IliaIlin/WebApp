@@ -1,8 +1,3 @@
-package classes;
-
-
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,5 +19,7 @@ public interface DataBaseGroupDao {
 
     public ArrayList<Integer> getGroupNumbers() throws SQLException;
 
+    public ArrayList<Integer> getEmptyGroupNumbers() throws SQLException;
 
-}
+
+    }
