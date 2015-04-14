@@ -28,7 +28,7 @@
                 dataBaseStudentDao.setGroup(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
                // dataBaseStudentDao.setDate(request.getParameter("DateEditing"), id);
                 Long curatorId=Long.parseLong(request.getParameterValues("CuratorsEditing")[0]);
-                dataBaseStudentDao.setCurator(curatorId, id);
+                dataBaseStudentDao.setCurator(curatorId, id);               
             }
             if (request.getParameter("students") != null) {
                 String[] idToDelete = request.getParameterValues("students");
@@ -96,9 +96,9 @@
                             String groupNumber = request.getParameter("GroupNumbersCriteria");
                             String dateInput = request.getParameter("DateCriteria");
                             String curator = request.getParameter("CuratorsCriteria");
-                            //!!!!    if (name!=null && groupNumber==null) {
-                            //        students = dataBaseStudentDao.selectStudents(new String[]{"NAME"}, new String[]{name});
-                            //  }
+                           //!!!!     if (name!=null && groupNumber==null) {
+                           //         students = dataBaseStudentDao.selectStudents(new String[]{"NAME"}, new String[]{name});
+                           //   }
                             // if (name != null && dateInput ==null) {
                             //    students=dataBaseStudentDao.selectStudents(new String[]{"NAME","GROUP_NUMBER","CURATOR"},new String[]{name,groupNumber,curator});
                             //  }

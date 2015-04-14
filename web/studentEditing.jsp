@@ -49,9 +49,11 @@
                 Curator ID:<select name="CuratorsEditing" >
                     <option value="0"></option>
                     <%  ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
-                        for (Student student : students) {%>
+                        for (Student student : students) {
+                            if(student.getID()!=Long.parseLong(request.getParameter("StudentCuratorToEdit"))){%>
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>
                     <% }
+                        }
                     %>
                 </select>
             </div>
