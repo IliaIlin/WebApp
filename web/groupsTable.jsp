@@ -21,24 +21,30 @@ ment   : groupsTable
         <title>Groups Table</title>
     </head>
     <body>
+        <a href=index.jsp>Main Page</a>
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
-            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());           
+            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+            boolean flag = true;
+            if (request.getParameter("GroupNo") != null) {
+                dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
+                        new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
+            }
             if (request.getParameter("groups") != null) {
-                ArrayList<Long> emptyIDs=dataBaseGroupDao.getEmptyGroupIDs();
+                ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
                 String[] idToDelete = request.getParameterValues("groups");
-                ArrayList<Long> id=new ArrayList<>();
-               for (int i = 0; i < idToDelete.length; i++) {
-                   if(emptyIDs.contains(Long.parseLong(idToDelete[i]))){
-                    id.add(Long.parseLong(idToDelete[i]));
-               }
-               }
-               long[] idToDeleteEmpty=new long[id.size()];
-               for(int i=0; i<id.size();i++){
-                   idToDeleteEmpty[i]=id.get(i);
-               }
-              if(idToDeleteEmpty.length!=0){
-               dataBaseGroupDao.deleteGroups(idToDeleteEmpty);
-              }
+                ArrayList<Long> id = new ArrayList<>();
+                for (int i = 0; i < idToDelete.length; i++) {
+                    if (emptyIDs.contains(Long.parseLong(idToDelete[i]))) {
+                        id.add(Long.parseLong(idToDelete[i]));
+                    }
+                }
+                long[] idToDeleteEmpty = new long[id.size()];
+                for (int i = 0; i < id.size(); i++) {
+                    idToDeleteEmpty[i] = id.get(i);
+                }
+                if (idToDeleteEmpty.length != 0) {
+                    dataBaseGroupDao.deleteGroups(idToDeleteEmpty);
+                }
             }
         %>
         <div class="header">
@@ -50,7 +56,7 @@ ment   : groupsTable
                 <input type="submit" value="Add Group" />
             </form>
             <form name="Table" action="groupsTable.jsp" method="GET">
-                <input type="submit" value="Delete"/>
+                <input type="submit" action="groupsTable.jsp" value="Delete"/>
                 <table border="1" >
                     <thead>
                         <tr>
@@ -62,7 +68,7 @@ ment   : groupsTable
                         </tr>
                     </thead>
                     <tbody>
-                        <%
+                        <%                    
                             ArrayList<Group> groups = dataBaseGroupDao.getAllGroups();
                             for (int i = 0; i < groups.size(); i++) {
                                 Group group = groups.get(i);
@@ -71,10 +77,10 @@ ment   : groupsTable
                             <td><input type="checkbox" name="groups" value="<%=String.valueOf(group.getID())%>"/></td>
                             <td> <%=String.valueOf(group.getGROUP_NUMBER())%></td>
                             <td> <%=String.valueOf(group.getFACULTY())%></td>
-                            <td><a href="">Edit</a></td>
+                            <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToEdit=<%=String.valueOf(group.getFACULTY())%>">
+                                    <input type="button" name="Edit" value="Edit"/></a></td>
                             <td><a href="">Delete</a></td>
                         </tr>
-
                         <%
                             }
 
