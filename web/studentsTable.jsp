@@ -22,6 +22,14 @@
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
+            if(request.getParameter("NameEditing")!=null){
+                long id=Long.parseLong(request.getParameter("ID"));
+                dataBaseStudentDao.setName(request.getParameter("NameEditing"), id);
+                dataBaseStudentDao.setGroup(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
+               // dataBaseStudentDao.setDate(request.getParameter("DateEditing"), id);
+                Long curatorId=Long.parseLong(request.getParameterValues("CuratorsEditing")[0]);
+                dataBaseStudentDao.setCurator(curatorId, id);
+            }
             if (request.getParameter("students") != null) {
                 String[] idToDelete = request.getParameterValues("students");
                 long[] id = new long[idToDelete.length];
@@ -115,13 +123,24 @@
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
                             <td> <%=""%> </td> 
                             <%   } else {%>
-                            <td> <a href=""><%=String.valueOf(student.getID_CURATOR())%>                            
+                            <td> <a href=""><% long id=student.getID_CURATOR();
+                            A:  for(int j=0; j<students.size();j++){
+                                 if(students.get(j).getID()==id){ %>
+                                     <%=students.get(j).getNAME()%>
+                                  <%   break A;
+                                 }
+                             }
+                                %>                            
                                 </a></td>
 
 
                             <%
                                 } %>
-                            <td><a href="">Edit</a></td>
+                            <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())
+                            %>&StudentNameToEdit=<%=student.getNAME()
+                            %>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())
+                            %>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
+                                    <input type="button" name="Edit" value="Edit"/></a></td>
                             <td><a href="">Delete</a></td>
                         </tr>
                         <%   }

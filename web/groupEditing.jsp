@@ -23,7 +23,7 @@
                 ID:<input type="number" name="ID"  value="<%=request.getParameter("GroupID")%>" readonly="true" />
             </div>
             <div class="inputGroup">
-                Group number:<input type="number" name="GroupNo"  min="1001" value="<%=request.getParameter("GroupNumberToEdit")%>"/>
+                Group number:<input type="number" name="GroupNo"  min="1001" max="9999" value="<%=request.getParameter("GroupNumberToEdit")%>"/>
             </div>
             <div class="inputGroup">
                 Faculty:<input type="text" name="Faculty" value="<%=request.getParameter("FacultyToEdit")%>"/>

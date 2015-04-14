@@ -20,7 +20,7 @@
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
             <div class="inputGroup">
-                Group number:<input type="number" name="GroupNo"  min="1001"/>
+                Group number:<input type="number" name="GroupNo"  min="1001" max="9999"/>
             </div>
             <div class="inputGroup">
                 Faculty:<input type="text" name="Faculty" value=""/>
