@@ -1,5 +1,3 @@
-
-
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,14 +12,15 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseGroupDao.getAllGroups();
-        dataBaseStudentDao.getAllStudents();
+        dataBaseStudentDao.setCurator(0, 45);
+
+        System.out.println(dataBaseStudentDao.getAllStudents());
 
 
-      //  ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
+        //  ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
         //    System.out.println(integers.toString());
 
-      //  System.out.println(idToDeleteNoEmpty[1]);
+        //  System.out.println(idToDeleteNoEmpty[1]);
         //     dataBaseDao.getAllStudents();
         //   ResultSet resultSet = dataBaseDao.getResultSet();
         // resultSet.next();
@@ -31,8 +30,8 @@ public class TestConnect {
         //     dataBaseDao.deleteGroups(1002);
         //   dataBaseDao.deleteStudents(5);
         //    dataBaseGroupDao.insertGroup(1002, "1");
-       // ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"NAME","NAME","GROUP_NUMBER"},new String[]{"M","ark","1007"});
-      //      System.out.println(students);
+        // ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"NAME","NAME","GROUP_NUMBER"},new String[]{"M","ark","1007"});
+        //      System.out.println(students);
 //        ArrayList<Group> groups = dataBaseGroupDao.getAllGroups();
 //        for (int i = 0; i < groups.size(); i++) {
 //            System.out.println(groups.get(i));

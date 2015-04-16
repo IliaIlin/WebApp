@@ -1,6 +1,4 @@
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -106,7 +104,11 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     @Override
     public void setCurator(long idCurator, long idStudent) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(SET_CURATOR);
-        preparedStatement.setLong(1, idCurator);
+        if (idCurator == 0) {
+            preparedStatement.setObject(1, null);
+        } else {
+            preparedStatement.setLong(1, idCurator);
+        }
         preparedStatement.setLong(2, idStudent);
         resultSet = preparedStatement.executeQuery();
     }
