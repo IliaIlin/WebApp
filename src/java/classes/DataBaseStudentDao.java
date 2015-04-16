@@ -1,6 +1,6 @@
-package classes;
-
-
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,11 +13,11 @@ public interface DataBaseStudentDao {
 
     public void insertStudent(String name, int numberGroup, String date) throws SQLException;
 
-    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException;
+    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException, IOException, JAXBException;
 
     public void deleteStudents(long id[]) throws SQLException;
 
-    public ArrayList<Student> getAllStudents() throws SQLException;
+    public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException;
 
     public void setGroup(int numberGroup, long id) throws SQLException;
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- XML Schema Generated from XML Document on Thu Apr 16 2015 18:31:03 GMT+0400 -->
+    <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+    <xs:element name="data">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="students" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="NAME" type="xs:string"></xs:element>
+                            <xs:element name="GROUP_STUDENT" type="xs:int"></xs:element>
+                            <xs:element name="DATE_ENROLLMENT" type="xs:dateTime"></xs:element>
+                            <xs:element name="ID" type="xs:int"></xs:element>
+                            <xs:element name="ID_CURATOR" type="xs:int"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

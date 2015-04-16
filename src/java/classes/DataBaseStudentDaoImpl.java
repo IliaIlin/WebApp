@@ -1,5 +1,7 @@
-package classes;
-
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,7 +149,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException {  //OK
+    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException, IOException, JAXBException {  //OK
         String statement = SELECT_STUDENTS;
         for (int i = 0; i < param.length; i++) {
             switch (param[i].toUpperCase()) {
@@ -212,6 +214,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         System.out.println(statement);
         resultSet = preparedStatement.executeQuery();
         createStudents();
+        Xml.write(students);
         return students;
     }
 
@@ -232,10 +235,11 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public ArrayList<Student> getAllStudents() throws SQLException {  //OK
+    public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException {  //OK
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
+        Xml.write(students);
         return students;
     }
 

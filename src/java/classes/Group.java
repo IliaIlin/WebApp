@@ -1,16 +1,19 @@
-package classes;
-
-
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 
+@XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Group implements Serializable {
 
-    private final int GROUP_NUMBER;
-    private final String FACULTY;
-    private final long ID;
+    private  int GROUP_NUMBER;
+    private  String FACULTY;
+    private  long ID;
 
+    private Group() {
+    }
 
     public Group(int GROUP_NUMBER, String FACULTY, long ID) {
         this.GROUP_NUMBER = GROUP_NUMBER;

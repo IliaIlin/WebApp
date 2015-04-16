@@ -1,5 +1,8 @@
-package classes;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,7 +91,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public ArrayList<Group> selectGroups(String param[], String arg[]) throws SQLException { //????
+    public ArrayList<Group> selectGroups(String param[], String arg[]) throws SQLException, IOException, JAXBException { //????
         String statement = SELECT_GROUPS;
         for (int i = 0; i < param.length; i++) {
             statement += " " + param[i] + " = ? ";
@@ -104,20 +107,22 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
         resultSet = preparedStatement.executeQuery();
         createGroups();
+        Xml.write(groups);
         return groups;
     }
 
 
     @Override
-    public ArrayList<Group> getAllGroups() throws SQLException {  //ok
+    public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException {  //ok
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();
+        Xml.write(groups);
         return groups;
     }
 
 
-    private void createGroups() throws SQLException {
+    private void createGroups() throws SQLException{
         groups = new ArrayList<>();
         Group group;
         while (resultSet.next()) {
@@ -126,7 +131,6 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
                     resultSet.getLong(INDEX_COLUMB_ID));
             groups.add(group);
         }
-
 
     }
 
@@ -151,4 +155,6 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         return groups;
     }
+
+
 }

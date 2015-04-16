@@ -1,5 +1,7 @@
-package classes;
 
+
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -7,10 +9,15 @@ import java.sql.SQLException;
  */
 public class TestConnect {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException {
+        DataSource dataSource = new DataSource("pai", "11");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
+
+        dataBaseGroupDao.getAllGroups();
+        dataBaseStudentDao.getAllStudents();
+
+
       //  ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
         //    System.out.println(integers.toString());
 

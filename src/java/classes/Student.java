@@ -1,26 +1,22 @@
-package classes;
-
-
-
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
+
+@XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Student implements Serializable {
 
-    private final String NAME;
-    private final int GROUP_STUDENT;
-    private final Date DATE_ENROLLMENT;
-    private final long ID;
-    private final long ID_CURATOR;
+    private String NAME;
+    private int GROUP_STUDENT;
+    private Date DATE_ENROLLMENT;
+    private long ID;
+    private long ID_CURATOR;
 
 
-    Student(String name, Date dateOfEnrollment, int groupOfStudent, long id) {
-        this.NAME = name;
-        this.GROUP_STUDENT = groupOfStudent;
-        this.DATE_ENROLLMENT = dateOfEnrollment;
-        this.ID = id;
-        ID_CURATOR = -1;
+    private Student() {
     }
 
     public Student(String NAME, int GROUP_STUDENT, Date DATE_ENROLLMENT, long ID, long ID_CURATOR) {
