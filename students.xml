@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+    <students>
+        <NAME>Kate</NAME>
+        <GROUP_STUDENT>1010</GROUP_STUDENT>
+        <DATE_ENROLLMENT>2011-01-11T00:00:00+03:00</DATE_ENROLLMENT>
+        <ID>81</ID>
+        <ID_CURATOR>0</ID_CURATOR>
+    </students>
+</data>

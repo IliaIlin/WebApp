@@ -1,3 +1,5 @@
+package classes;
+
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,13 +10,13 @@ import java.sql.SQLException;
 public class TestConnect {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException {
-        DataSource dataSource = new DataSource("pai", "11");
+        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseStudentDao.setDate("2011-01-11",45);
+        dataBaseStudentDao.setDate("2011-01-11",81);
 
-        System.out.println(dataBaseStudentDao.selectStudents(new String[]{"\"DATE\""},new String[]{"2011-01-11"}));
+        System.out.println(dataBaseStudentDao.selectStudents(new String[]{"DATE"},new String[]{"2011-01-11"}));
 
 
 

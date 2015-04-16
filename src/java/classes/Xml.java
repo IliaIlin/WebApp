@@ -1,3 +1,5 @@
+package classes;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -6,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by Саша on 16-Apr-15.
+ * Created by пїЅпїЅпїЅпїЅ on 16-Apr-15.
  */
 public class Xml {
 

@@ -26,7 +26,7 @@
                 long id=Long.parseLong(request.getParameter("ID"));
                 dataBaseStudentDao.setName(request.getParameter("NameEditing"), id);
                 dataBaseStudentDao.setGroup(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
-               // dataBaseStudentDao.setDate(request.getParameter("DateEditing"), id);
+                dataBaseStudentDao.setDate(request.getParameter("DateEditing"), id);               
                 Long curatorId=Long.parseLong(request.getParameterValues("CuratorsEditing")[0]);
                 dataBaseStudentDao.setCurator(curatorId, id);               
             }
@@ -96,21 +96,38 @@
                             String groupNumber = request.getParameter("GroupNumbersCriteria");
                             String dateInput = request.getParameter("DateCriteria");
                             String curator = request.getParameter("CuratorsCriteria");
-                           //!!!!     if (name!=null && groupNumber==null) {
-                           //         students = dataBaseStudentDao.selectStudents(new String[]{"NAME"}, new String[]{name});
-                           //   }
-                            // if (name != null && dateInput ==null) {
-                            //    students=dataBaseStudentDao.selectStudents(new String[]{"NAME","GROUP_NUMBER","CURATOR"},new String[]{name,groupNumber,curator});
-                            //  }
-                            //   else if(name==null && dateInput!=null){
-                            //    students=dataBaseStudentDao.selectStudents(new String[]{"DATE","GROUP_NUMBER","CURATOR"},new String[]{dateInput,groupNumber,curator});   
-                            //   }
-                            //   if (groupNumber != null) {
-                            //    students=dataBaseStudentDao.selectStudents(new String[]{"GROUP_NUMBER"},new String[]{groupNumber});
-                            //   }
-                            //   if(dateInput!=null){
-                            //       students=dataBaseStudentDao.selectStudents(new String[]{"DATE"},new String[]{"2015-04-16"});
-                            //   }
+                            ArrayList<String> paramString=new ArrayList<>();
+                            ArrayList<String> argString=new ArrayList<>();
+                            String [] param,arg;
+                                if (name!=null && !name.isEmpty()) {
+                                    paramString.add("NAME");
+                                    argString.add(name);                                  
+                             }
+                               if(groupNumber!=null && !groupNumber.isEmpty()){
+                                    paramString.add("GROUP_NUMBER");
+                                    argString.add(groupNumber);         
+                                }
+                                if(dateInput!=null && !dateInput.isEmpty()){
+                                    paramString.add("DATE");
+                                    argString.add(dateInput);                           
+                               }
+                                if(curator!=null && !curator.isEmpty()){
+                                    paramString.add("CURATOR");
+                                    if(curator==""){
+                                        argString.add("0");
+                                    }
+                                    else{
+                                        argString.add(curator);
+                                    }                                  
+                                }
+                            param=new String[paramString.size()];
+                            arg=new String[paramString.size()];
+                            for(int i=0; i<paramString.size();i++){
+                                param[i]=paramString.get(i);
+                                arg[i]=argString.get(i);
+                            }
+                            students=dataBaseStudentDao.selectStudents(param, arg);
+                            
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
 

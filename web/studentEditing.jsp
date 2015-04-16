@@ -36,9 +36,14 @@
                 Group number:<select name="GroupNumbersEditing">
                     <%
                         ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
-                        for (int i = 0; i < groupsNumber.size(); i++) {%>
+                        for (int i = 0; i < groupsNumber.size(); i++) {
+                     if(groupsNumber.get(i)!=Integer.parseInt(request.getParameter("StudentGroupToEdit"))){%>
                         <option> <%=groupsNumber.get(i)%></option>  
                     <%  }
+                     else{ %>
+                     <option selected="true"><%=groupsNumber.get(i)%></option>
+                    <% }
+                        }
                     %>
                 </select>
             </div>
@@ -50,9 +55,12 @@
                     <option value="0"></option>
                     <%  ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
                         for (Student student : students) {
-                            if(student.getID()!=Long.parseLong(request.getParameter("StudentCuratorToEdit"))){%>
-                    <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>
+                            if(student.getID()==Long.parseLong(request.getParameter("StudentCuratorToEdit"))){%>
+                    <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
                     <% }
+                            else if(student.getID()!=Long.parseLong(request.getParameter("StudentID"))){ %>
+                            <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
+                         <%   }
                         }
                     %>
                 </select>

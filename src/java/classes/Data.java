@@ -1,9 +1,11 @@
+package classes;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
 /**
- * Created by Саша on 15-Apr-15.
+ * Created by пїЅпїЅпїЅпїЅ on 15-Apr-15.
  */
 
 @XmlRootElement

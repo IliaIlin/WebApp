@@ -25,11 +25,11 @@ ment   : groupsTable
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             if (request.getParameter("GroupNo") != null) {
-                ArrayList<Integer> groupNumbers=dataBaseGroupDao.getGroupNumbers();
-                if(!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))){
+              //  ArrayList<Integer> groupNumbers=dataBaseGroupDao.getGroupNumbers();
+              //  if(!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))){
                 dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-                        new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
-            }
+                        new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"),request.getParameter("Faculty")});
+        //    }
             }
             if (request.getParameter("groups") != null) {
                 ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();

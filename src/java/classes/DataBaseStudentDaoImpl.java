@@ -1,3 +1,5 @@
+package classes;
+
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.Connection;
