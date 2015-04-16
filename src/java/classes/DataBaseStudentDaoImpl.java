@@ -41,7 +41,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + "SET NAME = ? WHERE ID = ?";
 
     final private static String SET_DATE = "UPDATE STUDENTS_TEST "
-            + "SET \"DATE\" = ? WHERE ID = ?";
+            + "SET \"DATE\" = to_date( ? , 'YYYY-MM-DD') WHERE ID = ?";
 
     final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST "
             + "SET CURATOR = NULL WHERE CURATOR IN ( ";
@@ -178,7 +178,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (dateParam.size() > 0) {
-            statement += "AND \"DATE\" IN ( ?";
+            statement += "AND \"DATE\" IN ( to_date( ? , 'YYYY-MM-DD') ";
             for (int i = 1; i < dateParam.size(); i++) {
                 statement += " , ? ";
             }

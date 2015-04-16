@@ -12,9 +12,11 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseStudentDao.setCurator(0, 45);
+        dataBaseStudentDao.setDate("2011-01-11",45);
 
-        System.out.println(dataBaseStudentDao.getAllStudents());
+        System.out.println(dataBaseStudentDao.selectStudents(new String[]{"\"DATE\""},new String[]{"2011-01-11"}));
+
+
 
 
         //  ArrayList<Integer> integers = dataBaseGroupDao.getGroupNumbers();
