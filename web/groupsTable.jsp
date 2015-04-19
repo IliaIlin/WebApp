@@ -25,19 +25,23 @@ ment   : groupsTable
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             if (request.getParameter("GroupNo") != null) {
-                ArrayList<Integer> groupNumbers=dataBaseGroupDao.getGroupNumbers();
-                if(!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))){
-                dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-                        new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"),request.getParameter("Faculty")});
+                ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();
+                if (!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
+                    dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
+                            new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
+                }
+                else{
+                   dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
+                            new String[]{"FACULTY"}, new String[]{request.getParameter("Faculty")}); 
+                }
             }
-            }
-            if(request.getParameter("Delete")!=null){
+            if (request.getParameter("Delete") != null) {
                 ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
-                if(emptyIDs.contains(Long.parseLong(request.getParameter("ID")))){
-                dataBaseGroupDao.deleteGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
+                if (emptyIDs.contains(Long.parseLong(request.getParameter("ID")))) {
+                    dataBaseGroupDao.deleteGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
                 }
-                }
-            
+            }
+
             if (request.getParameter("groups") != null) {
                 ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
                 String[] idToDelete = request.getParameterValues("groups");
@@ -73,11 +77,11 @@ ment   : groupsTable
                             <th style="width:100px">group №</th>
                             <th style="width:100px">Faculty</th>
                             <th style="width:100px"></th>
-                            <th style="width:100px"></th>
+                            <!--   <th style="width:100px"></th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <%                    
+                        <%
                             ArrayList<Group> groups = dataBaseGroupDao.getAllGroups();
                             for (int i = 0; i < groups.size(); i++) {
                                 Group group = groups.get(i);
@@ -88,7 +92,7 @@ ment   : groupsTable
                             <td> <%=String.valueOf(group.getFACULTY())%></td>
                             <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToEdit=<%=String.valueOf(group.getFACULTY())%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
-                            <td><a href="">Delete</a></td> 
+                            <!-- <td><a href="">Delete</a></td> -->
                         </tr>
                         <%
                             }

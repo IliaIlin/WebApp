@@ -21,7 +21,7 @@
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-            
+
         %>
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Editing</h1>
@@ -37,11 +37,10 @@
                     <%
                         ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {
-                     if(groupsNumber.get(i)!=Integer.parseInt(request.getParameter("StudentGroupToEdit"))){%>
-                        <option> <%=groupsNumber.get(i)%></option>  
-                    <%  }
-                     else{ %>
-                     <option selected="true"><%=groupsNumber.get(i)%></option>
+                            if (groupsNumber.get(i) != Integer.parseInt(request.getParameter("StudentGroupToEdit"))) {%>
+                    <option> <%=groupsNumber.get(i)%></option>  
+                    <%  } else {%>
+                    <option selected="true"><%=groupsNumber.get(i)%></option>
                     <% }
                         }
                     %>
@@ -55,12 +54,11 @@
                     <option value="0"></option>
                     <%  ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
                         for (Student student : students) {
-                            if(student.getID()==Long.parseLong(request.getParameter("StudentCuratorToEdit"))){%>
+                            if (student.getID() == Long.parseLong(request.getParameter("StudentCuratorToEdit"))) {%>
                     <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
-                    <% }
-                            else if(student.getID()!=Long.parseLong(request.getParameter("StudentID"))){ %>
-                            <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
-                         <%   }
+                    <% } else if (student.getID() != Long.parseLong(request.getParameter("StudentID"))) {%>
+                    <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
+                    <%   }
                         }
                     %>
                 </select>
