@@ -25,12 +25,19 @@ ment   : groupsTable
         <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             if (request.getParameter("GroupNo") != null) {
-              //  ArrayList<Integer> groupNumbers=dataBaseGroupDao.getGroupNumbers();
-              //  if(!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))){
+                ArrayList<Integer> groupNumbers=dataBaseGroupDao.getGroupNumbers();
+                if(!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))){
                 dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
                         new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"),request.getParameter("Faculty")});
-        //    }
             }
+            }
+            if(request.getParameter("Delete")!=null){
+                ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
+                if(emptyIDs.contains(Long.parseLong(request.getParameter("ID")))){
+                dataBaseGroupDao.deleteGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
+                }
+                }
+            
             if (request.getParameter("groups") != null) {
                 ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
                 String[] idToDelete = request.getParameterValues("groups");
@@ -55,7 +62,7 @@ ment   : groupsTable
 
         <div id="centerColumnGroups">
             <form name="Add" action="groupAddition.jsp">
-                <input type="submit" value="Add Group" />
+                <input type="submit" value="Add Group"/>
             </form>
             <form name="Table" action="groupsTable.jsp" method="GET">
                 <input type="submit" action="groupsTable.jsp" value="Delete"/>
@@ -77,11 +84,11 @@ ment   : groupsTable
                         %>
                         <tr>
                             <td><input type="checkbox" name="groups" value="<%=String.valueOf(group.getID())%>"/></td>
-                            <td> <%=String.valueOf(group.getGROUP_NUMBER())%></td>
+                            <td><a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToShow=<%=String.valueOf(group.getFACULTY())%>"><%=String.valueOf(group.getGROUP_NUMBER())%></a></td>
                             <td> <%=String.valueOf(group.getFACULTY())%></td>
                             <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToEdit=<%=String.valueOf(group.getFACULTY())%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
-                            <td><a href="">Delete</a></td>
+                            <td><a href="">Delete</a></td> 
                         </tr>
                         <%
                             }

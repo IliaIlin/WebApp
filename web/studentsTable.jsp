@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="classes.Student"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
@@ -127,28 +128,30 @@
                                 arg[i]=argString.get(i);
                             }
                             students=dataBaseStudentDao.selectStudents(param, arg);
-                            
+                            ArrayList<Student> studentsFull=dataBaseStudentDao.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
+                                ArrayList<Group> groupToRedirect=dataBaseGroupDao.selectGroups(new String[]{"GROUP_NUMBER"},new String[]{String.valueOf(student.getGROUP_STUDENT())});
+                                Group group=groupToRedirect.get(0);
 
                         %>
                         <tr>
                             <td><input type="checkbox" name="students" value="<%=student.getID()%>"</td>
                             <td> <a href=""><%=String.valueOf(student.getNAME())%></a></td>
-                            <td> <a href=""><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
+                            <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToShow=<%=String.valueOf(group.getFACULTY())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
                             <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
                             <td> <%=""%> </td> 
                             <%   } else {%>
-                            <td> <a href=""><% long id=student.getID_CURATOR();
-                            A:  for(int j=0; j<students.size();j++){
-                                 if(students.get(j).getID()==id){ %>
-                                     <%=students.get(j).getNAME()%>
+                            <td><% long id=student.getID_CURATOR();                            
+                            A:  for(int j=0; j<studentsFull.size();j++){
+                                 if(studentsFull.get(j).getID()==id){ %>
+                                     <%=studentsFull.get(j).getNAME()%>
                                   <%   break A;
                                  }
                              }
                                 %>                            
-                                </a></td>
+                                </td>
 
 
                             <%

@@ -16,7 +16,7 @@
         <title>Group_Addition</title>
     </head>
     <body>
-        <a href=groupsTable.jsp>Group Page</a>
+        <a href=groupsTable.jsp>Groups Table</a>
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
             <div class="inputGroup">

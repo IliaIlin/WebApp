@@ -16,7 +16,7 @@
         <title>Group_Editing</title>
     </head>
     <body>
-        <a href=groupsTable.jsp>Group Page</a>
+        <a href=groupsTable.jsp>Groups Table</a>
         <h1 style="margin-top: 100px">Group Editing</h1>
         <form name="groupEditing" action="groupsTable.jsp" actionmethod="POST">
             <div class="inputGroup">
