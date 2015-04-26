@@ -26,7 +26,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + //  "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
             "STR_TO_DATE( ? , '%Y-%m-%d'))";
 
-    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID  IN ( ";
+    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID_STUDENT  IN ( ";
 
     final private static String SELECT_STUDENTS =
             "SELECT STUDENTS.NAME, GROUPS.GROUP_NUMBER, "
