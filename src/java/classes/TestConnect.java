@@ -17,7 +17,7 @@ public class TestConnect {
 
 
 
-        dataBaseStudentDao.insertStudent("dada",1111,"1922-2-11");
+        dataBaseStudentDao.insertStudent("dada",1111,"1922-2-11",12);
 
 
 

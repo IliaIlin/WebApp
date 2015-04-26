@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     final private static String INSERT_STUDENT
-            = "INSERT INTO STUDENTS (NAME, ID_GROUP, DATE, CURATOR)) "
+            = "INSERT INTO STUDENTS (NAME, ID_GROUP, DATE, CURATOR) "
             + "VALUES ( ? , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , "
             + // "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
             //STR_TO_DATE('21,5,2013','%d,%m,%Y')
@@ -84,6 +84,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement.setInt(2, numberGroup);
         preparedStatement.setString(3, date);
         preparedStatement.setLong(4, idCurator);
+        System.out.println(INSERT_STUDENT);
         preparedStatement.executeUpdate();
     }
 
