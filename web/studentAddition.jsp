@@ -28,7 +28,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbers">
                     <%
-                        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+                        DataSource dataSource = new DataSource("pai", "11");
                         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                         ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>

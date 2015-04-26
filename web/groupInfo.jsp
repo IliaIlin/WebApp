@@ -17,7 +17,7 @@
         <title>Group_Info</title>
     </head>
     <body>
-        <% DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+        <% DataSource dataSource = new DataSource("pai", "11");
             DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         %>
 

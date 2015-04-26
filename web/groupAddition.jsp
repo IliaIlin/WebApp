@@ -30,7 +30,7 @@
                 <input type="submit" value="Submit" />
             </div>
             <%
-                DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+                DataSource dataSource = new DataSource("pai", "11");
                 DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                 boolean flag = true;
                 if (request.getParameter("GroupNo") != null

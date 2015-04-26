@@ -3,6 +3,7 @@ package classes;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Саша on 18.03.2015.
@@ -14,8 +15,7 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseGroupDao.insertGroup(1111,"da");
-        System.out.println(dataBaseGroupDao.getAllGroups());
+        ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"GROUP_NUMBER"}, new String[]{"2020"});
 
 
 

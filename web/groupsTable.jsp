@@ -22,7 +22,7 @@ ment   : groupsTable
     </head>
     <body>
         <a href=index.jsp>Main Page</a>
-        <%DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+        <%DataSource dataSource = new DataSource("pai", "11");
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             if (request.getParameter("GroupNo") != null) {
                 ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();

@@ -181,21 +181,21 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (dateParam.size() > 0) {
-            statement += "AND DATE IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
+            statement += " AND DATE IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
             for (int i = 1; i < dateParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
         }
         if (curatorParam.size() > 0) {
-            statement += "AND CURATOR IN ( ?";
+            statement += " AND CURATOR IN ( ? ";
             for (int i = 1; i < curatorParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
         }
         if (groupParam.size() > 0) {
-            statement += "AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
+            statement += " AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             for (int i = 1; i < groupParam.size(); i++) {
                 statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }
