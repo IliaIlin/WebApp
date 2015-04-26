@@ -14,9 +14,7 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseStudentDao.setDate("2011-01-11",81);
-
-        System.out.println(dataBaseStudentDao.selectStudents(new String[]{"DATE"},new String[]{"2011-01-11"}));
+        dataBaseGroupDao.insertGroup(44,"da");
 
 
 

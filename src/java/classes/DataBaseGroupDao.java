@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface DataBaseGroupDao {
 
-    public ResultSet insertGroup(int numberGroup, String faculty) throws SQLException;
+    public void insertGroup(int numberGroup, String faculty) throws SQLException;
 
     public void deleteGroups(long[] id) throws SQLException;
 

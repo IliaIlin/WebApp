@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     final private static String INSERT_STUDENT
-            = "INSERT INTO STUDENTS (NAME, ID_GROUP, \"DATE\", CURATOR)) "
+            = "INSERT INTO STUDENTS (NAME, ID_GROUP, DATE, CURATOR)) "
             + "VALUES ( ? , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , "
             + // "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
             //STR_TO_DATE('21,5,2013','%d,%m,%Y')
             "STR_TO_DATE( ? , '%Y-%m-%d') , ?)";
 
     final private static String INSERT_STUDENT_WITHOUT_CURATOR
-            = "INSERT INTO STUDENTS (NAME, ID_GROUP, \"DATE\") "
+            = "INSERT INTO STUDENTS (NAME, ID_GROUP, DATE) "
             + "VALUES ( ? , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , "
             + //  "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
             "STR_TO_DATE( ? , '%Y-%m-%d'))";
@@ -29,10 +29,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID  IN ( ";
 
     final private static String SELECT_STUDENTS =
-            "SELECT STUDENTS.\"NAME\", GROUPS.\"GROUP_NUMBER\", "
-                    + "STUDENTS.\"DATE\",STUDENTS.\"ID_STUDENT\",STUDENTS.\"CURATOR\" "
+            "SELECT STUDENTS.NAME, GROUPS.GROUP_NUMBER, "
+                    + "STUDENTS.DATE,STUDENTS.ID_STUDENT,STUDENTS.CURATOR "
                     + "FROM STUDENTS, GROUPS_TEST "
-                    + "WHERE STUDENTS.\"ID_GROUP\" = GROUPS_TEST.\"ID_GROUP\"";
+                    + "WHERE STUDENTS.ID_GROUP = GROUPS_TEST.ID_GROUP";
 
     final private static String SET_GROUP = "UPDATE STUDENTS "
             + "SET GROUP_ID = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) WHERE ID_STUDENT = ?";
@@ -44,7 +44,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + "SET NAME = ? WHERE ID_STUDENT = ?";
 
     final private static String SET_DATE = "UPDATE STUDENTS "
-            + "SET \"DATE\" = STR_TO_DATE( ? , '%Y-%m-%d') WHERE ID_STUDENT = ?";
+            + "SET DATE = STR_TO_DATE( ? , '%Y-%m-%d') WHERE ID_STUDENT = ?";
 
     final private static String UPDATE_CURATOR = "UPDATE STUDENTS "
             + "SET CURATOR = NULL WHERE CURATOR IN ( ";
@@ -84,7 +84,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement.setInt(2, numberGroup);
         preparedStatement.setString(3, date);
         preparedStatement.setLong(4, idCurator);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement.setString(1, name);
         preparedStatement.setInt(2, numberGroup);
         preparedStatement.setString(3, date);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -101,7 +101,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SET_GROUP);
         preparedStatement.setInt(1, numberGroup);
         preparedStatement.setLong(2, id);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -113,7 +113,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             preparedStatement.setLong(1, idCurator);
         }
         preparedStatement.setLong(2, idStudent);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -132,7 +132,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         for (int i = 0; i < id.length; i++) {
             preparedStatement.setLong(i + 1, id[i]);
         }
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
         // trigger not work!!!
         statement = UPDATE_CURATOR;
@@ -149,7 +149,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         for (int i = 0; i < id.length; i++) {
             preparedStatement.setLong(i + 1, id[i]);
         }
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
     }
 
@@ -181,7 +181,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (dateParam.size() > 0) {
-            statement += "AND \"DATE\" IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
+            statement += "AND DATE IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
             for (int i = 1; i < dateParam.size(); i++) {
                 statement += " , ? ";
             }
@@ -228,7 +228,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SET_NAME);
         preparedStatement.setString(1, name);
         preparedStatement.setLong(2, idStudent);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -236,7 +236,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SET_DATE);
         preparedStatement.setString(1, date);
         preparedStatement.setLong(2, idStudent);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override

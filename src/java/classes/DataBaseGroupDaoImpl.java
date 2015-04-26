@@ -56,19 +56,19 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
             preparedStatement.setString(i, arg[i - 1]);
         }
         preparedStatement.setLong(i, id);
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
 
     }
 
 
     @Override
-    public ResultSet insertGroup(int numberGroup, String faculty) throws SQLException {  //ok
+    public void insertGroup(int numberGroup, String faculty) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(INSERT_GROUP);
         preparedStatement.setInt(1, numberGroup);
         preparedStatement.setString(2, faculty);
-        resultSet = preparedStatement.executeQuery();
-        return resultSet;
+        preparedStatement.executeUpdate();
+
     }
 
     @Override
@@ -86,7 +86,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
             preparedStatement.setLong(i + 1, id[i]);
         }
 
-        resultSet = preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
 
     }
