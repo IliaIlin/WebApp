@@ -31,8 +31,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static String SELECT_STUDENTS =
             "SELECT STUDENTS.NAME, GROUPS.GROUP_NUMBER, "
                     + "STUDENTS.DATE,STUDENTS.ID_STUDENT,STUDENTS.CURATOR "
-                    + "FROM STUDENTS, GROUPS_TEST "
-                    + "WHERE STUDENTS.ID_GROUP = GROUPS_TEST.ID_GROUP";
+                    + "FROM STUDENTS, GROUPS "
+                    + "WHERE STUDENTS.ID_GROUP = GROUPS.ID_GROUP";
 
     final private static String SET_GROUP = "UPDATE STUDENTS "
             + "SET GROUP_ID = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) WHERE ID_STUDENT = ?";
@@ -195,7 +195,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (groupParam.size() > 0) {
-            statement += "AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
+            statement += "AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             for (int i = 1; i < groupParam.size(); i++) {
                 statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }

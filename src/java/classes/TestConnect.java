@@ -14,7 +14,8 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseGroupDao.insertGroup(44,"da");
+        dataBaseGroupDao.insertGroup(1111,"da");
+        System.out.println(dataBaseGroupDao.getAllGroups());
 
 
 
