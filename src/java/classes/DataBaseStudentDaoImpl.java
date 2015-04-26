@@ -174,28 +174,28 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         }
 
         if (nameParam.size() > 0) {
-            statement += " AND NAME IN ( ?";
+            statement += " AND STUDENTS.NAME IN ( ?";
             for (int i = 1; i < nameParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
         }
         if (dateParam.size() > 0) {
-            statement += " AND DATE IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
+            statement += " AND STUDENTS.DATE IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
             for (int i = 1; i < dateParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
         }
         if (curatorParam.size() > 0) {
-            statement += " AND CURATOR IN ( ? ";
+            statement += " AND STUDENTS.CURATOR IN ( ? ";
             for (int i = 1; i < curatorParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
         }
         if (groupParam.size() > 0) {
-            statement += " AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
+            statement += " AND GROUPS.ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             for (int i = 1; i < groupParam.size(); i++) {
                 statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }
@@ -216,7 +216,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         for (int i = 0; i < groupParam.size(); i++) {
             preparedStatement.setString(j++, arg[groupParam.get(i)]);
         }
-        System.out.println(statement);
+
         resultSet = preparedStatement.executeQuery();
         createStudents();
         Xml.write(students);
