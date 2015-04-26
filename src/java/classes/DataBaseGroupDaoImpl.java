@@ -16,14 +16,14 @@ import java.util.ArrayList;
  */
 public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
-    final private static String INSERT_GROUP = "INSERT INTO GROUPS_TEST VALUES ( ? , ? , ID_GROUP.nextval)";
-    final private static String DELETE_GROUP = "DELETE FROM GROUPS_TEST WHERE ID IN (";
-    final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS_TEST";
-    final private static String SELECT_GROUPS = "SELECT * FROM GROUPS_TEST WHERE ";
-    final private static String SELECT_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS_TEST";
-    final private static String SELECT_EMPTY_GROUP_NUMBERS = "SELECT ID FROM GROUPS_TEST " +
-            "WHERE ID NOT IN (SELECT GROUP_ID FROM STUDENTS_TEST)";
-    final private static String UPDATE_GROUP = "UPDATE GROUPS_TEST SET ";
+    final private static String INSERT_GROUP = "INSERT INTO GROUPS (GROUP_NUMBER, FACULTY) VALUES ( ? , ?)";
+    final private static String DELETE_GROUP = "DELETE FROM GROUPS WHERE ID_GROUP IN (";
+    final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS";
+    final private static String SELECT_GROUPS = "SELECT * FROM GROUPS WHERE ";
+    final private static String SELECT_GROUP_NUMBERS = "SELECT GROUP_NUMBER FROM GROUPS";
+    final private static String SELECT_EMPTY_GROUP_NUMBERS = "SELECT ID_GROUP FROM GROUPS " +
+            "WHERE ID_GROUP NOT IN (SELECT ID_GROUP FROM STUDENTS)";
+    final private static String UPDATE_GROUP = "UPDATE GROUPS SET ";
     final private static int INDEX_COLUMB_NUMBER_GROUP = 1;
     final private static int INDEX_COLUMB_FACULTY = 2;
     final private static int INDEX_COLUMB_ID = 3;
@@ -49,7 +49,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
             if (i != param.length - 1)
                 statement += " , ";
         }
-        statement += " WHERE ID = ?";
+        statement += " WHERE ID_GROUP = ?";
         preparedStatement = connection.prepareStatement(statement);
         int i;
         for (i = 1; i <= arg.length; i++) {

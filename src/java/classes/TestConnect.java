@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class TestConnect {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException {
-        DataSource dataSource = new DataSource("SYSTEM", "21071994Rer");
+        DataSource dataSource = new DataSource("root", "11");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 

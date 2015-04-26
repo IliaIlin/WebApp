@@ -14,38 +14,39 @@ import java.util.ArrayList;
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     final private static String INSERT_STUDENT
-            = "INSERT INTO STUDENTS_TEST "
-            + "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , "
+            = "INSERT INTO STUDENTS (NAME, ID_GROUP, \"DATE\", CURATOR)) "
+            + "VALUES ( ? , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , "
             + // "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval, ?)";
-            "to_date( ? , 'YYYY-MM-DD') , ID_STUDENTS.nextval, ?)";
+            //STR_TO_DATE('21,5,2013','%d,%m,%Y')
+            "STR_TO_DATE( ? , '%Y-%m-%d') , ?)";
 
     final private static String INSERT_STUDENT_WITHOUT_CURATOR
-            = "INSERT INTO STUDENTS_TEST (NAME, GROUP_ID, \"DATE\", ID) "
-            + "VALUES ( ? , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) , "
+            = "INSERT INTO STUDENTS (NAME, ID_GROUP, \"DATE\") "
+            + "VALUES ( ? , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , "
             + //  "to_date( ? , 'DD.MM.YY') , ID_STUDENTS.nextval)";
-            "to_date( ? , 'YYYY-MM-DD') , ID_STUDENTS.nextval)";
+            "STR_TO_DATE( ? , '%Y-%m-%d'))";
 
-    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS_TEST WHERE ID  IN ( ";
+    final private static String DELETE_STUDENT = "DELETE FROM STUDENTS WHERE ID  IN ( ";
 
-    final private static String SELECT_STUDENTS
-            = "SELECT STUDENTS_TEST.\"NAME\", GROUPS_TEST.\"GROUP_NUMBER\", "
-            + "STUDENTS_TEST.\"DATE\",STUDENTS_TEST.\"ID\",STUDENTS_TEST.\"CURATOR\" "
-            + "FROM STUDENTS_TEST, GROUPS_TEST "
-            + "WHERE STUDENTS_TEST.\"GROUP_ID\" = GROUPS_TEST.\"ID\"";
+    final private static String SELECT_STUDENTS =
+            "SELECT STUDENTS.\"NAME\", GROUPS.\"GROUP_NUMBER\", "
+                    + "STUDENTS.\"DATE\",STUDENTS.\"ID_STUDENT\",STUDENTS.\"CURATOR\" "
+                    + "FROM STUDENTS, GROUPS_TEST "
+                    + "WHERE STUDENTS.\"ID_GROUP\" = GROUPS_TEST.\"ID_GROUP\"";
 
-    final private static String SET_GROUP = "UPDATE STUDENTS_TEST "
-            + "SET GROUP_ID = (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) WHERE ID = ?";
+    final private static String SET_GROUP = "UPDATE STUDENTS "
+            + "SET GROUP_ID = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) WHERE ID_STUDENT = ?";
 
-    final private static String SET_CURATOR = "UPDATE STUDENTS_TEST "
-            + "SET CURATOR = ? WHERE ID = ?";
+    final private static String SET_CURATOR = "UPDATE STUDENTS "
+            + "SET CURATOR = ? WHERE ID_STUDENT = ?";
 
-    final private static String SET_NAME = "UPDATE STUDENTS_TEST "
-            + "SET NAME = ? WHERE ID = ?";
+    final private static String SET_NAME = "UPDATE STUDENTS "
+            + "SET NAME = ? WHERE ID_STUDENT = ?";
 
-    final private static String SET_DATE = "UPDATE STUDENTS_TEST "
-            + "SET \"DATE\" = to_date( ? , 'YYYY-MM-DD') WHERE ID = ?";
+    final private static String SET_DATE = "UPDATE STUDENTS "
+            + "SET \"DATE\" = STR_TO_DATE( ? , '%Y-%m-%d') WHERE ID_STUDENT = ?";
 
-    final private static String UPDATE_CURATOR = "UPDATE STUDENTS_TEST "
+    final private static String UPDATE_CURATOR = "UPDATE STUDENTS "
             + "SET CURATOR = NULL WHERE CURATOR IN ( ";
 
     final private static int INDEX_COLUMB_NAME = 1;
@@ -180,7 +181,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (dateParam.size() > 0) {
-            statement += "AND \"DATE\" IN ( to_date( ? , 'YYYY-MM-DD') ";
+            statement += "AND \"DATE\" IN ( STR_TO_DATE( ? , '%Y-%m-%d') ";
             for (int i = 1; i < dateParam.size(); i++) {
                 statement += " , ? ";
             }
@@ -194,9 +195,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             statement += " )";
         }
         if (groupParam.size() > 0) {
-            statement += "AND GROUP_ID IN ( (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
+            statement += "AND ID_GROUP IN ( (SELECT ID_GROUP FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
             for (int i = 1; i < groupParam.size(); i++) {
-                statement += " , (SELECT ID FROM GROUPS_TEST WHERE GROUP_NUMBER = ? ) ";
+                statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }
             statement += " )";
         }
