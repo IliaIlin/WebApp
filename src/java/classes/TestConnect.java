@@ -15,7 +15,9 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"GROUP_NUMBER"}, new String[]{"2020"});
+
+
+        dataBaseStudentDao.insertStudent("dada",1111,"1922-2-11");
 
 
 

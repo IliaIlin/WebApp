@@ -35,7 +35,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                     + "WHERE STUDENTS.ID_GROUP = GROUPS.ID_GROUP";
 
     final private static String SET_GROUP = "UPDATE STUDENTS "
-            + "SET GROUP_ID = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) WHERE ID_STUDENT = ?";
+            + "SET ID_GROUP = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) WHERE ID_STUDENT = ?";
 
     final private static String SET_CURATOR = "UPDATE STUDENTS "
             + "SET CURATOR = ? WHERE ID_STUDENT = ?";
