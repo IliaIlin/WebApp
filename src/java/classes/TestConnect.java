@@ -17,7 +17,10 @@ public class TestConnect {
 
 
 
-        dataBaseStudentDao.insertStudent("dada",1111,"1922-2-11",12);
+        dataBaseStudentDao.getAllStudents();
+
+        System.out.println(Xml.readStudents("students.xml").toString());
+
 
 
 

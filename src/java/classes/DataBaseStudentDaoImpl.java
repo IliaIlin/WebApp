@@ -220,7 +220,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
         resultSet = preparedStatement.executeQuery();
         createStudents();
-        Xml.write(students);
         return students;
     }
 
@@ -245,7 +244,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
-        Xml.write(students);
+        Xml.writeStudents(students);
         return students;
     }
 

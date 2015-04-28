@@ -109,7 +109,6 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
         resultSet = preparedStatement.executeQuery();
         createGroups();
-        Xml.write(groups);
         return groups;
     }
 
@@ -119,7 +118,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();
-        Xml.write(groups);
+        Xml.writeGroups(groups);
         return groups;
     }
 
