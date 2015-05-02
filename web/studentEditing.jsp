@@ -8,7 +8,7 @@
 <%@page import="classes.DataBaseStudentDaoImpl"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
-<%@page import="classes.DataSource"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
         <title>Student_Editing</title>
     </head>
     <body>
-        <%DataSource dataSource = new DataSource("pai", "11");
+        <%DataSourcePool dataSource = new DataSourcePool();
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
 
@@ -60,6 +60,8 @@
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
                     <%   }
                         }
+                        
+                        dataSource.close();
                     %>
                 </select>
             </div>

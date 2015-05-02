@@ -6,7 +6,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
-<%@page import="classes.DataSource"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,7 @@
                 <input type="submit" value="Submit" />
             </div>
             <%
-                DataSource dataSource = new DataSource("pai", "11");
+                DataSourcePool dataSource = new DataSourcePool();
                 DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                 boolean flag = true;
                 if (request.getParameter("GroupNo") != null
@@ -44,6 +44,8 @@
                                 request.getParameter("Faculty"));
                     }
                 }
+                
+                dataSource.close();
             %>
         </form>
     </body>

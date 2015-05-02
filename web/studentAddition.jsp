@@ -8,7 +8,7 @@
 <%@page import="classes.DataBaseStudentDaoImpl"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
-<%@page import="classes.DataSource"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbers">
                     <%
-                        DataSource dataSource = new DataSource("pai", "11");
+                        DataSourcePool dataSource = new DataSourcePool();
                         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                         ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>
@@ -70,6 +70,8 @@
                                 dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
                     }
                 }
+                
+                dataSource.close();
             %>
         </form>
     </body>

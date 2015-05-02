@@ -4,14 +4,15 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.naming.NamingException;
 
 /**
  * Created by Саша on 18.03.2015.
  */
 public class TestConnect {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException {
-        DataSource dataSource = new DataSource("root", "11");
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException, NamingException {
+        DataSourcePool dataSource = new DataSourcePool();
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDao dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 

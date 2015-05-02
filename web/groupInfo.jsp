@@ -7,7 +7,7 @@
 <%@page import="classes.Student"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
-<%@page import="classes.DataSource"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
         <title>Group_Info</title>
     </head>
     <body>
-        <% DataSource dataSource = new DataSource("pai", "11");
+        <% DataSourcePool dataSource = new DataSourcePool();
             DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         %>
 
@@ -91,6 +91,7 @@
                         </tr>
                         <%   }
 
+                            dataSource.close();
                         %>
                     </tbody>
                 </table> 
