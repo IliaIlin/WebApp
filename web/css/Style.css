@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 1000px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.header {
+    height: 100px;
+    // text-align: center;
+}
+.indexLeftColumn {
+    width: 500px;
+    float: left;
+}
+.indexRightColumn {
+    width: 500px;
+    float: right;
+}
+.inputStudent{
+    clear:both;
+    display:inline-block;
+    width:230px;
+    margin-top:100px;
+
+}
+.inputGroup{
+    clear:both;
+    display:inline-block;
+    width:150px;
+    margin-top:100px;
+}
+#Criteria{
+    border:1px black;
+    background-color:beige;
+}
+#centerColumnStudents {
+    margin: 20px 200px 100px 200px;
+    text-align: center;
+}
+#centerColumnGroups {
+    margin: 20px 350px 100px 350px;
+}
+#button{
+    margin-top:30px;
+}
+
+
