@@ -6,12 +6,12 @@ ment   : groupsTable
     Author     : Илья
 --%>
 
-<%@page import="classes.DataSourcePool"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,8 +22,7 @@ ment   : groupsTable
     </head>
     <body>
         <a href=index.jsp>Main Page</a>
-        <%
-            DataSourcePool dataSource = new DataSourcePool();
+        <%DataSourcePool dataSource = new DataSourcePool();
             DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
             if (request.getParameter("GroupNo") != null) {
                 ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();
@@ -98,11 +97,11 @@ ment   : groupsTable
                         <%
                             }
 
+                            dataSource.close();
                         %>
                     </tbody>
                 </table>
             </form>
-        </div>
-                        <% dataSource.close(); %>
+        </div> 
     </body>
 </html>

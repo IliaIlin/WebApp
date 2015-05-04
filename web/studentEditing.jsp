@@ -4,11 +4,11 @@
     Author     : Илья
 --%>
 
-<%@page import="classes.DataSourcePool"%>
 <%@page import="classes.Student"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -60,6 +60,8 @@
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
                     <%   }
                         }
+                        
+                        dataSource.close();
                     %>
                 </select>
             </div>
@@ -68,6 +70,5 @@
                 <input type="submit" value="Submit" />
             </div>
         </form>
-                <% dataSource.close();%>
     </body>
 </html>

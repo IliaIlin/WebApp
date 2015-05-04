@@ -4,11 +4,11 @@
     Author     : Илья
 --%>
 
-<%@page import="classes.DataSourcePool"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="classes.Student"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
+<%@page import="classes.DataSourcePool"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -165,12 +165,11 @@
                             <!--  <td><a href="">Delete</a></td> -->
                         </tr>
                         <%   }
-
+                          dataSource.close();
                         %>
                     </tbody>
                 </table> 
             </form>
         </div>
-                    <% dataSource.close(); %>
     </body>
 </html>

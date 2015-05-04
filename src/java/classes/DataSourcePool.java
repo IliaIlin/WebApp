@@ -18,7 +18,7 @@ public class DataSourcePool {
     public DataSourcePool() throws NamingException, 
             SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
         InitialContext ctx = new InitialContext();
-        DataSource ds =(DataSource)ctx.lookup("java:jboss/datasources/WebApp");
+        DataSource ds =(DataSource)ctx.lookup("java:jboss/jdbc/webapp");
         connection = ds.getConnection();
     }
     
@@ -29,4 +29,5 @@ public class DataSourcePool {
     public void close() throws SQLException {
         connection.close();
     }
-}  
+    
+}
