@@ -29,7 +29,7 @@ public interface DataBaseStudentDao {
 
     public void setDate(String date, long idStudent) throws SQLException;
 
-    public void imporT(String fileName) throws JAXBException, IOException;
+    public void imporT(String fileName) throws JAXBException, IOException, SQLException;
 
     public void export(String fileName) throws JAXBException, SQLException, IOException;
 

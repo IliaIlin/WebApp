@@ -305,7 +305,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
-        imporT();
+        export();
         return students;
     }
 
@@ -323,17 +323,17 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
 
-    public void imporT() throws JAXBException, IOException {
+    public void export() throws JAXBException, IOException {
         Xml.writeStudents(students);
     }
 
     @Override
-    public void imporT(String fileName) throws JAXBException, IOException {
+    public void export(String fileName) throws JAXBException, IOException {
         Xml.writeStudents(fileName, students);
     }
 
     @Override
-    public void export(String fileName) throws JAXBException, SQLException, IOException {
+    public void imporT(String fileName) throws JAXBException, IOException, SQLException {
         ArrayList<Student> studentsInTable = getAllStudents();
         ArrayList<Student> studentsExport = Xml.readStudents(fileName);
         ArrayList<Student> listAddWithoutCurator = new ArrayList<>();

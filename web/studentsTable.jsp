@@ -109,7 +109,7 @@
                                 argString.add(name);                                
                             }
                             if (groupNumber != null && !groupNumber.isEmpty()) {
-                                paramString.add("GROUP_NUMBER");
+                                paramString.add("groupNumber");
                                 argString.add(groupNumber);                                
                             }
                             if (dateInput != null && !dateInput.isEmpty()) {
@@ -134,14 +134,14 @@
                             ArrayList<Student> studentsFull = dataBaseStudentDao.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
-                                ArrayList<Group> groupToRedirect = dataBaseGroupDao.selectGroups(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
+                                ArrayList<Group> groupToRedirect = dataBaseGroupDao.selectGroups(new String[]{"groupNumber"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
                                 Group group = groupToRedirect.get(0);
 
                         %>
                         <tr>
                             <td><input type="checkbox" name="students" value="<%=student.getID()%>"</td>
                                     <td> <a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
-                            <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToShow=<%=String.valueOf(group.getFACULTY())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
+                            <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGroupNumber())%>&FacultyToShow=<%=String.valueOf(group.getFaculty())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
                             <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
                             <td> <%=""%> </td> 

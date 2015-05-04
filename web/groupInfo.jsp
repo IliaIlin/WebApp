@@ -57,7 +57,7 @@
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"GROUP_NUMBER"}, new String[]{request.getParameter("GroupNumberToShow")});
+                            ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"groupNumber"}, new String[]{request.getParameter("GroupNumberToShow")});
                             ArrayList<Student> studentsFull = dataBaseStudentDao.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);

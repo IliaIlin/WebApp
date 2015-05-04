@@ -126,7 +126,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();
-      //  imporT();
+      //  export();
         return groups;
     }
 
@@ -165,15 +165,15 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         return groups;
     }
 
-    public void imporT() throws JAXBException, IOException {
+    public void export() throws JAXBException, IOException {
         Xml.writeGroups(groups);
     }
 
-    public void imporT(String fileName) throws JAXBException, IOException {
+    public void export(String fileName) throws JAXBException, IOException {
         Xml.writeGroups(fileName, groups);
     }
 
-    public void export(String fileName) throws JAXBException, SQLException, IOException {
+    public void imporT(String fileName) throws JAXBException, SQLException, IOException {
         ArrayList<Group> groupsInTable = getAllGroups();
         ArrayList<Group> groupsExport = Xml.readGroups(fileName);
         ArrayList<Group> listAdd = new ArrayList<>();
