@@ -27,23 +27,21 @@ public class Group implements Serializable {
         return groupNumber;
     }
 
-    public String getFaculty() {
-        return faculty == null ? "" : faculty;
-    }
-
-    public long getID() {
-        return ID;
-    }
-
-
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
+    }
+
+    public String getFaculty() {
+        return faculty == null ? "" : faculty;
     }
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
 
+    public long getID() {
+        return ID;
+    }
 
     @Override
     public boolean equals(Object o) {
