@@ -50,6 +50,21 @@ public class Student implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (GROUP_STUDENT != student.GROUP_STUDENT) return false;
+        if (ID != student.ID) return false;
+        if (ID_CURATOR != student.ID_CURATOR) return false;
+        if (!NAME.equals(student.NAME)) return false;
+        return DATE_ENROLLMENT.equals(student.DATE_ENROLLMENT);
+
+    }
+
+    @Override
     public String toString() {
         return "Student{" +
                 "NAME='" + NAME + '\'' +
@@ -57,6 +72,6 @@ public class Student implements Serializable {
                 ", DATE_ENROLLMENT=" + DATE_ENROLLMENT +
                 ", ID=" + ID +
                 ", ID_CURATOR=" + ID_CURATOR +
-                '}';
+                "}";
     }
 }

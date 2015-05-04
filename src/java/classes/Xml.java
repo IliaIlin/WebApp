@@ -24,10 +24,23 @@ public class Xml {
         write(data, DataGroups.class);
     }
 
+    public static void writeGroups(String fileName, ArrayList groups) throws JAXBException, IOException {
+        DataGroups data = new DataGroups(groups);
+        outputStream = new FileOutputStream(fileName);
+        write(data, DataGroups.class);
+    }
+
 
     public static void writeStudents(ArrayList students) throws JAXBException, IOException {
         DataStudents data = new DataStudents(students);
         outputStream = new FileOutputStream(fileNameForStudents);
+        write(data, DataStudents.class);
+    }
+
+
+    public static void writeStudents(String fileName, ArrayList students) throws JAXBException, IOException {
+        DataStudents data = new DataStudents(students);
+        outputStream = new FileOutputStream(fileName);
         write(data, DataStudents.class);
     }
 
