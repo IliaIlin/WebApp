@@ -28,11 +28,11 @@ ment   : groupsTable
                 ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();
                 if (!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
                     dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-                            new String[]{"groupNumber", "faculty"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
+                            new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
                 }
                 else{
                    dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-                            new String[]{"faculty"}, new String[]{request.getParameter("Faculty")});
+                            new String[]{"FACULTY"}, new String[]{request.getParameter("Faculty")}); 
                 }
             }
             if (request.getParameter("Delete") != null) {
@@ -88,9 +88,9 @@ ment   : groupsTable
                         %>
                         <tr>
                             <td><input type="checkbox" name="groups" value="<%=String.valueOf(group.getID())%>"/></td>
-                            <td><a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGroupNumber())%>&FacultyToShow=<%=String.valueOf(group.getFaculty())%>"><%=String.valueOf(group.getGroupNumber())%></a></td>
-                            <td> <%=String.valueOf(group.getFaculty())%></td>
-                            <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGroupNumber())%>&FacultyToEdit=<%=String.valueOf(group.getFaculty())%>">
+                            <td><a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToShow=<%=String.valueOf(group.getFACULTY())%>"><%=String.valueOf(group.getGROUP_NUMBER())%></a></td>
+                            <td> <%=String.valueOf(group.getFACULTY())%></td>
+                            <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToEdit=<%=String.valueOf(group.getFACULTY())%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
                             <!-- <td><a href="">Delete</a></td> -->
                         </tr>
