@@ -75,11 +75,17 @@
                 </div>
             </form>
         </div> 
-
-        <div id="centerColumnStudents"> 
+       
+       <div id="button">
             <form name="Add" action="studentAddition.jsp">
                 <input type="submit" value="Add Student" />                
             </form>
+      
+       <form name="Import" action="studentsTable.jsp">
+                <input type="button" value="Import" />                
+            </form>
+       </div>
+       <div id="centerColumnStudents">
             <form name="studentsTable" action="studentsTable.jsp" method="GET">
                 <input type="submit" value="Delete"/>
                 <table border="1" >                                     
@@ -141,7 +147,7 @@
                         <tr>
                             <td><input type="checkbox" name="students" value="<%=student.getID()%>"</td>
                                     <td> <a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
-                            <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGROUP_NUMBER())%>&FacultyToShow=<%=String.valueOf(group.getFACULTY())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
+                            <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGroupNumber())%>&FacultyToShow=<%=String.valueOf(group.getFaculty())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
                             <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
                             <td> <%=""%> </td> 

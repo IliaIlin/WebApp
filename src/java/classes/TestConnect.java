@@ -16,8 +16,7 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-        dataBaseGroupDao.export("groups.xml");
-
+        dataBaseGroupDao.export("groups.xml");        
 
         ArrayList list = dataBaseGroupDao.getAllGroups();
         for (int i = 0; i < list.size(); i++) {
