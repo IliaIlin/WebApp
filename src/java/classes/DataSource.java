@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 /**
- * Created by Саша on 26.03.2015.
+ * Created by РЎР°С€Р° on 26.03.2015.
  */
 public class DataSource {
 

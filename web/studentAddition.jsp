@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="classes.Student"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
 <%@page import="classes.Group"%>
@@ -19,6 +20,7 @@
         <title>Student_Addition</title>
     </head>
     <body>
+        <%WebAppBean bean=new WebAppBean();%>
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Addition</h1>
         <form name="studentAddition" action="studentAddition.jsp" actionmethod="POST"> 
@@ -28,9 +30,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbers">
                     <%
-                        DataSourcePool dataSource = new DataSourcePool();
-                        DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-                        ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
                     <%  }
@@ -43,8 +43,8 @@
             <div class="inputStudent">
                 Curator ID:<select name="Curators">
                     <option value="0"></option>
-                    <% DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-                        ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
+                    <%
+                        ArrayList<Student> students = bean.getAllStudents();
                         for (Student student : students) {%>
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>
                     <% }
@@ -61,18 +61,17 @@
                         && request.getParameter("Date") != null) {
                     String dateInput = request.getParameter("Date");
                     if (request.getParameterValues("Curators")[0] == "0") {  // addition without curator
-                        dataBaseStudentDao.insertStudent(request.getParameter("Name"),
+                        bean.addStudentWithoutCurator(request.getParameter("Name"),
                                 Integer.parseInt(request.getParameter("GroupNumbers")),
                                 dateInput);
                     } else {
-                        dataBaseStudentDao.insertStudent(request.getParameter("Name"),
+                        bean.addStudentWithCurator(request.getParameter("Name"),
                                 Integer.parseInt(request.getParameter("GroupNumbers")),
                                 dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
                     }
                 }
-                
-                dataSource.close();
             %>
         </form>
+        <%bean.remove();%>
     </body>
 </html>

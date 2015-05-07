@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="classes.Student"%>
@@ -19,29 +20,27 @@
         <title>Students Table</title>
     </head>
     <body>
+        <%WebAppBean bean = new WebAppBean();%>
         <a href=index.jsp>Main Page</a>
-        <%DataSourcePool dataSource = new DataSourcePool();
-            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-            DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-            if (request.getParameter("NameEditing") != null) {
+        <%  if (request.getParameter("NameEditing") != null) {
                 long id = Long.parseLong(request.getParameter("ID"));
-                dataBaseStudentDao.setName(request.getParameter("NameEditing"), id);
-                dataBaseStudentDao.setGroup(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
-                dataBaseStudentDao.setDate(request.getParameter("DateEditing"), id);                
+                bean.editNameOfStudent(request.getParameter("NameEditing"), id);
+                bean.editGroupOfStudent(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
+                bean.editDateOfStudent(request.getParameter("DateEditing"), id);
                 Long curatorId = Long.parseLong(request.getParameterValues("CuratorsEditing")[0]);
-                dataBaseStudentDao.setCurator(curatorId, id);                
+                bean.editCuratorOfStudent(curatorId, id);
             }
             if (request.getParameter("Delete") != null) {
-                dataBaseStudentDao.deleteStudents(new long[]{Long.parseLong(request.getParameter("ID"))});
+                bean.removeStudents(new long[]{Long.parseLong(request.getParameter("ID"))});
             }
-            
+
             if (request.getParameter("students") != null) {
                 String[] idToDelete = request.getParameterValues("students");
                 long[] id = new long[idToDelete.length];
                 for (int i = 0; i < idToDelete.length; i++) {
                     id[i] = Long.parseLong(idToDelete[i]);
                 }
-                dataBaseStudentDao.deleteStudents(id);
+                bean.removeStudents(id);
             }
         %>
         <div class="header">
@@ -52,8 +51,8 @@
                 Name:<input type="text" name="NameCriteria" value=""/>
                 Group number:<select name="GroupNumbersCriteria">
                     <option></option>
-                    <%                
-                        ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
+                    <%
+                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
                     <%  }
@@ -62,8 +61,8 @@
                 Date:<input type="date" name="DateCriteria"/>
                 Curator ID:<select name="CuratorsCriteria">
                     <option></option>
-                    <%    
-                        ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
+                    <%
+                        ArrayList<Student> students = bean.getAllStudents();
                         for (Student student : students) {%>
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%> </option>
                     <% }
@@ -75,17 +74,18 @@
                 </div>
             </form>
         </div> 
-       
-       <div id="button">
+
+        <div id="button">
             <form name="Add" action="studentAddition.jsp">
                 <input type="submit" value="Add Student" />                
             </form>
-      
-       <form name="Import" action="studentsTable.jsp">
-                <input type="button" value="Import" />                
+
+            <form name="import" action="studentsTable.jsp" method="POST">
+                <input type="file" name="file_to_import" value="Choose_File"/>
+                <input type="submit" name="import_sub" value="Import"/>                
             </form>
-       </div>
-       <div id="centerColumnStudents">
+        </div>
+        <div id="centerColumnStudents">
             <form name="studentsTable" action="studentsTable.jsp" method="GET">
                 <input type="submit" value="Delete"/>
                 <table border="1" >                                     
@@ -97,12 +97,11 @@
                             <th style="width:100px">Date</th>
                             <th style="width:100px">Curator</th>
                             <th style="width:100px"></th>
-                            <!-- <th style="width:100px"></th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <%        
-                            students = dataBaseStudentDao.getAllStudents();
+                        <%
+                            students = bean.getAllStudents();
                             String name = request.getParameter("NameCriteria");
                             String groupNumber = request.getParameter("GroupNumbersCriteria");
                             String dateInput = request.getParameter("DateCriteria");
@@ -112,15 +111,15 @@
                             String[] param, arg;
                             if (name != null && !name.isEmpty()) {
                                 paramString.add("NAME");
-                                argString.add(name);                                
+                                argString.add(name);
                             }
                             if (groupNumber != null && !groupNumber.isEmpty()) {
                                 paramString.add("GROUP_NUMBER");
-                                argString.add(groupNumber);                                
+                                argString.add(groupNumber);
                             }
                             if (dateInput != null && !dateInput.isEmpty()) {
                                 paramString.add("DATE");
-                                argString.add(dateInput);                                
+                                argString.add(dateInput);
                             }
                             if (curator != null && !curator.isEmpty()) {
                                 paramString.add("CURATOR");
@@ -128,7 +127,7 @@
                                     argString.add("0");
                                 } else {
                                     argString.add(curator);
-                                }                                
+                                }
                             }
                             param = new String[paramString.size()];
                             arg = new String[paramString.size()];
@@ -136,26 +135,26 @@
                                 param[i] = paramString.get(i);
                                 arg[i] = argString.get(i);
                             }
-                            students = dataBaseStudentDao.selectStudents(param, arg);
-                            ArrayList<Student> studentsFull = dataBaseStudentDao.getAllStudents();
+                            students = bean.getStudentsByCriterium(param, arg);
+                            ArrayList<Student> studentsFull = bean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
-                                ArrayList<Group> groupToRedirect = dataBaseGroupDao.selectGroups(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
+                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
                                 Group group = groupToRedirect.get(0);
 
                         %>
                         <tr>
                             <td><input type="checkbox" name="students" value="<%=student.getID()%>"</td>
-                                    <td> <a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
+                            <td> <a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
                             <td> <a href="http://localhost:8080/WebApp/groupInfo.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToShow=<%=String.valueOf(group.getGroupNumber())%>&FacultyToShow=<%=String.valueOf(group.getFaculty())%>"><%=String.valueOf(student.getGROUP_STUDENT())%></a></td>
                             <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
                             <td> <%=""%> </td> 
                             <%   } else {%>
-                            <td><% long id = student.getID_CURATOR();                                
+                            <td><% long id = student.getID_CURATOR();
                                 A:
                                 for (int j = 0; j < studentsFull.size(); j++) {
-                                    if (studentsFull.get(j).getID() == id) {                                        %>
+                                    if (studentsFull.get(j).getID() == id) {%>
                                 <%=studentsFull.get(j).getNAME()%>
                                 <%   break A;
                                     }
@@ -164,18 +163,16 @@
                             </td>
 
 
-                            <%    
-                                }                                %>
-                                   <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
+                            <%
+                                }%>
+                            <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
-                            <!--  <td><a href="">Delete</a></td> -->
                         </tr>
-                        <%   }
-                          dataSource.close();
-                        %>
+                        <%}%>
                     </tbody>
                 </table> 
             </form>
         </div>
+        <%bean.remove();%>
     </body>
 </html>

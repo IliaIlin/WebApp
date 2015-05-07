@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseGroupDaoImpl"%>
 <%@page import="classes.DataSourcePool"%>
@@ -16,7 +17,8 @@
         <title>Group_Addition</title>
     </head>
     <body>
-        <a href=groupsTable.jsp>Groups Table</a>
+        <% WebAppBean bean = new WebAppBean(); %> 
+        <a href=groupsTable.jsp>Groups Table</a>     
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
             <div class="inputGroup">
@@ -30,23 +32,20 @@
                 <input type="submit" value="Submit" />
             </div>
             <%
-                DataSourcePool dataSource = new DataSourcePool();
-                DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
                 boolean flag = true;
                 if (request.getParameter("GroupNo") != null
                         && request.getParameter("Faculty") != null && !request.getParameter("Faculty").isEmpty()) {
-                    ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();
+                    ArrayList<Integer> groupNumbers = bean.getGroupNumbers();
                     if (groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
                         flag = false;
                     }
                     if (flag) {
-                        dataBaseGroupDao.insertGroup(Integer.parseInt(request.getParameter("GroupNo")),
+                        bean.addGroup(Integer.parseInt(request.getParameter("GroupNo")),
                                 request.getParameter("Faculty"));
                     }
                 }
-                
-                dataSource.close();
             %>
         </form>
+        <% bean.remove();%>
     </body>
 </html>

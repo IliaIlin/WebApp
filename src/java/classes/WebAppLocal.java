@@ -18,7 +18,7 @@ import javax.xml.bind.JAXBException;
  * @author Илья
  */
 @Local
-public interface SessionBeanLocal extends EJBObject{
+public interface WebAppLocal extends EJBObject{
 
     public void create() throws ClassNotFoundException,NamingException,SQLException,InstantiationException,IllegalAccessException;
 
@@ -36,5 +36,22 @@ public interface SessionBeanLocal extends EJBObject{
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
     
-    
+    public void addStudentWithCurator(String name, int numberGroup, String date, long idCurator) throws SQLException;
+
+    public void addStudentWithoutCurator(String name, int numberGroup, String date) throws SQLException;
+
+    public ArrayList<Student> getStudentsByCriterium(String param[], String arg[]) throws SQLException, IOException, JAXBException;
+
+    public void removeStudents(long id[]) throws SQLException;
+
+    public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException;
+
+    public void editGroupOfStudent(int numberGroup, long id) throws SQLException;
+
+    public void editCuratorOfStudent(long idCurator, long idStudent) throws SQLException;
+
+    public void editNameOfStudent(String name, long idStudent) throws SQLException;
+
+    public void editDateOfStudent(String date, long idStudent) throws SQLException;
+
 }

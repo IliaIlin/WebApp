@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="classes.Student"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
@@ -17,10 +18,7 @@
         <title>Group_Info</title>
     </head>
     <body>
-        <% DataSourcePool dataSource = new DataSourcePool();
-            DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-        %>
-
+        <% WebAppBean bean = new WebAppBean();%>
         <a href=groupsTable.jsp>Groups Table</a>
         <h1 style="margin-top: 100px">Group Info</h1>
         <form name="groupInfo" action="groupsTable.jsp" actionmethod="POST">
@@ -57,15 +55,15 @@
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<Student> students = dataBaseStudentDao.selectStudents(new String[]{"GROUP_NUMBER"}, new String[]{request.getParameter("GroupNumberToShow")});
-                            ArrayList<Student> studentsFull = dataBaseStudentDao.getAllStudents();
+                            ArrayList<Student> students = bean.getStudentsByCriterium(new String[]{"GROUP_NUMBER"}, new String[]{request.getParameter("GroupNumberToShow")});
+                            ArrayList<Student> studentsFull = bean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
 
                         %>
                         <tr>
                             <td><input type="checkbox" name="students" value="<%=student.getID()%>"</td>
-                                   <td><a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
+                            <td><a href="http://localhost:8080/WebApp/studentInfo.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToShow=<%=student.getNAME()%>&StudentGroupToShow=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToShow=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToShow=<%=student.getID_CURATOR()%>"><%=String.valueOf(student.getNAME())%></a></td>
                             <td><%=String.valueOf(student.getGROUP_STUDENT())%></td>
                             <td> <%=String.valueOf(student.getDATE_ENROLLMENT())%></td>
                             <% if (Integer.parseInt(String.valueOf(student.getID_CURATOR())) == 0) {%>
@@ -85,17 +83,15 @@
 
                             <%
                                 }%>
-                                   <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
+                            <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
                             <td><a href="">Delete</a></td>
                         </tr>
-                        <%   }
-
-                            dataSource.close();
-                        %>
+                        <%}%>
                     </tbody>
                 </table> 
             </form>
         </div>
+        <%bean.remove();%>
     </body>
 </html>

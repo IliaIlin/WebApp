@@ -2,6 +2,7 @@ package classes;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ public class DataStudents implements Data {
     @XmlElement
     private ArrayList<Student> students;
 
+    
     private DataStudents() {
     }
 

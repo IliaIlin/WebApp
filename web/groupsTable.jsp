@@ -6,7 +6,7 @@ ment   : groupsTable
     Author     : Илья
 --%>
 
-<%@page import="classes.SessionBean"%>
+<%@page import="classes.WebAppBean"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="classes.Group"%>
@@ -23,45 +23,41 @@ ment   : groupsTable
     </head>
     <body>
         <a href=index.jsp>Main Page</a>
-        <%  //DataSourcePool dataSource = new DataSourcePool();
-           // DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-            SessionBean sessionbean=new SessionBean();
-            sessionbean.create();
-         //   if (request.getParameter("GroupNo") != null) {
-       //         ArrayList<Integer> groupNumbers = dataBaseGroupDao.getGroupNumbers();
-       //         if (!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
-       //             dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-       //                     new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
-       //         }
-       //         else{
-       //            dataBaseGroupDao.updateGroups(Long.parseLong(request.getParameter("ID")),
-      //                      new String[]{"FACULTY"}, new String[]{request.getParameter("Faculty")}); 
-      //          }
-      //      }
-      //      if (request.getParameter("Delete") != null) {
-      //          ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
-      //          if (emptyIDs.contains(Long.parseLong(request.getParameter("ID")))) {
-      //              dataBaseGroupDao.deleteGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
-      //         }
-      //      }
+        <% WebAppBean bean = new WebAppBean();
+            if (request.getParameter("GroupNo") != null) {
+                ArrayList<Integer> groupNumbers = bean.getGroupNumbers();
+                if (!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
+                    bean.editGroup(Long.parseLong(request.getParameter("ID")),
+                            new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
+                } else {
+                    bean.editGroup(Long.parseLong(request.getParameter("ID")),
+                            new String[]{"FACULTY"}, new String[]{request.getParameter("Faculty")});
+                }
+            }
+            if (request.getParameter("Delete") != null) {
+                ArrayList<Long> emptyIDs = bean.getEmptyGroupIDs();
+                if (emptyIDs.contains(Long.parseLong(request.getParameter("ID")))) {
+                    bean.removeGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
+                }
+            }
 
-        //    if (request.getParameter("groups") != null) {
-       //         ArrayList<Long> emptyIDs = dataBaseGroupDao.getEmptyGroupIDs();
-       //         String[] idToDelete = request.getParameterValues("groups");
-       //         ArrayList<Long> id = new ArrayList<>();
-       //         for (int i = 0; i < idToDelete.length; i++) {
-       //             if (emptyIDs.contains(Long.parseLong(idToDelete[i]))) {
-       //                 id.add(Long.parseLong(idToDelete[i]));
-       //             }
-      //          }
-      //          long[] idToDeleteEmpty = new long[id.size()];
-      //          for (int i = 0; i < id.size(); i++) {
-       //             idToDeleteEmpty[i] = id.get(i);
-       //         }
-      //          if (idToDeleteEmpty.length != 0) {
-       //             dataBaseGroupDao.deleteGroups(idToDeleteEmpty);
-       //         }
-       //     }
+            if (request.getParameter("groups") != null) {
+                ArrayList<Long> emptyIDs = bean.getEmptyGroupIDs();
+                String[] idToDelete = request.getParameterValues("groups");
+                ArrayList<Long> id = new ArrayList<>();
+                for (int i = 0; i < idToDelete.length; i++) {
+                    if (emptyIDs.contains(Long.parseLong(idToDelete[i]))) {
+                        id.add(Long.parseLong(idToDelete[i]));
+                    }
+                }
+                long[] idToDeleteEmpty = new long[id.size()];
+                for (int i = 0; i < id.size(); i++) {
+                    idToDeleteEmpty[i] = id.get(i);
+                }
+                if (idToDeleteEmpty.length != 0) {
+                    bean.removeGroups(idToDeleteEmpty);
+                }
+            }
         %>
         <div class="header">
             <h1>Groups Table</h1>
@@ -80,12 +76,11 @@ ment   : groupsTable
                             <th style="width:100px">group №</th>
                             <th style="width:100px">Faculty</th>
                             <th style="width:100px"></th>
-                            <!--   <th style="width:100px"></th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<Group> groups = sessionbean.getAllGroups();
+                            ArrayList<Group> groups = bean.getAllGroups();
                             for (int i = 0; i < groups.size(); i++) {
                                 Group group = groups.get(i);
                         %>
@@ -95,16 +90,14 @@ ment   : groupsTable
                             <td> <%=String.valueOf(group.getFaculty())%></td>
                             <td><a href="http://localhost:8080/WebApp/groupEditing.jsp?GroupID=<%=String.valueOf(group.getID())%>&GroupNumberToEdit=<%=String.valueOf(group.getGroupNumber())%>&FacultyToEdit=<%=String.valueOf(group.getFaculty())%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
-                            <!-- <td><a href="">Delete</a></td> -->
                         </tr>
-                        <%
-                            }
-
-                           // dataSource.close();
-                        %>
+                        <%}%>
                     </tbody>
                 </table>
             </form>
-        </div> 
+        </div>
+        <%           
+            bean.remove();
+        %>          
     </body>
 </html>

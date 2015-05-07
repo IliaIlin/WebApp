@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="classes.Student"%>
 <%@page import="classes.DataBaseStudentDaoImpl"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,11 +19,7 @@
         <title>Student_Editing</title>
     </head>
     <body>
-        <%DataSourcePool dataSource = new DataSourcePool();
-            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-            DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-
-        %>
+        <%WebAppBean bean = new WebAppBean();%>
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Editing</h1>
         <form name="studentEditing" action="studentsTable.jsp" actionmethod="POST">
@@ -35,7 +32,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbersEditing">
                     <%
-                        ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {
                             if (groupsNumber.get(i) != Integer.parseInt(request.getParameter("StudentGroupToEdit"))) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
@@ -52,7 +49,7 @@
             <div class="inputStudent">
                 Curator ID:<select name="CuratorsEditing" >
                     <option value="0"></option>
-                    <%  ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
+                    <%  ArrayList<Student> students = bean.getAllStudents();
                         for (Student student : students) {
                             if (student.getID() == Long.parseLong(request.getParameter("StudentCuratorToEdit"))) {%>
                     <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
@@ -60,8 +57,6 @@
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>    
                     <%   }
                         }
-                        
-                        dataSource.close();
                     %>
                 </select>
             </div>
@@ -70,5 +65,6 @@
                 <input type="submit" value="Submit" />
             </div>
         </form>
+        <%bean.remove();%>
     </body>
 </html>

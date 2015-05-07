@@ -4,6 +4,7 @@
     Author     : Илья
 --%>
 
+<%@page import="classes.WebAppBean"%>
 <%@page import="classes.Group"%>
 <%@page import="classes.Student"%>
 <%@page import="java.util.ArrayList"%>
@@ -19,10 +20,7 @@
         <title>Student_Info</title>
     </head>
     <body>
-        <% DataSourcePool dataSource = new DataSourcePool();
-            DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
-            DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
-        %>
+        <% WebAppBean bean = new WebAppBean();%>
 
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Info</h1>
@@ -36,7 +34,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbersEditing">
                     <%
-                        ArrayList<Integer> groupsNumber = dataBaseGroupDao.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {
                             if (groupsNumber.get(i) != Integer.parseInt(request.getParameter("StudentGroupToShow"))) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
@@ -53,7 +51,7 @@
             <div class="inputStudent">
                 Curator ID:<select name="CuratorsEditing" >
                     <option value="0"></option>
-                    <%  ArrayList<Student> students = dataBaseStudentDao.getAllStudents();
+                    <%  ArrayList<Student> students = bean.getAllStudents();
                         for (Student student : students) {
                             if (student.getID() == Long.parseLong(request.getParameter("StudentCuratorToShow"))) {%>
                     <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
@@ -82,17 +80,16 @@
                             <th style="width:100px">Date</th>
                             <th style="width:100px">Curator</th>
                             <th style="width:100px"></th>
-                            <!-- <th style="width:100px"></th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <%
                             String curator = request.getParameter("StudentID");
-                            students = dataBaseStudentDao.selectStudents(new String[]{"CURATOR"}, new String[]{curator});
-                            ArrayList<Student> studentsFull = dataBaseStudentDao.getAllStudents();
+                            students = bean.getStudentsByCriterium(new String[]{"CURATOR"}, new String[]{curator});
+                            ArrayList<Student> studentsFull = bean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
-                                ArrayList<Group> groupToRedirect = dataBaseGroupDao.selectGroups(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
+                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
                                 Group group = groupToRedirect.get(0);
 
                         %>
@@ -117,17 +114,18 @@
 
 
                             <%
-                                }%>
+                                }
+                                %>
                             <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
-                            <!--  <td><a href="">Delete</a></td> -->
                         </tr>
-                        <%   }
-                          dataSource.close();
-                        %>
-                    </tbody>
+                       <%
+                            }
+                            %>
+                    </tbody>          
                 </table> 
             </form>
         </div>
+        <%bean.remove();%>
     </body>
 </html>

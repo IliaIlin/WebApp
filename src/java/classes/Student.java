@@ -5,16 +5,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAttribute;
 
 
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
+//@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Student implements Serializable {
 
+    @XmlAttribute
     private String NAME;
+    @XmlAttribute
     private int GROUP_STUDENT;
+    @XmlAttribute
     private Date DATE_ENROLLMENT;
+    @XmlAttribute
     private long ID;
+    @XmlAttribute
     private long ID_CURATOR;
 
 
