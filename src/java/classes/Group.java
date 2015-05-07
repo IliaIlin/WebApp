@@ -2,16 +2,20 @@ package classes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
+//@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Group implements Serializable {
 
+    @XmlAttribute
     private int groupNumber;
+    @XmlAttribute
     private String faculty;
+    @XmlAttribute
     private long ID;
 
     private Group() {
@@ -27,16 +31,8 @@ public class Group implements Serializable {
         return groupNumber;
     }
 
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
-    }
-
     public String getFaculty() {
         return faculty == null ? "" : faculty;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
     }
 
     public long getID() {

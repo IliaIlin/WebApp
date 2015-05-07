@@ -31,7 +31,7 @@ public interface DataBaseStudentDao {
 
     public void imporT(String fileName) throws JAXBException, IOException, SQLException;
 
-    public void export(String fileName) throws JAXBException, SQLException, IOException;
+    public void export(String fileName, long id[]) throws JAXBException, SQLException, IOException;
 
 
 }

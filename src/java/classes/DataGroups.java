@@ -2,16 +2,17 @@ package classes;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
 
 /**
  * Created by ���� on 15-Apr-15.
  */
 
-@XmlRootElement
+@XmlRootElement(name = "groups")
 public class DataGroups implements Data {
 
-    @XmlElement
+    @XmlElement(name = "group")
     private ArrayList<Group> groups;
 
     private DataGroups() {

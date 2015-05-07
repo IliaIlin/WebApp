@@ -71,6 +71,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + "SET  NAME = ? , ID_GROUP = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , DATE = ? WHERE ID_STUDENT = ?";
 
 
+
+
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_ID_GROUP = 2;
     final private static int INDEX_COLUMB_DATE = 3;
@@ -305,7 +307,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
-        export();
+   //     export();
         return students;
     }
 
@@ -323,12 +325,28 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
 
-    public void export() throws JAXBException, IOException {
+   /* public void export(long id[]) throws JAXBException, IOException {
         Xml.writeStudents(students);
-    }
+    }*/
 
     @Override
-    public void export(String fileName) throws JAXBException, IOException {
+    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException {
+        String statement = SELECT_STUDENTS;
+        if (id.length == 0) {
+            return;
+        }
+        statement += " AND STUDENTS.ID_STUDENT IN ( ? ";
+        for (int i = 1; i < id.length; i++) {
+            statement += " , ? ";
+        }
+        statement += " )";
+        preparedStatement = connection.prepareStatement(statement);
+        System.out.println(statement);
+        for (int i = 0; i < id.length; i++) {
+            preparedStatement.setLong(i + 1, id[i]);
+        }
+        resultSet = preparedStatement.executeQuery();
+        createStudents();
         Xml.writeStudents(fileName, students);
     }
 

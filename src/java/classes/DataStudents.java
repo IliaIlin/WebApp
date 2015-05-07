@@ -9,10 +9,10 @@ import java.util.ArrayList;
  * Created by ���� on 15-Apr-15.
  */
 
-@XmlRootElement
+@XmlRootElement(name = "students")
 public class DataStudents implements Data {
 
-    @XmlElement
+    @XmlElement(name = "student")
     private ArrayList<Student> students;
 
     

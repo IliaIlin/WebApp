@@ -1,7 +1,6 @@
 package classes;
 
 
-
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,6 +24,10 @@ public interface DataBaseGroupDao {
     public ArrayList<Integer> getGroupNumbers() throws SQLException;
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
+
+    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException;
+
+    public void imporT(String fileName) throws JAXBException, SQLException, IOException;
 
 
     }

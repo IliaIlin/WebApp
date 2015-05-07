@@ -16,7 +16,6 @@ import java.util.TreeSet;
 public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     final private static String INSERT_GROUP = "INSERT INTO GROUPS (GROUP_NUMBER, FACULTY) VALUES ( ? , ?)";
-    final private static String INSERT = "INSERT INTO GROUPS (GROUP_NUMBER, FACULTY, ID_GROUP) VALUES ( ? , ? , ?)";
     final private static String DELETE_GROUP = "DELETE FROM GROUPS WHERE ID_GROUP IN (";
     final private static String SELECT_ALL_GROUPS = "SELECT * FROM GROUPS";
     final private static String SELECT_GROUPS = "SELECT * FROM GROUPS WHERE ";
@@ -58,8 +57,24 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         preparedStatement.setLong(i, id);
         preparedStatement.executeUpdate();
+    }
 
 
+    private void updateGroups(int numberGroup, String param[], String arg[]) throws SQLException {  //ok
+        String statement = UPDATE_GROUP;
+        for (int i = 0; i < param.length; i++) {
+            statement += param[i] + " = ? ";
+            if (i != param.length - 1)
+                statement += " , ";
+        }
+        statement += " WHERE GROUP_NUMBER = ?";
+        preparedStatement = connection.prepareStatement(statement);
+        int i;
+        for (i = 1; i <= arg.length; i++) {
+            preparedStatement.setString(i, arg[i - 1]);
+        }
+        preparedStatement.setLong(i, numberGroup);
+        preparedStatement.executeUpdate();
     }
 
 
@@ -71,13 +86,6 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement.executeUpdate();
     }
 
-    private void insertGroup(int numberGroup, String faculty, long id) throws SQLException {  //ok
-        preparedStatement = connection.prepareStatement(INSERT);
-        preparedStatement.setInt(1, numberGroup);
-        preparedStatement.setString(2, faculty);
-        preparedStatement.setLong(2, id);
-        preparedStatement.executeUpdate();
-    }
 
     @Override
     public void deleteGroups(long[] id) throws SQLException {  //ok
@@ -126,7 +134,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();
-        //  export();
+//          export();
         return groups;
     }
 
@@ -165,11 +173,23 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         return groups;
     }
 
-    public void export() throws JAXBException, IOException {
-        Xml.writeGroups(groups);
-    }
 
-    public void export(String fileName) throws JAXBException, IOException {
+    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException {
+        String statement = SELECT_ALL_GROUPS;
+        if (id.length == 0) return;
+        statement += " WHERE ID_GROUP IN ( ? ";
+        for (int i = 1; i < id.length; i++) {
+            statement += " , ? ";
+        }
+        statement += ")";
+        System.out.println(statement);
+        preparedStatement = connection.prepareStatement(statement);
+
+        for (int i = 0; i < id.length; i++) {
+            preparedStatement.setLong(i + 1, id[i]);
+        }
+        resultSet = preparedStatement.executeQuery();
+        createGroups();
         Xml.writeGroups(fileName, groups);
     }
 
@@ -178,10 +198,10 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         ArrayList<Group> groupsExport = Xml.readGroups(fileName);
         ArrayList<Group> listAdd = new ArrayList<>();
         ArrayList<Group> listSet = new ArrayList<>();
-        Set<Long> setIdOld = new TreeSet<>();
+        Set<Integer> setNumbersGroups = new TreeSet<>();
 
         for (int i = 0; i < groupsInTable.size(); i++) {
-            setIdOld.add(groupsInTable.get(i).getID());
+            setNumbersGroups.add(groupsInTable.get(i).getGroupNumber());
         }
 
 
@@ -190,39 +210,27 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
             Group group = groupsExport.get(i);
             for (int j = 0; j < groupsInTable.size(); j++) {
                 if (groupsInTable.get(j).equals(group)) {
-                    //      groupsInTable.remove(j);
+                    groupsInTable.remove(j);
                     isRemoved = true;
                     break;
                 }
             }
             if (!isRemoved) {
-                if (setIdOld.contains(group.getID())) {
-                    listAdd.add(group);
-                } else {
+                if (setNumbersGroups.contains(group.getGroupNumber())) {
                     listSet.add(group);
+                } else {
+                    listAdd.add(group);
                 }
 
             }
         }
-        for (int i = 0; i < groupsInTable.size(); i++) {
-            for (int j = 0; j < listSet.size(); j++) {
-                if (groupsInTable.get(i).getID() == listSet.get(j).getID())
-                    groupsInTable.set(i, listSet.get(j));
-            }
-        }
         for (int i = 0; i < listAdd.size(); i++) {
-            for (int j = 0; j < groupsInTable.size(); j++) {
-                if (groupsInTable.get(j).getGroupNumber() == listAdd.get(i).getGroupNumber())
-                    listAdd.remove(--i);
-            }
+            Group group = listAdd.get(i);
+            insertGroup(group.getGroupNumber(), group.getFaculty());
         }
         for (int i = 0; i < listSet.size(); i++) {
             Group group = listSet.get(i);
-            updateGroups(group.getID(), new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{group.getGroupNumber() + "", group.getFaculty()});
-        }
-        for (int i = 0; i < listAdd.size(); i++) {
-            Group group = listAdd.get(i);
-            insertGroup(group.getGroupNumber(), group.getFaculty(), group.getID());
+            updateGroups(group.getGroupNumber(), new String[]{"FACULTY"}, new String[]{group.getFaculty()});
         }
 
     }
