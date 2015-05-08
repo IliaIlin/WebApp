@@ -43,11 +43,12 @@ ment   : groupsTable
 
             if (request.getParameter("groups") != null) {
                 ArrayList<Long> emptyIDs = bean.getEmptyGroupIDs();
-                String[] idToDelete = request.getParameterValues("groups");
+                String[] checkedId = request.getParameterValues("groups");
+                if(request.getParameter("export")==null){
                 ArrayList<Long> id = new ArrayList<>();
-                for (int i = 0; i < idToDelete.length; i++) {
-                    if (emptyIDs.contains(Long.parseLong(idToDelete[i]))) {
-                        id.add(Long.parseLong(idToDelete[i]));
+                for (int i = 0; i < checkedId.length; i++) {
+                    if (emptyIDs.contains(Long.parseLong(checkedId[i]))) {
+                        id.add(Long.parseLong(checkedId[i]));
                     }
                 }
                 long[] idToDeleteEmpty = new long[id.size()];
@@ -56,19 +57,34 @@ ment   : groupsTable
                 }
                 if (idToDeleteEmpty.length != 0) {
                     bean.removeGroups(idToDeleteEmpty);
+                    }
                 }
-            }
+                else{
+                    long[] id = new long[checkedId.length];
+                for (int i = 0; i < checkedId.length; i++) {
+                    id[i] = Long.parseLong(checkedId[i]);
+                }
+                bean.exportGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml", id);
+                }
+                }           
         %>
         <div class="header">
             <h1>Groups Table</h1>
         </div>
 
-        <div id="centerColumnGroups">
+        <div id="button">
             <form name="Add" action="groupAddition.jsp">
                 <input type="submit" value="Add Group"/>
             </form>
+            <form name="import" action="groupsTable.jsp" method="POST">
+                <input type="file" name="file_to_import" value="Choose_File"/>
+                <input type="submit" name="import_sub" value="Import"/>                
+            </form>
+        </div>
+            <div id="centerColumnGroups">
             <form name="Table" action="groupsTable.jsp" method="GET">
                 <input type="submit" action="groupsTable.jsp" value="Delete"/>
+                <input type="submit" name="export" value="Export"/>
                 <table border="1" >
                     <thead>
                         <tr>

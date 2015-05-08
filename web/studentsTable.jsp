@@ -35,13 +35,18 @@
             }
 
             if (request.getParameter("students") != null) {
-                String[] idToDelete = request.getParameterValues("students");
-                long[] id = new long[idToDelete.length];
-                for (int i = 0; i < idToDelete.length; i++) {
-                    id[i] = Long.parseLong(idToDelete[i]);
+                String[] checkedId = request.getParameterValues("students");
+                long[] id = new long[checkedId.length];
+                for (int i = 0; i < checkedId.length; i++) {
+                    id[i] = Long.parseLong(checkedId[i]);
                 }
+                if(request.getParameter("export")==null){
                 bean.removeStudents(id);
             }
+                else{
+                    bean.exportStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml",id);
+                }
+                }
         %>
         <div class="header">
             <h1>Students Table</h1>
@@ -88,6 +93,7 @@
         <div id="centerColumnStudents">
             <form name="studentsTable" action="studentsTable.jsp" method="GET">
                 <input type="submit" value="Delete"/>
+                <input type="submit" name="export" value="Export"/>
                 <table border="1" >                                     
                     <thead>
                         <tr>

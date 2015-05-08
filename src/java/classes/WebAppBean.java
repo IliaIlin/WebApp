@@ -147,4 +147,14 @@ public class WebAppBean implements WebAppLocal {
     public void editDateOfStudent(String date, long idStudent) throws SQLException {
         studentDao.setDate(date, idStudent);
     }
+    
+    @Override
+    public void exportStudents(String fileName, long[] id) throws JAXBException, SQLException, IOException {
+        studentDao.export(fileName, id);
+    }
+
+    @Override
+    public void exportGroups(String fileName, long[] id) throws JAXBException, SQLException, IOException {
+        groupDao.export(fileName, id);
+    }
 }

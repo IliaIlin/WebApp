@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<students>
+    <student name="Gref" groupSTUDENT="2040" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="16" idCURATOR="15"/>
+    <student name="Merry" groupSTUDENT="2040" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="15" idCURATOR="0"/>
+    <student name="Fred" groupSTUDENT="2026" dateENROLLMENT="2015-05-14T00:00:00+04:00" id="14" idCURATOR="0"/>
+</students>

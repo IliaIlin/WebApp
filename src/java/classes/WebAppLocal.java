@@ -53,5 +53,9 @@ public interface WebAppLocal extends EJBObject{
     public void editNameOfStudent(String name, long idStudent) throws SQLException;
 
     public void editDateOfStudent(String date, long idStudent) throws SQLException;
+    
+    public void exportStudents(String fileName, long id[]) throws JAXBException, SQLException, IOException;
+    
+    public void exportGroups(String fileName, long id[]) throws JAXBException, SQLException, IOException;
 
 }
