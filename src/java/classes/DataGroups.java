@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 @XmlRootElement(name = "groups")
-public class DataGroups implements Data {
+public class DataGroups implements Data{
 
     @XmlElement(name = "group")
     private ArrayList<Group> groups;
@@ -22,7 +22,7 @@ public class DataGroups implements Data {
         this.groups = groups;
     }
 
-    public ArrayList<Group> getObjects() {
+    public ArrayList<Group> getGroups() {
         return groups;
     }
 

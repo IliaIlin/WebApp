@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 @XmlRootElement(name = "students")
-public class DataStudents implements Data {
+public class DataStudents implements Data{
 
     @XmlElement(name = "student")
     private ArrayList<Student> students;
@@ -23,7 +23,7 @@ public class DataStudents implements Data {
         this.students = students;
     }
 
-    public ArrayList<Student> getObjects() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 }

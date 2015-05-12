@@ -13,28 +13,23 @@ public class TestConnect {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException, NamingException {
         //DataSourcePool dataSource = new DataSourcePool();
-        DataSource dataSource = new DataSource("root", "root");
+        DataSource dataSource = new DataSource("root", "11");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-     //   dataBaseGroupDao.export("groups.xml", new long[]{7, 8});
-   //     dataBaseStudentDao.export("students.xml", new long[]{1, 3, 5, 4, 9});
+        //   dataBaseGroupDao.export("groups.xml", new long[]{7, 8});
+        //     dataBaseStudentDao.export("students.xml", new long[]{1, 3, 5, 4, 9});
 
-     //   dataBaseGroupDao.deleteGroups(new long[]{7, 8});
-    //   ArrayList list = dataBaseGroupDao.getAllGroups();
-    //    for (int i = 0; i < list.size(); i++) {
-    //        System.out.println(list.get(i));
-   //     }
+        ArrayList list = dataBaseGroupDao.getAllGroups();
+        ArrayList list1 = dataBaseStudentDao.getAllStudents();
 
-       // dataBaseGroupDao.imporT("groups.xml");
-    //    System.out.println();
-  //   ArrayList  list = dataBaseGroupDao.getAllGroups();
-    //    for (int i = 0; i < list.size(); i++) {
-    //        System.out.println(list.get(i));
-     //   }
-        dataBaseStudentDao.imporT("students.xml");
-      // dataBaseGroupDao.export("groups.xml",new long[]{1,8});
-      // dataBaseStudentDao.export("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml",new long[]{14});
+
+        Xml.writeGroupAndStudents("gs.xml", list, list1);
+
+
+//        ArrayList list2 = Xml.readGroupAndStudents("gs.xml");
+
+//        System.out.println(list2.toString());
     }
 
 

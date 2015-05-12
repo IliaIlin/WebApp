@@ -1,6 +1,9 @@
 package classes;
 
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +46,13 @@ public class Xml {
         write(data, DataStudents.class);
     }
 
+    public static void writeGroupAndStudents(String fileName, ArrayList<Group> groups,
+                                             ArrayList<Student> students) throws JAXBException, IOException {
+        DataGroupAndStudents data = new DataGroupAndStudents(groups, students);
+        outputStream = new FileOutputStream(fileName);
+        write(data, DataGroupAndStudents.class);
+    }
+
     private static void write(Data data, Class aClass) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(aClass);
         Marshaller marshaller = jaxbContext.createMarshaller();
@@ -53,22 +63,27 @@ public class Xml {
 
     public static ArrayList<Group> readGroups(String fileName) throws JAXBException, IOException {
         inputStream = new FileInputStream(fileName);
-        return ((DataGroups) read(DataGroups.class)).getObjects();
+        return ((DataGroups) read(DataGroups.class)).getGroups();
     }
 
 
     public static ArrayList<Student> readStudents(String fileName) throws JAXBException, IOException {
         inputStream = new FileInputStream(fileName);
-        return ((DataStudents) read(DataStudents.class)).getObjects();
+        return ((DataStudents) read(DataStudents.class)).getStudents();
     }
 
- /*   private static ArrayList read(Class aClass) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(aClass);
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        Data data = (Data) unmarshaller.unmarshal(inputStream);
-        return data.getObjects();
+    public static DataGroupAndStudents readGroupAndStudents(String fileName) throws JAXBException, IOException {
+        inputStream = new FileInputStream(fileName);
+        return (DataGroupAndStudents) read(DataGroupAndStudents.class);
     }
-*/
+
+    /*   private static ArrayList read(Class aClass) throws JAXBException {
+           JAXBContext jaxbContext = JAXBContext.newInstance(aClass);
+           Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+           Data data = (Data) unmarshaller.unmarshal(inputStream);
+           return data.getStudents();
+       }
+   */
     private static Object read(Class aClass) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(aClass);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
