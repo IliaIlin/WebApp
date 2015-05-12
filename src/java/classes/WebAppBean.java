@@ -1,21 +1,16 @@
 package classes;
 
+import javax.ejb.*;
+import javax.naming.NamingException;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBHome;
-import javax.ejb.EJBObject;
-import javax.ejb.Handle;
-import javax.ejb.RemoveException;
-import javax.ejb.Stateless;
-import javax.naming.NamingException;
-import javax.xml.bind.JAXBException;
 
 /**
- *
  * @author Илья
  */
 @Stateless
@@ -66,7 +61,7 @@ public class WebAppBean implements WebAppLocal {
     }
 
     // here starts business logic
-   // business logic for groups
+    // business logic for groups
     @Override
     public void addGroup(int numberGroup, String faculty) throws SQLException {
         groupDao.insertGroup(numberGroup, faculty);
@@ -102,7 +97,7 @@ public class WebAppBean implements WebAppLocal {
         return groupDao.getEmptyGroupIDs();
     }
 
- // business logic for students
+    // business logic for students
     @Override
     public void addStudentWithCurator(String name, int numberGroup, String date, long idCurator) throws SQLException {
         studentDao.insertStudent(name, numberGroup, date, idCurator);
@@ -147,7 +142,7 @@ public class WebAppBean implements WebAppLocal {
     public void editDateOfStudent(String date, long idStudent) throws SQLException {
         studentDao.setDate(date, idStudent);
     }
-    
+
     @Override
     public void exportStudents(String fileName, long[] id) throws JAXBException, SQLException, IOException {
         studentDao.export(fileName, id);
@@ -160,11 +155,11 @@ public class WebAppBean implements WebAppLocal {
 
     @Override
     public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
-       studentDao.imporT(fileName);
+        studentDao.imporT(fileName);
     }
 
     @Override
     public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
-       groupDao.imporT(fileName);
+        groupDao.imporT(fileName);
     }
 }

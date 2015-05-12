@@ -5,22 +5,21 @@
  */
 package classes;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.ejb.EJBObject;
 import javax.ejb.Local;
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
- *
  * @author Илья
  */
 @Local
-public interface WebAppLocal extends EJBObject{
+public interface WebAppLocal extends EJBObject {
 
-    public void create() throws ClassNotFoundException,NamingException,SQLException,InstantiationException,IllegalAccessException;
+    public void create() throws ClassNotFoundException, NamingException, SQLException, InstantiationException, IllegalAccessException;
 
     public void addGroup(int numberGroup, String faculty) throws SQLException;
 
@@ -28,14 +27,14 @@ public interface WebAppLocal extends EJBObject{
 
     public void editGroup(long id, String[] param, String[] arg) throws SQLException;
 
-    public ArrayList<Group> getGroupsByCriterium(String param[], String arg[]) throws SQLException,IOException,JAXBException;
+    public ArrayList<Group> getGroupsByCriterium(String param[], String arg[]) throws SQLException, IOException, JAXBException;
 
-    public ArrayList<Group> getAllGroups() throws SQLException,IOException,JAXBException;
+    public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException;
 
     public ArrayList<Integer> getGroupNumbers() throws SQLException;
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
-    
+
     public void addStudentWithCurator(String name, int numberGroup, String date, long idCurator) throws SQLException;
 
     public void addStudentWithoutCurator(String name, int numberGroup, String date) throws SQLException;
@@ -53,12 +52,12 @@ public interface WebAppLocal extends EJBObject{
     public void editNameOfStudent(String name, long idStudent) throws SQLException;
 
     public void editDateOfStudent(String date, long idStudent) throws SQLException;
-    
+
     public void exportStudents(String fileName, long id[]) throws JAXBException, SQLException, IOException;
-    
+
     public void exportGroups(String fileName, long id[]) throws JAXBException, SQLException, IOException;
 
     public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
-    
+
     public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
 }
