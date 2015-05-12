@@ -157,4 +157,14 @@ public class WebAppBean implements WebAppLocal {
     public void exportGroups(String fileName, long[] id) throws JAXBException, SQLException, IOException {
         groupDao.export(fileName, id);
     }
+
+    @Override
+    public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
+       studentDao.imporT(fileName);
+    }
+
+    @Override
+    public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
+       groupDao.imporT(fileName);
+    }
 }

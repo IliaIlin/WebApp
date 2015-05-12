@@ -21,19 +21,20 @@ public class TestConnect {
    //     dataBaseStudentDao.export("students.xml", new long[]{1, 3, 5, 4, 9});
 
      //   dataBaseGroupDao.deleteGroups(new long[]{7, 8});
-    //    ArrayList list = dataBaseGroupDao.getAllGroups();
+    //   ArrayList list = dataBaseGroupDao.getAllGroups();
     //    for (int i = 0; i < list.size(); i++) {
     //        System.out.println(list.get(i));
    //     }
 
-   //     dataBaseGroupDao.imporT("groups.xml");
-   //     System.out.println();
-   //     list = dataBaseGroupDao.getAllGroups();
-  //      for (int i = 0; i < list.size(); i++) {
-  //          System.out.println(list.get(i));
-   //     }
+       // dataBaseGroupDao.imporT("groups.xml");
+    //    System.out.println();
+  //   ArrayList  list = dataBaseGroupDao.getAllGroups();
+    //    for (int i = 0; i < list.size(); i++) {
+    //        System.out.println(list.get(i));
+     //   }
+        dataBaseStudentDao.imporT("students.xml");
       // dataBaseGroupDao.export("groups.xml",new long[]{1,8});
-       dataBaseStudentDao.export("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml",new long[]{14});
+      // dataBaseStudentDao.export("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml",new long[]{14});
     }
 
 

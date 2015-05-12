@@ -47,6 +47,11 @@
                     bean.exportStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml",id);
                 }
                 }
+            if(request.getParameter("import_sub")!=null){
+            //    if(request.getParameter("file_to_import")!=null){
+
+            bean.importStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml");
+                }
         %>
         <div class="header">
             <h1>Students Table</h1>

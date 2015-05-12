@@ -66,7 +66,12 @@ ment   : groupsTable
                 }
                 bean.exportGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml", id);
                 }
-                }           
+                }
+           if(request.getParameter("import_sub")!=null){
+            //    if(request.getParameter("file_to_import")!=null){
+                    bean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
+               // }
+            }
         %>
         <div class="header">
             <h1>Groups Table</h1>

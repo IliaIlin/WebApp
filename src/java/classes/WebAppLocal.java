@@ -58,4 +58,7 @@ public interface WebAppLocal extends EJBObject{
     
     public void exportGroups(String fileName, long id[]) throws JAXBException, SQLException, IOException;
 
+    public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
+    
+    public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
 }
