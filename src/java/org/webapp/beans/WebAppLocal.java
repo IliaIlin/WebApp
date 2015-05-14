@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package org.webapp.beans;
 
 import javax.ejb.EJBObject;
 import javax.ejb.Local;
@@ -12,6 +12,8 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.webapp.Group;
+import org.webapp.Student;
 
 /**
  * @author Илья

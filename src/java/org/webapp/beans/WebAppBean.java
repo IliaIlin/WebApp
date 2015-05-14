@@ -1,4 +1,4 @@
-package classes;
+package org.webapp.beans;
 
 import javax.ejb.*;
 import javax.naming.NamingException;
@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.webapp.DataBaseGroupDaoImpl;
+import org.webapp.DataBaseStudentDaoImpl;
+import org.webapp.DataSourcePool;
+import org.webapp.Group;
+import org.webapp.Student;
 
 /**
  * @author Илья

@@ -1,5 +1,6 @@
-package classes;
+package org.webapp;
 
+import org.webapp.xml.Xml;
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class TestConnect {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException, NamingException {
         //DataSourcePool dataSource = new DataSourcePool();
-        DataSource dataSource = new DataSource("root", "11");
+        DataSource dataSource = new DataSource("root", "root");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
@@ -22,7 +23,6 @@ public class TestConnect {
 
         ArrayList list = dataBaseGroupDao.getAllGroups();
         ArrayList list1 = dataBaseStudentDao.getAllStudents();
-
 
         Xml.writeGroupAndStudents("gs.xml", list, list1);
 

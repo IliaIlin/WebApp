@@ -1,4 +1,4 @@
-package classes;
+package org.webapp;
 
 import java.sql.Connection;
 import java.sql.SQLException;

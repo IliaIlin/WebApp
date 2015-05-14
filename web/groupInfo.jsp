@@ -4,11 +4,10 @@
     Author     : Илья
 --%>
 
-<%@page import="classes.WebAppBean"%>
-<%@page import="classes.Student"%>
+
+<%@page import="org.webapp.Student"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="classes.DataBaseStudentDaoImpl"%>
-<%@page import="classes.DataSourcePool"%>
+<%@page import="org.webapp.beans.WebAppBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

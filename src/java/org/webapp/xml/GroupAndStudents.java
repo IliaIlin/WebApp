@@ -1,14 +1,14 @@
-package classes;
+package org.webapp.xml;
 
 import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import org.webapp.Group;
+import org.webapp.Student;
 
-/**
- * Created by Саша on 12-May-15.
- */
+
 
 @XmlRootElement(name = "group")
 public class GroupAndStudents {

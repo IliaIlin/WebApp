@@ -4,9 +4,10 @@
     Author     : Илья
 --%>
 
-<%@page import="classes.Group" %>
-<%@page import="classes.Student" %>
-<%@page import="classes.WebAppBean" %>
+
+<%@page import="org.webapp.beans.WebAppBean"%>
+<%@page import="org.webapp.Group"%>
+<%@page import="org.webapp.Student"%>
 <%@page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -45,7 +46,8 @@
     }
     if (request.getParameter("import_sub") != null) {
         //    if(request.getParameter("file_to_import")!=null){
-
+             // String fileName=request.getParameter("file_to_import");
+            //  String filePath=request.getServletContext().getRealPath(fileName);
         bean.importStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml");
     }
 %>
@@ -95,7 +97,7 @@
     </form>
 </div>
 <div id="centerColumnStudents">
-    <form name="studentsTable" action="studentsTable.jsp" method="GET">
+    <form name="studentsTable" action="studentsTable.jsp" method="POST">
         <input type="submit" value="Delete"/>
         <input type="submit" name="export" value="Export"/>
         <table border="1">

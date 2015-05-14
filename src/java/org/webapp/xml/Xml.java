@@ -1,4 +1,4 @@
-package classes;
+package org.webapp.xml;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.webapp.Group;
+import org.webapp.Student;
 
 /**
  * Created by ���� on 16-Apr-15.

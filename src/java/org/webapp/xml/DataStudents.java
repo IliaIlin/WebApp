@@ -1,9 +1,10 @@
-package classes;
+package org.webapp.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import org.webapp.Student;
 
 /**
  * Created by ���� on 15-Apr-15.

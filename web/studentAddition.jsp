@@ -4,12 +4,9 @@
     Author     : Илья
 --%>
 
-<%@page import="classes.WebAppBean"%>
-<%@page import="classes.Student"%>
-<%@page import="classes.DataBaseStudentDaoImpl"%>
-<%@page import="classes.Group"%>
-<%@page import="classes.DataBaseGroupDaoImpl"%>
-<%@page import="classes.DataSourcePool"%>
+
+<%@page import="org.webapp.Student"%>
+<%@page import="org.webapp.beans.WebAppBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,8 +64,10 @@
                     } else {
                         bean.addStudentWithCurator(request.getParameter("Name"),
                                 Integer.parseInt(request.getParameter("GroupNumbers")),
-                                dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
+                               dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
                     }
+                     response.setStatus(response.SC_MOVED_TEMPORARILY);
+                     response.setHeader("Location", "http://localhost:8080/WebApp/studentsTable.jsp"); 
                 }
             %>
         </form>

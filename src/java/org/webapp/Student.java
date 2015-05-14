@@ -1,4 +1,4 @@
-package classes;
+package org.webapp;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

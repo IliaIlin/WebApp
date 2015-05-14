@@ -1,5 +1,6 @@
-package classes;
+package org.webapp;
 
+import org.webapp.xml.Xml;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.Connection;

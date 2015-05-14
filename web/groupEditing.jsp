@@ -4,9 +4,6 @@
     Author     : Илья
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="classes.DataBaseGroupDaoImpl"%>
-<%@page import="classes.DataSourcePool"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

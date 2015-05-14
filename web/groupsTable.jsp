@@ -6,8 +6,9 @@ ment   : groupsTable
     Author     : Илья
 --%>
 
-<%@page import="classes.Group" %>
-<%@page import="classes.WebAppBean" %>
+
+<%@page import="org.webapp.Group"%>
+<%@page import="org.webapp.beans.WebAppBean"%>
 <%@page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>

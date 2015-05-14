@@ -1,16 +1,18 @@
-package classes;
+package org.webapp.xml;
 
+import org.webapp.xml.GroupAndStudents;
+import org.webapp.xml.Data;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import org.webapp.Group;
+import org.webapp.Student;
 
-/**
- * Created by Саша on 12-May-15.
- */
+
 @XmlRootElement(name = "groups")
 public class DataGroupAndStudents implements Data {
 
-    @XmlElement(name = "groups")
+    @XmlElement(name = "group")
     private ArrayList<GroupAndStudents> groupAndStudentses;
 
     private DataGroupAndStudents() {
