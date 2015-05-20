@@ -13,11 +13,11 @@ public interface DataBaseGroupDao {
 
     public void insertGroup(int numberGroup, String faculty) throws SQLException;
 
-    public void deleteGroups(long[] id) throws SQLException;
+    public void deleteGroups(ArrayList<Long> id) throws SQLException;
 
-    public void updateGroups(long id, String param[], String arg[]) throws SQLException;
+    public void updateGroups(long id, ArrayList<String> param, ArrayList<String> arg) throws SQLException;
 
-    public ArrayList<Group> selectGroups(String param[], String arg[]) throws SQLException, IOException, JAXBException;
+    public ArrayList<Group> selectGroups(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException;
 
     public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException;
 
@@ -25,7 +25,7 @@ public interface DataBaseGroupDao {
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
 
-    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException;
+    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
 
     public void imporT(String fileName) throws JAXBException, SQLException, IOException;
 

@@ -15,9 +15,9 @@ public interface DataBaseStudentDao {
     public void insertStudent(String name, int numberGroup, String date) throws SQLException;
 
 
-    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException, IOException, JAXBException;
+    public ArrayList<Student> selectStudents(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException;
 
-    public void deleteStudents(long id[]) throws SQLException;
+    public void deleteStudents(ArrayList<Long> id) throws SQLException;
 
     public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException;
 
@@ -31,7 +31,7 @@ public interface DataBaseStudentDao {
 
     public void imporT(String fileName) throws JAXBException, IOException, SQLException;
 
-    public void export(String fileName, long id[]) throws JAXBException, SQLException, IOException;
+    public void export(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
 
 }

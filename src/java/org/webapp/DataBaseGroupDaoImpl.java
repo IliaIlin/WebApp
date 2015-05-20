@@ -1,6 +1,7 @@
 package org.webapp;
 
 import org.webapp.xml.Xml;
+
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -43,38 +44,32 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public void updateGroups(long id, String param[], String arg[]) throws SQLException {  //ok
+    public void updateGroups(long id, ArrayList<String> param, ArrayList<String> arg) throws SQLException {  //ok
         String statement = UPDATE_GROUP;
-        for (int i = 0; i < param.length; i++) {
-            statement += param[i] + " = ? ";
-            if (i != param.length - 1)
+        for (int i = 0; i < param.size(); i++) {
+            statement += param.get(i) + " = ? ";
+            if (i != param.size() - 1)
                 statement += " , ";
         }
         statement += " WHERE ID_GROUP = ?";
         preparedStatement = connection.prepareStatement(statement);
         int i;
-        for (i = 1; i <= arg.length; i++) {
-            preparedStatement.setString(i, arg[i - 1]);
+        for (i = 1; i <= arg.size(); i++) {
+            preparedStatement.setString(i, arg.get(i - 1));
         }
         preparedStatement.setLong(i, id);
         preparedStatement.executeUpdate();
     }
 
 
-    private void updateGroups(int numberGroup, String param[], String arg[]) throws SQLException {  //ok
+    private void updateGroups(int numberGroup, String param, String arg) throws SQLException {  //ok
         String statement = UPDATE_GROUP;
-        for (int i = 0; i < param.length; i++) {
-            statement += param[i] + " = ? ";
-            if (i != param.length - 1)
-                statement += " , ";
-        }
+        statement += param + " = ? ";
         statement += " WHERE GROUP_NUMBER = ?";
+
         preparedStatement = connection.prepareStatement(statement);
-        int i;
-        for (i = 1; i <= arg.length; i++) {
-            preparedStatement.setString(i, arg[i - 1]);
-        }
-        preparedStatement.setLong(i, numberGroup);
+        preparedStatement.setString(1, arg);
+        preparedStatement.setLong(2, numberGroup);
         preparedStatement.executeUpdate();
     }
 
@@ -89,18 +84,18 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public void deleteGroups(long[] id) throws SQLException {  //ok
+    public void deleteGroups(ArrayList<Long> id) throws SQLException {  //ok
         String statement = DELETE_GROUP;
-        if (id.length == 0) return;
+        if (id.size() == 0) return;
         statement += " ?";
-        for (int i = 1; i < id.length; i++) {
+        for (int i = 1; i < id.size(); i++) {
             statement += " , ?";
         }
         statement += ")";
         preparedStatement = connection.prepareStatement(statement);
 
-        for (int i = 0; i < id.length; i++) {
-            preparedStatement.setLong(i + 1, id[i]);
+        for (int i = 0; i < id.size(); i++) {
+            preparedStatement.setLong(i + 1, id.get(i));
         }
 
         preparedStatement.executeUpdate();
@@ -110,18 +105,18 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
 
     @Override
-    public ArrayList<Group> selectGroups(String param[], String arg[]) throws SQLException, IOException, JAXBException { //????
+    public ArrayList<Group> selectGroups(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException { //????
         String statement = SELECT_GROUPS;
-        for (int i = 0; i < param.length; i++) {
-            statement += " " + param[i] + " = ? ";
-            if (i != param.length - 1) {
+        for (int i = 0; i < param.size(); i++) {
+            statement += " " + param.get(i) + " = ? ";
+            if (i != param.size() - 1) {
                 statement += " AND ";
             }
         }
 
         preparedStatement = connection.prepareStatement(statement);
-        for (int i = 0; i < arg.length; i++) {
-            preparedStatement.setString(i + 1, arg[i]);
+        for (int i = 0; i < arg.size(); i++) {
+            preparedStatement.setString(i + 1, arg.get(i));
         }
 
         resultSet = preparedStatement.executeQuery();
@@ -175,19 +170,19 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     }
 
 
-    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException {
+    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_ALL_GROUPS;
-        if (id.length == 0) return;
+        if (id.size() == 0) return;
         statement += " WHERE ID_GROUP IN ( ? ";
-        for (int i = 1; i < id.length; i++) {
+        for (int i = 1; i < id.size(); i++) {
             statement += " , ? ";
         }
         statement += ")";
         System.out.println(statement);
         preparedStatement = connection.prepareStatement(statement);
 
-        for (int i = 0; i < id.length; i++) {
-            preparedStatement.setLong(i + 1, id[i]);
+        for (int i = 0; i < id.size(); i++) {
+            preparedStatement.setLong(i + 1, id.get(i));
         }
         resultSet = preparedStatement.executeQuery();
         createGroups();
@@ -231,7 +226,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         for (int i = 0; i < listSet.size(); i++) {
             Group group = listSet.get(i);
-            updateGroups(group.getGroupNumber(), new String[]{"FACULTY"}, new String[]{group.getFaculty()});
+            updateGroups(group.getGroupNumber(), "FACULTY", group.getFaculty());
         }
 
     }

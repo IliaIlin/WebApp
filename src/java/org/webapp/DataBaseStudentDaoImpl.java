@@ -163,47 +163,47 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
     @Override
-    public void deleteStudents(long id[]) throws SQLException {  //ok
+    public void deleteStudents(ArrayList<Long> id) throws SQLException {  //ok
         String statement = DELETE_STUDENT;
-        if (id.length == 0) {
+        if (id.size() == 0) {
             return;
         }
         statement += " ?";
-        for (int i = 1; i < id.length; i++) {
+        for (int i = 1; i < id.size(); i++) {
             statement += " , ?";
         }
         statement += ")";
         preparedStatement = connection.prepareStatement(statement);
 
-        for (int i = 0; i < id.length; i++) {
-            preparedStatement.setLong(i + 1, id[i]);
+        for (int i = 0; i < id.size(); i++) {
+            preparedStatement.setLong(i + 1, id.get(i));
         }
         preparedStatement.executeUpdate();
 
         // trigger not work!!!
         statement = UPDATE_CURATOR;
-        if (id.length == 0) {
+        if (id.size() == 0) {
             return;
         }
         statement += " ?";
-        for (int i = 1; i < id.length; i++) {
+        for (int i = 1; i < id.size(); i++) {
             statement += " , ?";
         }
         statement += ")";
         preparedStatement = connection.prepareStatement(statement);
 
-        for (int i = 0; i < id.length; i++) {
-            preparedStatement.setLong(i + 1, id[i]);
+        for (int i = 0; i < id.size(); i++) {
+            preparedStatement.setLong(i + 1, id.get(i));
         }
         preparedStatement.executeUpdate();
 
     }
 
     @Override
-    public ArrayList<Student> selectStudents(String param[], String arg[]) throws SQLException, IOException, JAXBException {  //OK
+    public ArrayList<Student> selectStudents(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {  //OK
         String statement = SELECT_STUDENTS;
-        for (int i = 0; i < param.length; i++) {
-            switch (param[i].toUpperCase()) {
+        for (int i = 0; i < param.size(); i++) {
+            switch (param.get(i).toUpperCase()) {
                 case NAME:
                     nameParam.add(i);
                     break;
@@ -251,16 +251,16 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(statement);
         int j = 1;
         for (int i = 0; i < nameParam.size(); i++) {
-            preparedStatement.setString(j++, arg[nameParam.get(i)]);
+            preparedStatement.setString(j++, arg.get(nameParam.get(i)));
         }
         for (int i = 0; i < dateParam.size(); i++) {
-            preparedStatement.setString(j++, arg[dateParam.get(i)]);
+            preparedStatement.setString(j++, arg.get(dateParam.get(i)));
         }
         for (int i = 0; i < curatorParam.size(); i++) {
-            preparedStatement.setString(j++, arg[curatorParam.get(i)]);
+            preparedStatement.setString(j++, arg.get(curatorParam.get(i)));
         }
         for (int i = 0; i < groupParam.size(); i++) {
-            preparedStatement.setString(j++, arg[groupParam.get(i)]);
+            preparedStatement.setString(j++, arg.get(groupParam.get(i)));
         }
 
         resultSet = preparedStatement.executeQuery();
@@ -331,20 +331,20 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }*/
 
     @Override
-    public void export(String fileName, long id[]) throws JAXBException, IOException, SQLException {
+    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_STUDENTS;
-        if (id.length == 0) {
+        if (id.size() == 0) {
             return;
         }
         statement += " AND STUDENTS.ID_STUDENT IN ( ? ";
-        for (int i = 1; i < id.length; i++) {
+        for (int i = 1; i < id.size(); i++) {
             statement += " , ? ";
         }
         statement += " )";
         preparedStatement = connection.prepareStatement(statement);
         System.out.println(statement);
-        for (int i = 0; i < id.length; i++) {
-            preparedStatement.setLong(i + 1, id[i]);
+        for (int i = 0; i < id.size(); i++) {
+            preparedStatement.setLong(i + 1, id.get(i));
         }
         resultSet = preparedStatement.executeQuery();
         createStudents();

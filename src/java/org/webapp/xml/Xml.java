@@ -1,5 +1,8 @@
 package org.webapp.xml;
 
+import org.webapp.Group;
+import org.webapp.Student;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -7,9 +10,8 @@ import javax.xml.bind.Unmarshaller;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
-import org.webapp.Group;
-import org.webapp.Student;
 
 /**
  * Created by ���� on 16-Apr-15.
@@ -101,5 +103,23 @@ public class Xml {
     public static void setFILE_NAME_FOR_GROUPS(String FILE_NAME_FOR_GROUPS) {
         if (FILE_NAME_FOR_GROUPS != null && !FILE_NAME_FOR_GROUPS.equals(fileNameForStudents))
             Xml.fileNameForGroups = FILE_NAME_FOR_GROUPS;
+    }
+
+
+    public static void test(Student student) throws JAXBException {
+        StringWriter stringWriter = new StringWriter();
+        JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(student, stringWriter);
+        StringBuffer buffer = stringWriter.getBuffer();
+        buffer.delete(0,56);
+        System.out.println(buffer);
+      /*  String s = stringWriter.toString();
+        System.out.println(s);
+      //  while (true){
+            System.out.println(s.indexOf(">"));
+
+       // }*/
     }
 }
