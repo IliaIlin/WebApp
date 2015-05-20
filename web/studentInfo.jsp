@@ -18,8 +18,7 @@
         <title>Student_Info</title>
     </head>
     <body>
-        <% WebAppBean bean = new WebAppBean();%>
-
+        <%WebAppBean bean = new WebAppBean();%>
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Info</h1>
         <form name="studentInfo" action="studentsTable.jsp" actionmethod="POST">
@@ -82,12 +81,19 @@
                     </thead>
                     <tbody>
                         <%
-                            String curator = request.getParameter("StudentID");
-                            students = bean.getStudentsByCriterium(new String[]{"CURATOR"}, new String[]{curator});
+                            ArrayList<String> param = new ArrayList<>();
+                            ArrayList<String> arg = new ArrayList<>();
+                            param.add("CURATOR");
+                            arg.add(request.getParameter("StudentID"));
+                            students = bean.getStudentsByCriterium(param,arg);
+                            param.clear();
+                            arg.clear();
+                            param.add("GROUP_NUMBER");
                             ArrayList<Student> studentsFull = bean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
-                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(new String[]{"GROUP_NUMBER"}, new String[]{String.valueOf(student.getGROUP_STUDENT())});
+                                arg.add(String.valueOf(student.getGROUP_STUDENT()));
+                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(param,arg);
                                 Group group = groupToRedirect.get(0);
 
                         %>
@@ -113,13 +119,13 @@
 
                             <%
                                 }
-                                %>
+                            %>
                             <td><a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
                                     <input type="button" name="Edit" value="Edit"/></a></td>
                         </tr>
-                       <%
-                            }
-                            %>
+                        <%
+                          arg.clear();  }
+                        %>
                     </tbody>          
                 </table> 
             </form>

@@ -25,9 +25,9 @@ public interface DataBaseGroupDao {
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
 
-    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
+    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
 
-    public void imporT(String fileName) throws JAXBException, SQLException, IOException;
+    public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
 
 
     }

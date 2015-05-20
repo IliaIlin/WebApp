@@ -29,9 +29,9 @@ public interface DataBaseStudentDao {
 
     public void setDate(String date, long idStudent) throws SQLException;
 
-    public void imporT(String fileName) throws JAXBException, IOException, SQLException;
+    public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
 
-    public void export(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
+    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
 
 }

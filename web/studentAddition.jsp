@@ -38,7 +38,7 @@
                 Date:<input type="date" name="Date" />
             </div>  
             <div class="inputStudent">
-                Curator ID:<select name="Curators">
+                Curator:<select name="Curators">
                     <option value="0"></option>
                     <%
                         ArrayList<Student> students = bean.getAllStudents();

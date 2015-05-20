@@ -17,7 +17,8 @@
         <title>Student_Editing</title>
     </head>
     <body>
-        <%WebAppBean bean = new WebAppBean();%>
+        <%WebAppBean bean=new WebAppBean();%>
+        <jsp:useBean id="bean" scope="session" class="org.webapp.beans.WebAppBean" />
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Editing</h1>
         <form name="studentEditing" action="studentsTable.jsp" actionmethod="POST">
