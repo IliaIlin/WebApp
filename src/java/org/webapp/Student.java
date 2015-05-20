@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAttribute;
 
-
+/**
+ * This is a model class. It creates an object of student. The student object is connected with
+ * a group object by the its number.
+ */
 @XmlRootElement
 //@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Student implements Serializable {
@@ -27,6 +30,14 @@ public class Student implements Serializable {
     private Student() {
     }
 
+    /**
+     * 
+     * @param NAME
+     * @param GROUP_STUDENT
+     * @param DATE_ENROLLMENT
+     * @param ID
+     * @param ID_CURATOR 
+     */
     public Student(String NAME, int GROUP_STUDENT, Date DATE_ENROLLMENT, long ID, long ID_CURATOR) {
         this.NAME = NAME;
         this.GROUP_STUDENT = GROUP_STUDENT;
@@ -35,22 +46,42 @@ public class Student implements Serializable {
         this.ID_CURATOR = ID_CURATOR;
     }
 
+    /**
+     * This method returns a name of sudent.
+     * @return String NAME
+     */
     public String getNAME() {
         return NAME;
     }
 
+    /**
+     * Method returns a number of group which is binded with the student.
+     * @return GROUP_STUDENT
+     */
     public int getGROUP_STUDENT() {
         return GROUP_STUDENT;
     }
 
+    /**
+     * Method gets a date of enrollment of the student.
+     * @return Date DATE_ENROLLMENT
+     */
     public Date getDATE_ENROLLMENT() {
         return DATE_ENROLLMENT;
     }
 
+    /**
+     * Method gets an ID of the student.
+     * @return long ID
+     */
     public long getID() {
         return ID;
     }
 
+    /**
+     * Method returns an ID of curator of the student.
+     * @return long ID_CURATOR
+     */
     public long getID_CURATOR() {
         return ID_CURATOR;
     }
