@@ -1,6 +1,6 @@
 package org.webapp;
 
-import org.webapp.xml.Xml;
+import org.webapp.xml.XmlWriteRead;
 
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
@@ -21,7 +21,7 @@ public class TestConnect {
 */
 
         Student student = new Student("1", 123, new Date(), 11, 1);
-        Xml.test(student);
+        XmlWriteRead.test(student);
     }
 
 

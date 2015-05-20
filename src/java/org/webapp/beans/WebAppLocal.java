@@ -19,17 +19,17 @@ import org.webapp.Student;
  * @author Илья
  */
 @Local
-public interface WebAppLocal extends EJBObject {
+public interface WebAppLocal extends EJBObject{
 
     public void create() throws ClassNotFoundException, NamingException, SQLException, InstantiationException, IllegalAccessException;
 
     public void addGroup(int numberGroup, String faculty) throws SQLException;
 
-    public void removeGroups(long[] id) throws SQLException;
+    public void removeGroups(ArrayList<Long> id) throws SQLException;
 
-    public void editGroup(long id, String[] param, String[] arg) throws SQLException;
+    public void editGroup(long id, ArrayList<String> param, ArrayList<String> arg) throws SQLException;
 
-    public ArrayList<Group> getGroupsByCriterium(String param[], String arg[]) throws SQLException, IOException, JAXBException;
+    public ArrayList<Group> getGroupsByCriterium(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException;
 
     public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException;
 
@@ -41,9 +41,9 @@ public interface WebAppLocal extends EJBObject {
 
     public void addStudentWithoutCurator(String name, int numberGroup, String date) throws SQLException;
 
-    public ArrayList<Student> getStudentsByCriterium(String param[], String arg[]) throws SQLException, IOException, JAXBException;
+    public ArrayList<Student> getStudentsByCriterium(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException;
 
-    public void removeStudents(long id[]) throws SQLException;
+    public void removeStudents(ArrayList<Long> id) throws SQLException;
 
     public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException;
 
@@ -55,9 +55,9 @@ public interface WebAppLocal extends EJBObject {
 
     public void editDateOfStudent(String date, long idStudent) throws SQLException;
 
-    public void exportStudents(String fileName, long id[]) throws JAXBException, SQLException, IOException;
+    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
-    public void exportGroups(String fileName, long id[]) throws JAXBException, SQLException, IOException;
+    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
     public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
 

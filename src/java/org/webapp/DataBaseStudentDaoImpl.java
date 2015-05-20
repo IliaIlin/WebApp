@@ -1,6 +1,6 @@
 package org.webapp;
 
-import org.webapp.xml.Xml;
+import org.webapp.xml.XmlWriteRead;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -308,7 +308,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
-   //     export();
+   //     exportStudents();
         return students;
     }
 
@@ -326,12 +326,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     }
 
 
-   /* public void export(long id[]) throws JAXBException, IOException {
-        Xml.writeStudents(students);
+   /* public void exportStudents(long id[]) throws JAXBException, IOException {
+        XmlWriteRead.writeStudents(students);
     }*/
 
     @Override
-    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
+    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_STUDENTS;
         if (id.size() == 0) {
             return;
@@ -348,13 +348,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         }
         resultSet = preparedStatement.executeQuery();
         createStudents();
-        Xml.writeStudents(fileName, students);
+        XmlWriteRead.writeStudents(fileName, students);
     }
 
     @Override
-    public void imporT(String fileName) throws JAXBException, IOException, SQLException {
+    public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
         ArrayList<Student> studentsInTable = getAllStudents();
-        ArrayList<Student> studentsExport = Xml.readStudents(fileName);
+        ArrayList<Student> studentsExport = XmlWriteRead.readStudents(fileName);
         ArrayList<Student> listAddWithoutCurator = new ArrayList<>();
         ArrayList<Student> listAddWithCurator = new ArrayList<>();
         ArrayList<Student> listSetWithoutCurator = new ArrayList<>();

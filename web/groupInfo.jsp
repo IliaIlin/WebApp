@@ -17,7 +17,7 @@
         <title>Group_Info</title>
     </head>
     <body>
-        <% WebAppBean bean = new WebAppBean();%>
+        <%WebAppBean bean=new WebAppBean();%>
         <a href=groupsTable.jsp>Groups Table</a>
         <h1 style="margin-top: 100px">Group Info</h1>
         <form name="groupInfo" action="groupsTable.jsp" actionmethod="POST">
@@ -54,7 +54,11 @@
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<Student> students = bean.getStudentsByCriterium(new String[]{"GROUP_NUMBER"}, new String[]{request.getParameter("GroupNumberToShow")});
+                        ArrayList<String> param=new ArrayList<>();
+                        ArrayList<String> arg=new ArrayList<>();
+                        param.add("GROUP_NUMBER");
+                        arg.add(request.getParameter("GroupNumberToShow"));
+                            ArrayList<Student> students = bean.getStudentsByCriterium(param,arg);
                             ArrayList<Student> studentsFull = bean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);

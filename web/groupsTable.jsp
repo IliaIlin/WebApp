@@ -23,42 +23,49 @@ ment   : groupsTable
 <% WebAppBean bean = new WebAppBean();
     if (request.getParameter("GroupNo") != null) {
         ArrayList<Integer> groupNumbers = bean.getGroupNumbers();
+        ArrayList<String> param=new ArrayList<>();
+        ArrayList<String> arg=new ArrayList<>();
         if (!groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
-            bean.editGroup(Long.parseLong(request.getParameter("ID")),
-                    new String[]{"GROUP_NUMBER", "FACULTY"}, new String[]{request.getParameter("GroupNo"), request.getParameter("Faculty")});
+            param.add("GROUP_NUMBER");
+            param.add("FACULTY");
+            arg.add(request.getParameter("GroupNo"));
+            arg.add(request.getParameter("Faculty"));
+            bean.editGroup(Long.parseLong(request.getParameter("ID")),param,arg);
         } else {
-            bean.editGroup(Long.parseLong(request.getParameter("ID")),
-                    new String[]{"FACULTY"}, new String[]{request.getParameter("Faculty")});
+            param.add("FACULTY");
+            arg.add(request.getParameter("Faculty"));
+            bean.editGroup(Long.parseLong(request.getParameter("ID")),param,arg);
         }
     }
     if (request.getParameter("Delete") != null) {
         ArrayList<Long> emptyIDs = bean.getEmptyGroupIDs();
         if (emptyIDs.contains(Long.parseLong(request.getParameter("ID")))) {
-            bean.removeGroups(new long[]{Long.parseLong(request.getParameter("ID"))});
+            ArrayList<Long> id=new ArrayList<>();
+            long [] idArray=new long[]{Long.parseLong(request.getParameter("ID"))};
+            for(int i=0;i<idArray.length;i++){
+                id.add(idArray[i]);
+            }
+            bean.removeGroups(id);
         }
     }
 
     if (request.getParameter("groups") != null) {
         ArrayList<Long> emptyIDs = bean.getEmptyGroupIDs();
         String[] checkedId = request.getParameterValues("groups");
-        if (request.getParameter("export") == null) {
-            ArrayList<Long> id = new ArrayList<>();
+        ArrayList<Long> id = new ArrayList<>();
+        if (request.getParameter("export") == null) {            
             for (int i = 0; i < checkedId.length; i++) {
                 if (emptyIDs.contains(Long.parseLong(checkedId[i]))) {
                     id.add(Long.parseLong(checkedId[i]));
                 }
             }
-            long[] idToDeleteEmpty = new long[id.size()];
-            for (int i = 0; i < id.size(); i++) {
-                idToDeleteEmpty[i] = id.get(i);
-            }
-            if (idToDeleteEmpty.length != 0) {
-                bean.removeGroups(idToDeleteEmpty);
+            if (id.size()!= 0) {
+                bean.removeGroups(id);
             }
         } else {
-            long[] id = new long[checkedId.length];
+            long[] idArray = new long[checkedId.length];
             for (int i = 0; i < checkedId.length; i++) {
-                id[i] = Long.parseLong(checkedId[i]);
+                id.add(Long.parseLong(checkedId[i]));
             }
             bean.exportGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml", id);
         }

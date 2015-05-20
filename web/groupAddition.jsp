@@ -16,7 +16,7 @@
         <title>Group_Addition</title>
     </head>
     <body>
-        <% WebAppBean bean = new WebAppBean(); %> 
+        <%WebAppBean bean=new WebAppBean();%> 
         <a href=groupsTable.jsp>Groups Table</a>     
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
@@ -47,6 +47,6 @@
                 }
             %>
         </form>
-        <% bean.remove();%>
+        <%bean.remove();%>
     </body>
 </html>

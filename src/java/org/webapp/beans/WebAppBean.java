@@ -73,17 +73,17 @@ public class WebAppBean implements WebAppLocal {
     }
 
     @Override
-    public void removeGroups(long[] id) throws SQLException {
+    public void removeGroups(ArrayList<Long> id) throws SQLException {
         groupDao.deleteGroups(id);
     }
 
     @Override
-    public void editGroup(long id, String[] param, String[] arg) throws SQLException {
+    public void editGroup(long id, ArrayList<String> param, ArrayList<String> arg) throws SQLException {
         groupDao.updateGroups(id, param, arg);
     }
 
     @Override
-    public ArrayList<Group> getGroupsByCriterium(String param[], String arg[]) throws SQLException, IOException, JAXBException {
+    public ArrayList<Group> getGroupsByCriterium(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {
         return groupDao.selectGroups(param, arg);
     }
 
@@ -114,12 +114,12 @@ public class WebAppBean implements WebAppLocal {
     }
 
     @Override
-    public ArrayList<Student> getStudentsByCriterium(String[] param, String[] arg) throws SQLException, IOException, JAXBException {
+    public ArrayList<Student> getStudentsByCriterium(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {
         return studentDao.selectStudents(param, arg);
     }
 
     @Override
-    public void removeStudents(long[] id) throws SQLException {
+    public void removeStudents(ArrayList<Long> id) throws SQLException {
         studentDao.deleteStudents(id);
     }
 
@@ -149,22 +149,22 @@ public class WebAppBean implements WebAppLocal {
     }
 
     @Override
-    public void exportStudents(String fileName, long[] id) throws JAXBException, SQLException, IOException {
-        studentDao.export(fileName, id);
+    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+        studentDao.exportStudents(fileName, id);
     }
 
     @Override
-    public void exportGroups(String fileName, long[] id) throws JAXBException, SQLException, IOException {
-        groupDao.export(fileName, id);
+    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+        groupDao.exportGroups(fileName, id);
     }
 
     @Override
     public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
-        studentDao.imporT(fileName);
+        studentDao.importStudents(fileName);
     }
 
     @Override
     public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
-        groupDao.imporT(fileName);
+        groupDao.importGroups(fileName);
     }
 }

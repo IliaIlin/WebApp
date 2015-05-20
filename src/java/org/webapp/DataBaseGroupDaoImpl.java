@@ -1,6 +1,6 @@
 package org.webapp;
 
-import org.webapp.xml.Xml;
+import org.webapp.xml.XmlWriteRead;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -130,7 +130,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();
-//          export();
+//          exportGroups();
         return groups;
     }
 
@@ -170,7 +170,8 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     }
 
 
-    public void export(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
+    @Override
+    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_ALL_GROUPS;
         if (id.size() == 0) return;
         statement += " WHERE ID_GROUP IN ( ? ";
@@ -186,12 +187,13 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         resultSet = preparedStatement.executeQuery();
         createGroups();
-        Xml.writeGroups(fileName, groups);
+        XmlWriteRead.writeGroups(fileName, groups);
     }
 
-    public void imporT(String fileName) throws JAXBException, SQLException, IOException {
+    @Override
+    public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
         ArrayList<Group> groupsInTable = getAllGroups();
-        ArrayList<Group> groupsExport = Xml.readGroups(fileName);
+        ArrayList<Group> groupsExport = XmlWriteRead.readGroups(fileName);
         ArrayList<Group> listAdd = new ArrayList<>();
         ArrayList<Group> listSet = new ArrayList<>();
         Set<Integer> setNumbersGroups = new TreeSet<>();
