@@ -7,10 +7,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -106,20 +106,54 @@ public class XmlWriteRead {
     }
 
 
-    public static void test(Student student) throws JAXBException {
+    public static void test(ArrayList<Group> groups, ArrayList<Student> students) throws JAXBException, XMLStreamException, IOException {
         StringWriter stringWriter = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(student, stringWriter);
-        StringBuffer buffer = stringWriter.getBuffer();
-        buffer.delete(0,56);
-        System.out.println(buffer);
-      /*  String s = stringWriter.toString();
-        System.out.println(s);
-      //  while (true){
-            System.out.println(s.indexOf(">"));
+        XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        XMLStreamWriter writer = factory.createXMLStreamWriter(
+                new FileWriter("output2.xml"));
 
-       // }*/
+        writer.writeStartDocument();
+        writer.writeStartElement("groups");
+        for (int i = 0; i < groups.size(); i++) {
+            Group group = groups.get(i);
+            writer.writeStartElement("group");
+            writer.writeAttribute("groupNumber", Integer.toString(group.getGroupNumber()));
+            writer.writeAttribute("faculty", group.getFaculty());
+            writer.writeAttribute("id", Long.toString(group.getID()));
+            writer.writeStartElement("students");
+            for (int j = 0; j < students.size(); j++) {
+                Student student = students.get(j);
+                if (student.getGROUP_STUDENT() == group.getGroupNumber()) {
+                    writer.writeStartElement("student");
+                    writer.writeAttribute("name", student.getNAME());
+                    writer.writeAttribute("date", student.getDATE_ENROLLMENT().toString());
+                    writer.writeAttribute("id", Long.toString(student.getID()));
+                    if (student.getID_CURATOR() != 0) {
+                        for (int k = 0; k < students.size(); k++) {
+                            if (students.get(k).getID() == student.getID_CURATOR()) {
+                                student = students.get(k);
+                                break;
+                            }
+                        }
+                        writer.writeStartElement("curator");
+                        writer.writeAttribute("name", student.getNAME());
+                        writer.writeAttribute("date", student.getDATE_ENROLLMENT().toString());
+                        writer.writeAttribute("id", Long.toString(student.getID()));
+                        writer.writeAttribute("groupNumber", Integer.toString(student.getGROUP_STUDENT()));
+                        writer.writeEndElement();
+                    }
+                    writer.writeEndElement();
+                }
+            }
+            writer.writeEndElement();
+            writer.writeEndElement();
+        }
+
+        writer.writeEndDocument();
+
+        writer.flush();
+        writer.close();
+
+
     }
 }
