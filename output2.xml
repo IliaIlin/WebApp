@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<groups>
+    <group groupNumber="9600" faculty="Mechgg" id="2">
+        <students>
+            <student name="GermanII" date="Tue May 12 17:00:00 BRT 2015" id="47">
+                <curator name="Merry" date="Tue May 12 17:00:00 BRT 2015" id="15" groupNumber="9601"></curator>
+            </student>
+        </students>
+    </group>
+    <group groupNumber="9601" faculty="hh" id="3">
+        <students>
+            <student name="Merry" date="Tue May 12 17:00:00 BRT 2015" id="15"></student>
+            <student name="Fred" date="Wed May 13 17:00:00 BRT 2015" id="14">
+                <curator name="Harry" date="Thu Apr 30 17:00:00 BRT 2015" id="17" groupNumber="9602"></curator>
+            </student>
+        </students>
+    </group>
+    <group groupNumber="9602" faculty="d" id="4">
+        <students>
+            <student name="Harry" date="Thu Apr 30 17:00:00 BRT 2015" id="17"></student>
+            <student name="German" date="Tue May 12 17:00:00 BRT 2015" id="16">
+                <curator name="Merry" date="Tue May 12 17:00:00 BRT 2015" id="15" groupNumber="9601"></curator>
+            </student>
+        </students>
+    </group>
+</groups>
