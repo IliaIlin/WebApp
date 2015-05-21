@@ -18,7 +18,8 @@
         <title>Student_Info</title>
     </head>
     <body>
-        <%WebAppBean bean = new WebAppBean();%>
+        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Info</h1>
         <form name="studentInfo" action="studentsTable.jsp" actionmethod="POST">
@@ -31,7 +32,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbersEditing">
                     <%
-                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = groupBean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {
                             if (groupsNumber.get(i) != Integer.parseInt(request.getParameter("StudentGroupToShow"))) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
@@ -48,7 +49,7 @@
             <div class="inputStudent">
                 Curator ID:<select name="CuratorsEditing" >
                     <option value="0"></option>
-                    <%  ArrayList<Student> students = bean.getAllStudents();
+                    <%  ArrayList<Student> students = studentBean.getAllStudents();
                         for (Student student : students) {
                             if (student.getID() == Long.parseLong(request.getParameter("StudentCuratorToShow"))) {%>
                     <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
@@ -85,15 +86,15 @@
                             ArrayList<String> arg = new ArrayList<>();
                             param.add("CURATOR");
                             arg.add(request.getParameter("StudentID"));
-                            students = bean.getStudentsByCriterium(param,arg);
+                            students = studentBean.getStudentsByCriterium(param, arg);
                             param.clear();
                             arg.clear();
                             param.add("GROUP_NUMBER");
-                            ArrayList<Student> studentsFull = bean.getAllStudents();
+                            ArrayList<Student> studentsFull = studentBean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
                                 arg.add(String.valueOf(student.getGROUP_STUDENT()));
-                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(param,arg);
+                                ArrayList<Group> groupToRedirect = groupBean.getGroupsByCriterium(param, arg);
                                 Group group = groupToRedirect.get(0);
 
                         %>
@@ -124,12 +125,12 @@
                                     <input type="button" name="Edit" value="Edit"/></a></td>
                         </tr>
                         <%
-                          arg.clear();  }
+                                arg.clear();
+                            }
                         %>
                     </tbody>          
                 </table> 
             </form>
         </div>
-        <%bean.remove();%>
     </body>
 </html>

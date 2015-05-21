@@ -25,10 +25,11 @@
         <link rel="stylesheet" type="text/css" href="css/Style.css">
         <title>Students Table</title>
     </head>
-    
+    <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+    <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
         <%
 
-            WebAppBean bean = new WebAppBean();
+           // WebAppBean bean = new WebAppBean();
 
             // WebAppLocal bean = (WebAppLocal) new InitialContext().lookup("java:app/WebApp/WebAppBean");
             // Properties props = new Properties();
@@ -42,11 +43,11 @@
         <a href=index.jsp>Main Page</a>
         <% if (request.getParameter("NameEditing") != null) {  // enables editing of student
                 long id = Long.parseLong(request.getParameter("ID"));
-                bean.editNameOfStudent(request.getParameter("NameEditing"), id);
-                bean.editGroupOfStudent(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
-                bean.editDateOfStudent(request.getParameter("DateEditing"), id);
+                studentBean.editNameOfStudent(request.getParameter("NameEditing"), id);
+                studentBean.editGroupOfStudent(Integer.parseInt(request.getParameter("GroupNumbersEditing")), id);
+                studentBean.editDateOfStudent(request.getParameter("DateEditing"), id);
                 Long curatorId = Long.parseLong(request.getParameterValues("CuratorsEditing")[0]);
-                bean.editCuratorOfStudent(curatorId, id);
+                studentBean.editCuratorOfStudent(curatorId, id);
             }
             if (request.getParameter("Delete") != null) {     // remove checked students (got from another jsp)
                 ArrayList<Long> id = new ArrayList<>();
@@ -54,7 +55,7 @@
                 for (int i = 0; i < idArray.length; i++) {
                     id.add(idArray[i]);
                 }
-                bean.removeStudents(id);
+                studentBean.removeStudents(id);
             }
 
             if (request.getParameter("students") != null) {    // get info about checked checkboxes
@@ -64,9 +65,9 @@
                     id.add(Long.parseLong(checkedId[i]));
                 }
                 if (request.getParameter("export") == null) {     // remove checked students (got from this jsp)
-                    bean.removeStudents(id);
+                    studentBean.removeStudents(id);
                 } else {                                         // export
-                    bean.exportStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml", id);
+                    studentBean.exportStudents("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml", id);
                 }
             }
             if (request.getParameter("import_sub") != null) {          //import
@@ -117,7 +118,7 @@
                                         + fileName.substring(fileName.lastIndexOf("\\") + 1));
                             }
                             fi.write(file);
-                             bean.importStudents(file.getAbsolutePath());%>
+                             studentBean.importStudents(file.getAbsolutePath());%>
                             <%=filePath%>
                        <%     out.println("Uploaded Filename: " + filePath
                                     + fileName + "<br>");
@@ -147,7 +148,7 @@
                 Name:<input type="text" name="NameCriteria" value=""/>
                 Group number:<select name="GroupNumbersCriteria">
                     <option></option>
-                    <%                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
+                    <%                        ArrayList<Integer> groupsNumber = groupBean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>
                     <option><%=groupsNumber.get(i)%>
                     </option>
@@ -158,7 +159,7 @@
                 Curator:<select name="CuratorsCriteria">
                     <option></option>
                     <%
-                        ArrayList<Student> students = bean.getAllStudents();
+                        ArrayList<Student> students = studentBean.getAllStudents();
                         for (Student student : students) {%>
                     <option value="<%=student.getID()%>"><%=student.getNAME()%>
                     </option>
@@ -200,7 +201,7 @@
                     </thead>
                     <tbody>
                         <%
-                            students = bean.getAllStudents();
+                            students = studentBean.getAllStudents();
                             String name = request.getParameter("NameCriteria");
                             String groupNumber = request.getParameter("GroupNumbersCriteria");
                             String dateInput = request.getParameter("DateCriteria");
@@ -227,15 +228,15 @@
                                     arg.add(curator);
                                 }
                             }
-                            students = bean.getStudentsByCriterium(param, arg);
-                            ArrayList<Student> studentsFull = bean.getAllStudents();
+                            students = studentBean.getStudentsByCriterium(param, arg);
+                            ArrayList<Student> studentsFull = studentBean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
                                 param.clear();
                                 arg.clear();
                                 param.add("GROUP_NUMBER");
                                 arg.add(String.valueOf(student.getGROUP_STUDENT()));
-                                ArrayList<Group> groupToRedirect = bean.getGroupsByCriterium(param, arg);
+                                ArrayList<Group> groupToRedirect = groupBean.getGroupsByCriterium(param, arg);
                                 Group group = groupToRedirect.get(0);
 
                         %>
@@ -275,7 +276,5 @@
                     </tbody>
                 </table>
             </form>
-        </div>
-        <%bean.remove();%>
-    
+        </div>   
 </html>
