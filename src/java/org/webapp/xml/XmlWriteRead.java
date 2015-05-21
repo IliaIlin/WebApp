@@ -95,11 +95,11 @@ public class XmlWriteRead {
     }
 
 
-    public static void writeGroupsAndStudents(ArrayList<Group> groups, ArrayList<Student> students) throws XMLStreamException, IOException {
+    public static void writeGroupsAndStudents(ArrayList<Group> groups, ArrayList<Student> students,String file) throws XMLStreamException, IOException {
         StringWriter stringWriter = new StringWriter();
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = factory.createXMLStreamWriter(
-                new FileWriter("output2.xml"));
+                new FileWriter(file));
 
         writer.writeStartDocument();
         writer.writeStartElement("groups");
