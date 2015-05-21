@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * Created by Саша on 18.03.2015.
+ * @deprecated 
  */
 public class TestConnect {
 

@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  * This is a model class. It creates an object of student. The student object is connected with
  * a group object by the its number.
+ * @see Group 
+ * @see DataBaseStudentDaoImpl
  */
 @XmlRootElement
 //@XmlAccessorType(value = XmlAccessType.FIELD)
@@ -86,6 +88,13 @@ public class Student implements Serializable {
         return ID_CURATOR;
     }
 
+    /**
+     * This method is a check for an input object and its parameters.  
+     * @param object
+     * @return True if the input object coinsides with the student's object which method is called,
+     * false if the object equals Null or it (or its parameters) doesn't coinside with the first one.
+     * 
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,6 +110,14 @@ public class Student implements Serializable {
 
     }
 
+    /**
+     * This method generates a string of student's data. Format of the string has
+     * the following form:<p>
+     * "Student{NAME=  'name of sudent', GROUP_STUDENT= number of student's group,
+     * DATE_ENROLLMENT= date of student's enrollment, ID= student's ID, ID_CURATOR= 
+     * ID of student's curator}</p>
+     * @return formatted string of data
+     */
     @Override
     public String toString() {
         return "Student{" +

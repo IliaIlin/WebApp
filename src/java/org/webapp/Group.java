@@ -8,6 +8,7 @@ import java.io.Serializable;
 
     /**
      * This is a model class. It creates an object of group. 
+     * @see DataBaseGroupDaoImpl
      */
 @XmlRootElement
 //@XmlAccessorType(value = XmlAccessType.FIELD)
@@ -37,7 +38,7 @@ public class Group implements Serializable {
 
     /**
      * This method returns the number of group.
-     * @return int groupNumber
+     * @return groupNumber
      */
     public int getGroupNumber() {
         return groupNumber;
@@ -45,7 +46,7 @@ public class Group implements Serializable {
 
     /**
      * Method returns the faculty of the group.
-     * @return Sting faculty
+     * @return faculty
      */
     public String getFaculty() {
         return faculty == null ? "" : faculty;
@@ -53,12 +54,19 @@ public class Group implements Serializable {
 
     /**
      * Method returns ID of the group.
-     * @return long ID
+     * @return ID
      */
     public long getID() {
         return ID;
     }
 
+    /**
+     * This method is a check for an input object and its parameters.  
+     * @param object
+     * @return True if the input object coinsides with the group which method is called,
+     * false if the object equals Null or it (or its parameters) doesn't coinside with the first one.
+     * 
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,7 +80,13 @@ public class Group implements Serializable {
 
     }
 
-
+    /**
+     * This method generates a string of group's data. Format of the string has
+     * the following form:<p>
+     * "Group{groupNumber=  number of the group, faculty= faculty of the group,
+     * ID= group's ID}"</p>
+     * @return formatted string of data
+     */
     @Override
     public String toString() {
         return "Group{" +

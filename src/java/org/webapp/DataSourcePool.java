@@ -7,7 +7,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- *
+ *The class gets and returns a connection from the pool.
  * @author Антон
  */
 
@@ -15,6 +15,14 @@ public class DataSourcePool {
     
     private Connection connection;
     
+    /**
+     * This constructor gets a connection from the pool by the next JNDI name "java:jboss/datasources/WebApp".
+     * @throws NamingException
+     * @throws SQLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException 
+     */
     public DataSourcePool() throws NamingException, 
             SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
         InitialContext ctx = new InitialContext();
@@ -23,10 +31,18 @@ public class DataSourcePool {
         connection = ds.getConnection();
     }
     
+    /**
+     * Getting connection from the pool.
+     * @return connection from pool
+     */
     public Connection getConnection() {
         return connection;
     }
     
+    /**
+     * This method closes got connection and returns it to pool.
+     * @throws SQLException 
+     */
     public void close() throws SQLException {
         connection.close();
     }
