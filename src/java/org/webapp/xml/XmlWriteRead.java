@@ -106,7 +106,7 @@ public class XmlWriteRead {
     }
 
 
-    public static void test(ArrayList<Group> groups, ArrayList<Student> students) throws JAXBException, XMLStreamException, IOException {
+    public static void writeGroupsAndStudents(ArrayList<Group> groups, ArrayList<Student> students) throws JAXBException, XMLStreamException, IOException {
         StringWriter stringWriter = new StringWriter();
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = factory.createXMLStreamWriter(

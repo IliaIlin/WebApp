@@ -22,7 +22,7 @@ public class TestConnect {
 */
 
 
-        XmlWriteRead.test(XmlWriteRead.readGroups("groups.xml"),XmlWriteRead.readStudents("students.xml"));
+        XmlWriteRead.writeGroupsAndStudents(XmlWriteRead.readGroups("groups.xml"),XmlWriteRead.readStudents("students.xml"));
     }
 
 
