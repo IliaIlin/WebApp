@@ -4,6 +4,7 @@ import org.webapp.xml.XmlWriteRead;
 
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -14,15 +15,18 @@ import java.util.Date;
  */
 public class TestConnect {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException, NamingException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException, JAXBException, NamingException, XMLStreamException {
         //DataSourcePool dataSource = new DataSourcePool();
-      /*  DataSource dataSource = new DataSource("root", "root");
+      /*  DataSource dataSource = new DataSource("root", "11");
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 */
 
-        Student student = new Student("1", 123, new Date(), 11, 1);
-        XmlWriteRead.test(student);
+
+        XmlWriteRead.writeGroupsAndStudents(XmlWriteRead.readGroups("groups.xml"),XmlWriteRead.readStudents("students.xml"));
+
+        XmlWriteRead.readGroupAndStudents("output2.xml");
+
     }
 
 

@@ -48,6 +48,7 @@ public class Student implements Serializable {
         this.ID_CURATOR = ID_CURATOR;
     }
 
+
     /**
      * This method returns a name of sudent.
      * @return String NAME

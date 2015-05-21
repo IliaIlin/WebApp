@@ -17,8 +17,8 @@
         <title>Student_Editing</title>
     </head>
     <body>
-        <%WebAppBean bean=new WebAppBean();%>
-        <jsp:useBean id="bean" scope="session" class="org.webapp.beans.WebAppBean" />
+        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Editing</h1>
         <form name="studentEditing" action="studentsTable.jsp" actionmethod="POST">
@@ -31,7 +31,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbersEditing">
                     <%
-                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = groupBean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {
                             if (groupsNumber.get(i) != Integer.parseInt(request.getParameter("StudentGroupToEdit"))) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
@@ -48,7 +48,7 @@
             <div class="inputStudent">
                 Curator ID:<select name="CuratorsEditing" >
                     <option value="0"></option>
-                    <%  ArrayList<Student> students = bean.getAllStudents();
+                    <%  ArrayList<Student> students = studentBean.getAllStudents();
                         for (Student student : students) {
                             if (student.getID() == Long.parseLong(request.getParameter("StudentCuratorToEdit"))) {%>
                     <option selected="true" value="<%=student.getID()%>"> <%=student.getNAME()%></option>
@@ -64,6 +64,5 @@
                 <input type="submit" value="Submit" />
             </div>
         </form>
-        <%bean.remove();%>
     </body>
 </html>

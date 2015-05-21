@@ -16,7 +16,8 @@
         <title>Group_Addition</title>
     </head>
     <body>
-        <%WebAppBean bean=new WebAppBean();%> 
+        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
         <a href=groupsTable.jsp>Groups Table</a>     
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
@@ -34,12 +35,12 @@
                 boolean flag = true;
                 if (request.getParameter("GroupNo") != null
                         && request.getParameter("Faculty") != null && !request.getParameter("Faculty").isEmpty()) {
-                    ArrayList<Integer> groupNumbers = bean.getGroupNumbers();
+                    ArrayList<Integer> groupNumbers = groupBean.getGroupNumbers();
                     if (groupNumbers.contains(Integer.parseInt(request.getParameter("GroupNo")))) {
                         flag = false;
                     }
                     if (flag) {
-                        bean.addGroup(Integer.parseInt(request.getParameter("GroupNo")),
+                        groupBean.addGroup(Integer.parseInt(request.getParameter("GroupNo")),
                                 request.getParameter("Faculty"));
                     }
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -47,6 +48,5 @@
                 }
             %>
         </form>
-        <%bean.remove();%>
     </body>
 </html>

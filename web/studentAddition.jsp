@@ -17,7 +17,8 @@
         <title>Student_Addition</title>
     </head>
     <body>
-        <%WebAppBean bean=new WebAppBean();%>
+        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Addition</h1>
         <form name="studentAddition" action="studentAddition.jsp" actionmethod="POST"> 
@@ -27,7 +28,7 @@
             <div class="inputStudent">
                 Group number:<select name="GroupNumbers">
                     <%
-                        ArrayList<Integer> groupsNumber = bean.getGroupNumbers();
+                        ArrayList<Integer> groupsNumber = groupBean.getGroupNumbers();
                         for (int i = 0; i < groupsNumber.size(); i++) {%>
                     <option> <%=groupsNumber.get(i)%></option>  
                     <%  }
@@ -41,7 +42,7 @@
                 Curator:<select name="Curators">
                     <option value="0"></option>
                     <%
-                        ArrayList<Student> students = bean.getAllStudents();
+                        ArrayList<Student> students = studentBean.getAllStudents();
                         for (Student student : students) {%>
                     <option value="<%=student.getID()%>"> <%=student.getNAME()%></option>
                     <% }
@@ -58,19 +59,18 @@
                         && request.getParameter("Date") != null) {
                     String dateInput = request.getParameter("Date");
                     if (request.getParameterValues("Curators")[0] == "0") {  // addition without curator
-                        bean.addStudentWithoutCurator(request.getParameter("Name"),
+                        studentBean.addStudentWithoutCurator(request.getParameter("Name"),
                                 Integer.parseInt(request.getParameter("GroupNumbers")),
                                 dateInput);
                     } else {
-                        bean.addStudentWithCurator(request.getParameter("Name"),
+                        studentBean.addStudentWithCurator(request.getParameter("Name"),
                                 Integer.parseInt(request.getParameter("GroupNumbers")),
-                               dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
+                                dateInput, Integer.parseInt(request.getParameterValues("Curators")[0]));
                     }
-                     response.setStatus(response.SC_MOVED_TEMPORARILY);
-                     response.setHeader("Location", "http://localhost:8080/WebApp/studentsTable.jsp"); 
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", "http://localhost:8080/WebApp/studentsTable.jsp");
                 }
             %>
         </form>
-        <%bean.remove();%>
     </body>
 </html>
