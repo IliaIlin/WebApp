@@ -23,6 +23,9 @@ public class TestConnect {
 
 
         XmlWriteRead.writeGroupsAndStudents(XmlWriteRead.readGroups("groups.xml"),XmlWriteRead.readStudents("students.xml"));
+
+        XmlWriteRead.readGroupAndStudents("output2.xml");
+
     }
 
 
