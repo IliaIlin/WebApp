@@ -3,6 +3,6 @@
     <student name="Merry" groupSTUDENT="9601" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="15" idCURATOR="0"/>
     <student name="Fred" groupSTUDENT="9601" dateENROLLMENT="2015-05-14T00:00:00+04:00" id="14" idCURATOR="17"/>
     <student name="Harry" groupSTUDENT="9602" dateENROLLMENT="2015-05-01T00:00:00+04:00" id="17" idCURATOR="0"/>
-    <student name="GermanII" groupSTUDENT="9600" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="47" idCURATOR="15"/>
+    <student name="GermanII" groupSTUDENT="9602" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="47" idCURATOR="15"/>
     <student name="German" groupSTUDENT="9602" dateENROLLMENT="2015-05-13T00:00:00+04:00" id="16" idCURATOR="15"/>
 </students>

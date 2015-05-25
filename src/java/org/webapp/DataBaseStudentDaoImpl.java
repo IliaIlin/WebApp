@@ -2,6 +2,8 @@ package org.webapp;
 
 import org.webapp.xml.XmlWriteRead;
 import javax.xml.bind.JAXBException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -441,7 +443,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
      * @throws SQLException 
      */
     @Override
-    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
+    public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_STUDENTS;
         if (id.size() == 0) {
             return;
@@ -463,15 +465,15 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Imports a list of students from the file.
-     * @param fileName
+     * @param fileReader
      * @throws JAXBException
      * @throws IOException
      * @throws SQLException 
      */
     @Override
-    public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
+    public void importStudents(FileReader fileReader) throws JAXBException, IOException, SQLException {
         ArrayList<Student> studentsInTable = getAllStudents();
-        ArrayList<Student> studentsExport = XmlWriteRead.readStudents(fileName);
+        ArrayList<Student> studentsExport = XmlWriteRead.readStudents(fileReader);
         ArrayList<Student> listAddWithoutCurator = new ArrayList<>();
         ArrayList<Student> listAddWithCurator = new ArrayList<>();
         ArrayList<Student> listSetWithoutCurator = new ArrayList<>();

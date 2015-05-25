@@ -2,6 +2,9 @@ package org.webapp;
 
 
 import javax.xml.bind.JAXBException;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,9 +28,9 @@ public interface DataBaseGroupDao {
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
 
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
+    public void exportGroups(FileWriter fileWriter, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
 
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
+    public void importGroups(FileReader fileReader) throws JAXBException, SQLException, IOException;
 
 
     }

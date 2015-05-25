@@ -3,6 +3,8 @@ package org.webapp;
 import org.webapp.xml.XmlWriteRead;
 
 import javax.xml.bind.JAXBException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -224,14 +226,14 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Exports a list of groups by its IDs to the file.
-     * @param fileName
+     * @param fileWriter
      * @param id
      * @throws JAXBException
      * @throws IOException
      * @throws SQLException 
      */
     @Override
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
+    public void exportGroups(FileWriter fileWriter, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
         String statement = SELECT_ALL_GROUPS;
         if (id.size() == 0) return;
         statement += " WHERE ID_GROUP IN ( ? ";
@@ -247,20 +249,20 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         }
         resultSet = preparedStatement.executeQuery();
         createGroups();
-        XmlWriteRead.writeGroups(fileName, groups);
+        XmlWriteRead.writeGroups(fileWriter, groups);
     }
 
     /**
      * Imports a list of groups from the file.
-     * @param fileName
+     * @param fileReader
      * @throws JAXBException
      * @throws SQLException
      * @throws IOException 
      */
     @Override
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
+    public void importGroups(FileReader fileReader) throws JAXBException, SQLException, IOException {
         ArrayList<Group> groupsInTable = getAllGroups();
-        ArrayList<Group> groupsExport = XmlWriteRead.readGroups(fileName);
+        ArrayList<Group> groupsExport = XmlWriteRead.readGroups(fileReader);
         ArrayList<Group> listAdd = new ArrayList<>();
         ArrayList<Group> listSet = new ArrayList<>();
         Set<Integer> setNumbersGroups = new TreeSet<>();

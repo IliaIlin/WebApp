@@ -5,6 +5,8 @@
  */
 package org.webapp.beans;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -73,12 +75,12 @@ public class GroupBean implements GroupBeanLocal {
     }
 
     @Override
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+    public void exportGroups(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
         groupDao.exportGroups(fileName, id);
     }
 
     @Override
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
+    public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException {
         groupDao.importGroups(fileName);
     }
 

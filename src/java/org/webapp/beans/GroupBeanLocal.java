@@ -5,6 +5,8 @@
  */
 package org.webapp.beans;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public interface GroupBeanLocal extends EJBObject {
 
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException;
 
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
+    public void exportGroups(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
+    public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException;
 }

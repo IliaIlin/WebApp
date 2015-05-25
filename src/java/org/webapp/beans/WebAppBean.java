@@ -3,6 +3,8 @@ package org.webapp.beans;
 import javax.ejb.*;
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -149,22 +151,22 @@ public class WebAppBean implements WebAppLocal {
     }
 
     @Override
-    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+    public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
         studentDao.exportStudents(fileName, id);
     }
 
     @Override
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+    public void exportGroups(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
         groupDao.exportGroups(fileName, id);
     }
 
     @Override
-    public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
+    public void importStudents(FileReader fileName) throws JAXBException, IOException, SQLException {
         studentDao.importStudents(fileName);
     }
 
     @Override
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException {
+    public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException {
         groupDao.importGroups(fileName);
     }
 }

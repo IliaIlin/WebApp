@@ -5,6 +5,8 @@
  */
 package org.webapp.beans;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -84,12 +86,12 @@ public class StudentBean implements StudentBeanLocal {
     }
 
     @Override
-    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
+    public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException {
         studentDao.exportStudents(fileName, id);
     }
 
     @Override
-    public void importStudents(String fileName) throws JAXBException, IOException, SQLException {
+    public void importStudents(FileReader fileName) throws JAXBException, IOException, SQLException {
         studentDao.importStudents(fileName);
     }
 

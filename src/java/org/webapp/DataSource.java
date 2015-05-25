@@ -14,7 +14,7 @@ public class DataSource {
 
     private Connection connection;
 
-    final private static String URL = "jdbc:mysql://localhost:3306/db";
+    final private static String URL = "jdbc:mysql://localhost:3309/db";
     final private static String DRIVER_NAME = "com.mysql.jdbc.Driver";
 
     /**

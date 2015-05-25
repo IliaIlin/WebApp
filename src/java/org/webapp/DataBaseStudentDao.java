@@ -1,6 +1,9 @@
 package org.webapp;
 
 import javax.xml.bind.JAXBException;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,9 +32,9 @@ public interface DataBaseStudentDao {
 
     public void setDate(String date, long idStudent) throws SQLException;
 
-    public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
+    public void importStudents(FileReader fileReader) throws JAXBException, IOException, SQLException;
 
-    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
+    public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
 
 }

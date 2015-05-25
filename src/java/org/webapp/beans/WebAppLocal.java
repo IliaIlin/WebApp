@@ -9,6 +9,8 @@ import javax.ejb.EJBObject;
 import javax.ejb.Local;
 import javax.naming.NamingException;
 import javax.xml.bind.JAXBException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,11 +57,11 @@ public interface WebAppLocal extends EJBObject{
 
     public void editDateOfStudent(String date, long idStudent) throws SQLException;
 
-    public void exportStudents(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
+    public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
-    public void exportGroups(String fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
+    public void exportGroups(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
-    public void importStudents(String fileName) throws JAXBException, IOException, SQLException;
+    public void importStudents(FileReader fileName) throws JAXBException, IOException, SQLException;
 
-    public void importGroups(String fileName) throws JAXBException, SQLException, IOException;
+    public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException;
 }
