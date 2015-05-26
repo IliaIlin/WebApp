@@ -152,7 +152,6 @@ public class XmlWriteRead {
                                 if ("group".equals(r.getName().toString())) {
                                     isExit = true;
                                 }
-
                                 break;
                         }
                         if (isExit)
