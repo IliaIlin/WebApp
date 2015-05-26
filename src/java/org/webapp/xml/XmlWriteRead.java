@@ -163,7 +163,6 @@ public class XmlWriteRead {
                     break;
                 }
                 event = r.next();
-
             }
         } catch (XMLStreamException e) {
             e.printStackTrace();
