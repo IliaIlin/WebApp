@@ -64,7 +64,7 @@ public class XmlWriteRead {
     }
 
 
-    public static void writeGroupsAndStudents(ArrayList<Group> groups, ArrayList<Student> students,FileWriter fileWriter) throws XMLStreamException, IOException {
+    public static void writeGroupsAndStudents(ArrayList<Group> groups, ArrayList<Student> students, FileWriter fileWriter) throws XMLStreamException, IOException {
         StringWriter stringWriter = new StringWriter();
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = factory.createXMLStreamWriter(fileWriter);
@@ -125,32 +125,34 @@ public class XmlWriteRead {
                 if (event == XMLStreamConstants.START_ELEMENT && "group".equals(r.getName().toString())) {
                     groups.add(new Group(new Integer(r.getAttributeValue(0)), r.getAttributeValue(1),
                             new Long(r.getAttributeValue(2))));
+                    boolean isExit = false;
+                    String name = "";
+                    String date = "";
+                    long id = 0;
+                    long idCurator = 0;
                     while (true) {
-                        boolean isExit = false;
-                        boolean isStart = false;
-                        String name = "";
-                        String date = "";
-                        long id = 0;
-                        long idCurator = 0;
                         switch (event) {
                             case XMLStreamConstants.START_ELEMENT:
                                 if ("student".equals(r.getName().toString())) {
-                                    isStart = true;
                                     name = r.getAttributeValue(0);
                                     date = r.getAttributeValue(1);
                                     id = new Long(r.getAttributeValue(2));
                                 }
                                 if ("curator".equals(r.getName().toString())) {
-                                    idCurator = new Long(r.getAttributeValue(2));
+                                    idCurator = new Long(r.getAttributeValue(1));
                                 }
                                 break;
                             case XMLStreamConstants.END_ELEMENT:
-                                if (isStart) {
-                                    String s[] = date.split(".");
+                                if ("student".equals(r.getName().toString())) {
+                                    String string = "\\.";
+                                    String s[] = date.split(string);
                                     students.add(new Student(name, groups.get(groups.size() - 1).getGroupNumber(),
                                             new Date(new Integer(s[0]), new Integer(s[1]), new Integer(s[2])), id, idCurator));
                                 }
-                                isExit = true;
+                                if ("group".equals(r.getName().toString())) {
+                                    isExit = true;
+                                }
+
                                 break;
                         }
                         if (isExit)
