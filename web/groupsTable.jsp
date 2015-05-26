@@ -7,6 +7,7 @@ ment   : groupsTable
 --%>
 
 
+<%@page import="java.io.FileWriter"%>
 <%@page import="org.webapp.Group"%>
 <%@page import="org.webapp.beans.WebAppBean"%>
 <%@page import="java.util.ArrayList" %>
@@ -20,7 +21,7 @@ ment   : groupsTable
     </head>
     <body>
         <a href=index.jsp>Main Page</a>
-        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
+        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
         <%    if (request.getParameter("GroupNo") != null) {
                 ArrayList<Integer> groupNumbers = groupBean.getGroupNumbers();
                 ArrayList<String> param = new ArrayList<>();
@@ -67,12 +68,13 @@ ment   : groupsTable
                     for (int i = 0; i < checkedId.length; i++) {
                         id.add(Long.parseLong(checkedId[i]));
                     }
-                    groupBean.exportGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml", id);
+                    FileWriter fw=new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
+                    groupBean.exportGroups(fw, id);
                 }
             }
             if (request.getParameter("import_sub") != null) {
                 //    if(request.getParameter("file_to_import")!=null){
-                groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
+               // groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
                 // }
             }
         %>

@@ -17,7 +17,7 @@
         <title>Group_Info</title>
     </head>
     <body>
-        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
         <a href=groupsTable.jsp>Groups Table</a>
         <h1 style="margin-top: 100px">Group Info</h1>
         <form name="groupInfo" action="groupsTable.jsp" actionmethod="POST">

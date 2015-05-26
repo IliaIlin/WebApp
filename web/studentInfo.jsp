@@ -18,8 +18,8 @@
         <title>Student_Info</title>
     </head>
     <body>
-        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
-        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
+        <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
         <a href=studentsTable.jsp>Students Table</a>
         <h1 style="margin-top: 100px">Student Info</h1>
         <form name="studentInfo" action="studentsTable.jsp" actionmethod="POST">

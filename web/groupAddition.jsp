@@ -16,8 +16,8 @@
         <title>Group_Addition</title>
     </head>
     <body>
-        <jsp:useBean id="studentBean" scope="session" class="org.webapp.beans.StudentBean" />
-        <jsp:useBean id="groupBean" scope="session" class="org.webapp.beans.GroupBean" />
+        <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
         <a href=groupsTable.jsp>Groups Table</a>     
         <h1 style="margin-top: 100px">Group Addition</h1>
         <form name="groupAddition" action="groupAddition.jsp" actionmethod="POST">
