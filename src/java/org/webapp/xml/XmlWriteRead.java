@@ -106,7 +106,6 @@ public class XmlWriteRead {
             writer.writeEndElement();
             writer.writeEndElement();
         }
-
         writer.writeEndDocument();
         writer.flush();
         writer.close();
