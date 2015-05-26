@@ -108,7 +108,6 @@ public class XmlWriteRead {
         }
 
         writer.writeEndDocument();
-
         writer.flush();
         writer.close();
     }
