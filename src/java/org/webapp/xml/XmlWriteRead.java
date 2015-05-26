@@ -154,8 +154,9 @@ public class XmlWriteRead {
                                 }
                                 break;
                         }
-                        if (isExit)
+                        if (isExit) {
                             break;
+                        }
                         event = r.next();
                     }
                 }
