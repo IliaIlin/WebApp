@@ -84,20 +84,20 @@ public class XmlWriteRead {
                 if (student.getGROUP_STUDENT() == group.getGroupNumber()) {
                     writer.writeStartElement("student");
                     writer.writeAttribute("name", student.getNAME());
-                    String date = new SimpleDateFormat("dd.MM.YY").format(student.getDATE_ENROLLMENT());
+                    String date = new SimpleDateFormat("dd.MM.yyyy").format(student.getDATE_ENROLLMENT());
                     writer.writeAttribute("date", date);
                     writer.writeAttribute("id", Long.toString(student.getID()));
                     if (student.getID_CURATOR() != 0) {
+                        writer.writeStartElement("curator");
+                        writer.writeAttribute("id", Long.toString(student.getID_CURATOR()));
                         for (int k = 0; k < students.size(); k++) {
                             if (students.get(k).getID() == student.getID_CURATOR()) {
                                 student = students.get(k);
+                                writer.writeAttribute("name", student.getNAME());
+                                writer.writeAttribute("groupNumber", Integer.toString(student.getGROUP_STUDENT()));
                                 break;
                             }
                         }
-                        writer.writeStartElement("curator");
-                        writer.writeAttribute("name", student.getNAME());
-                        writer.writeAttribute("id", Long.toString(student.getID()));
-                        writer.writeAttribute("groupNumber", Integer.toString(student.getGROUP_STUDENT()));
                         writer.writeEndElement();
                     }
                     writer.writeEndElement();
@@ -137,7 +137,7 @@ public class XmlWriteRead {
                                     id = new Long(r.getAttributeValue(2));
                                 }
                                 if ("curator".equals(r.getName().toString())) {
-                                    idCurator = new Long(r.getAttributeValue(1));
+                                    idCurator = new Long(r.getAttributeValue(0));
                                 }
                                 break;
                             case XMLStreamConstants.END_ELEMENT:
@@ -145,7 +145,7 @@ public class XmlWriteRead {
                                     String string = "\\.";
                                     String s[] = date.split(string);
                                     students.add(new Student(name, groups.get(groups.size() - 1).getGroupNumber(),
-                                            new Date(new Integer(s[0]), new Integer(s[1]), new Integer(s[2])), id, idCurator));
+                                            new Date(new Integer(s[2]) - 1900, new Integer(s[1]) - 1, new Integer(s[0])), id, idCurator));
                                 }
                                 if ("group".equals(r.getName().toString())) {
                                     isExit = true;

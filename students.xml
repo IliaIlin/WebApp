@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <students>
-    <student name="Bilbo" groupSTUDENT="2050" dateENROLLMENT="2015-05-06T00:00:00+04:00" id="150" idCURATOR="122"/>
+    <student name="Bilbo" groupSTUDENT="9600" dateENROLLMENT="2015-05-06T00:00:00+04:00" id="150" idCURATOR="122"/>
     <student name="Frodo" groupSTUDENT="2090" dateENROLLMENT="2015-05-07T00:00:00+04:00" id="151" idCURATOR="120"/>
-    <student name="Harry" groupSTUDENT="2041" dateENROLLMENT="2015-12-31T00:00:00+04:00" id="152" idCURATOR="115"/>
+    <student name="Harry" groupSTUDENT="9600" dateENROLLMENT="2015-12-31T00:00:00+04:00" id="152" idCURATOR="115"/>
 </students>
