@@ -1,6 +1,7 @@
 package org.webapp;
 
 import org.webapp.xml.XmlWriteRead;
+
 import javax.xml.bind.JAXBException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,7 +19,8 @@ import java.util.TreeSet;
  * Created by Саша on 04.03.2015.
  * <p>
  * This is Data Access Object class which works with the objects of students.
- * </p> 
+ * </p>
+ *
  * @see Student
  */
 public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
@@ -78,8 +80,6 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             + "SET  NAME = ? , ID_GROUP = (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) , DATE = ? WHERE ID_STUDENT = ?";
 
 
-
-
     final private static int INDEX_COLUMB_NAME = 1;
     final private static int INDEX_COLUMB_ID_GROUP = 2;
     final private static int INDEX_COLUMB_DATE = 3;
@@ -110,11 +110,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Addition of new student by his name, number of group, date of enrollment and ID of curator.
+     *
      * @param name
      * @param numberGroup
      * @param date
      * @param idCurator
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void insertStudent(String name, int numberGroup, String date, long idCurator) throws SQLException {  //ok
@@ -128,10 +129,11 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Addition of new student by his name, number of group and date of enrollment.
+     *
      * @param name
      * @param numberGroup
      * @param date
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void insertStudent(String name, int numberGroup, String date) throws SQLException {  //ok
@@ -144,12 +146,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Addition of new student by his ID, name, number of group, date of enrollment and ID of curator.
+     *
      * @param id
      * @param name
      * @param numberGroup
      * @param date
      * @param idCurator
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void insertStudent(long id, String name, int numberGroup, Date date, long idCurator) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(INSERT_STUDENT_WITH_ID);
@@ -163,11 +166,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Addition of new student by his id, name, number of group and date of enrollment.
+     *
      * @param id
      * @param name
      * @param numberGroup
      * @param date
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void insertStudent(long id, String name, int numberGroup, Date date) throws SQLException {  //ok
         preparedStatement = connection.prepareStatement(INSERT_STUDENT_WITH_ID__WITHOUT_CURATOR);
@@ -180,9 +184,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Sets group of the student by the number and ID of group.
+     *
      * @param numberGroup
      * @param id
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void setGroup(int numberGroup, long id) throws SQLException {   //ok
@@ -194,9 +199,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Sets curator by his ID and ID of a student.
+     *
      * @param idCurator
      * @param idStudent
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void setCurator(long idCurator, long idStudent) throws SQLException {  //ok
@@ -212,8 +218,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Deletes students by the list of their IDs.
+     *
      * @param id
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void deleteStudents(ArrayList<Long> id) throws SQLException {  //ok
@@ -254,12 +261,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Selects students by their parameters.
+     *
      * @param param
      * @param arg
      * @return list of selected students
      * @throws SQLException
      * @throws IOException
-     * @throws JAXBException 
+     * @throws JAXBException
      */
     @Override
     public ArrayList<Student> selectStudents(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {  //OK
@@ -332,9 +340,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Changes name of a student to an input name by his ID.
+     *
      * @param name
      * @param idStudent
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void setName(String name, long idStudent) throws SQLException {
@@ -346,9 +355,10 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Sets new date of enrollment for the student by his ID.
+     *
      * @param date
      * @param idStudent
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void setDate(String date, long idStudent) throws SQLException {
@@ -361,12 +371,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     /**
      * Sets new parameters (name, number of group, date of enrollment and ID of curator)
      * of student by his ID.
+     *
      * @param id
      * @param name
      * @param numberGroup
      * @param date
      * @param idCurator
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void setStudent(long id, String name, int numberGroup, Date date, long idCurator) throws SQLException {
         preparedStatement = connection.prepareStatement(SET_STUDENTS);
@@ -381,11 +392,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     /**
      * Sets new parameters (name, number of group and date of enrollment)
      * of student by his ID.
+     *
      * @param id
      * @param name
      * @param numberGroup
      * @param date
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void setStudent(long id, String name, int numberGroup, Date date) throws SQLException {
         preparedStatement = connection.prepareStatement(SET_STUDENTS_WITHOUT_CURATOR);
@@ -398,23 +410,25 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Gets a list of all students.
+     *
      * @return list of all students
      * @throws SQLException
      * @throws IOException
-     * @throws JAXBException 
+     * @throws JAXBException
      */
     @Override
     public ArrayList<Student> getAllStudents() throws SQLException, IOException, JAXBException {  //OK
         preparedStatement = connection.prepareStatement(SELECT_STUDENTS);
         resultSet = preparedStatement.executeQuery();
         createStudents();
-   //     exportStudents();
+        //     exportStudents();
         return students;
     }
 
     /**
      * Creates a list of new students.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     private void createStudents() throws SQLException {
         students = new ArrayList<>();
@@ -436,11 +450,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Exports a list of students by their IDs to the file.
+     *
      * @param fileName
      * @param id
      * @throws JAXBException
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
@@ -465,15 +480,34 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     /**
      * Imports a list of students from the file.
+     *
      * @param fileReader
      * @throws JAXBException
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
+
+
     @Override
     public void importStudents(FileReader fileReader) throws JAXBException, IOException, SQLException {
+        importStudents(XmlWriteRead.readStudents(fileReader));
+    }
+
+
+    /**
+     * Imports a list of students from the file.
+     *
+     * @param students
+     * @throws JAXBException
+     * @throws IOException
+     * @throws SQLException
+     */
+
+
+    @Override
+    public void importStudents(ArrayList<Student> students) throws JAXBException, IOException, SQLException {
         ArrayList<Student> studentsInTable = getAllStudents();
-        ArrayList<Student> studentsExport = XmlWriteRead.readStudents(fileReader);
+        ArrayList<Student> studentsExport = students;
         ArrayList<Student> listAddWithoutCurator = new ArrayList<>();
         ArrayList<Student> listAddWithCurator = new ArrayList<>();
         ArrayList<Student> listSetWithoutCurator = new ArrayList<>();

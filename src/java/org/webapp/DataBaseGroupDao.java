@@ -2,7 +2,6 @@ package org.webapp;
 
 
 import javax.xml.bind.JAXBException;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,7 +29,9 @@ public interface DataBaseGroupDao {
 
     public void exportGroups(FileWriter fileWriter, ArrayList<Long> id) throws JAXBException, IOException, SQLException;
 
+    public void importGroups(ArrayList<Group> groups) throws JAXBException, SQLException, IOException;
+
     public void importGroups(FileReader fileReader) throws JAXBException, SQLException, IOException;
 
 
-    }
+}

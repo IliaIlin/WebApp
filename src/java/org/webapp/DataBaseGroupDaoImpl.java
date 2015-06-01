@@ -18,7 +18,8 @@ import java.util.TreeSet;
  * Created by Саша on 26.03.2015.
  * <p>
  * This is Data Access Object class which works with the objects of groups.
- * </p> 
+ * </p>
+ *
  * @see Group
  */
 public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
@@ -51,10 +52,11 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * This method updates list of groups using a list of string parameters.
+     *
      * @param id
      * @param param
      * @param arg
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void updateGroups(long id, ArrayList<String> param, ArrayList<String> arg) throws SQLException {  //ok
@@ -76,10 +78,11 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * This method updates list of groups using two string parameters.
+     *
      * @param id
      * @param param
      * @param arg
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void updateGroups(int numberGroup, String param, String arg) throws SQLException {  //ok
         String statement = UPDATE_GROUP;
@@ -93,10 +96,11 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
     }
 
     /**
-     * Inserts new object of group to the group's list by number and faculty of the new group. 
+     * Inserts new object of group to the group's list by number and faculty of the new group.
+     *
      * @param numberGroup
      * @param faculty
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void insertGroup(int numberGroup, String faculty) throws SQLException {  //ok
@@ -108,8 +112,9 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Deletes groups from the group's list by the list of their IDs.
+     *
      * @param id
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void deleteGroups(ArrayList<Long> id) throws SQLException {  //ok
@@ -133,12 +138,13 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Selects groups by a list of its parameters.
+     *
      * @param param
      * @param arg
      * @return list of selected groups
      * @throws SQLException
      * @throws IOException
-     * @throws JAXBException 
+     * @throws JAXBException
      */
     @Override
     public ArrayList<Group> selectGroups(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException { //????
@@ -162,10 +168,11 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Gets a list of all groups.
+     *
      * @return list of all groups
      * @throws SQLException
      * @throws IOException
-     * @throws JAXBException 
+     * @throws JAXBException
      */
     @Override
     public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException {  //ok
@@ -178,7 +185,8 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Creates a list of new groups.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     private void createGroups() throws SQLException {
         groups = new ArrayList<>();
@@ -194,8 +202,9 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Gets numbers of all groups.
+     *
      * @return list of groups' numbers
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public ArrayList<Integer> getGroupNumbers() throws SQLException {
@@ -210,8 +219,9 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Gets numbers of all empty groups.
+     *
      * @return list of numbers of empty groups
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public ArrayList<Long> getEmptyGroupIDs() throws SQLException {
@@ -226,11 +236,12 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
 
     /**
      * Exports a list of groups by its IDs to the file.
+     *
      * @param fileWriter
      * @param id
      * @throws JAXBException
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void exportGroups(FileWriter fileWriter, ArrayList<Long> id) throws JAXBException, IOException, SQLException {
@@ -252,17 +263,32 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
         XmlWriteRead.writeGroups(fileWriter, groups);
     }
 
+
     /**
      * Imports a list of groups from the file.
+     *
      * @param fileReader
      * @throws JAXBException
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     public void importGroups(FileReader fileReader) throws JAXBException, SQLException, IOException {
+        importGroups(XmlWriteRead.readGroups(fileReader));
+    }
+
+    /**
+     * Imports a list of groups from the file.
+     *
+     * @param groups
+     * @throws JAXBException
+     * @throws SQLException
+     * @throws IOException
+     */
+    @Override
+    public void importGroups(ArrayList<Group> groups) throws JAXBException, SQLException, IOException {
         ArrayList<Group> groupsInTable = getAllGroups();
-        ArrayList<Group> groupsExport = XmlWriteRead.readGroups(fileReader);
+        ArrayList<Group> groupsExport = groups;
         ArrayList<Group> listAdd = new ArrayList<>();
         ArrayList<Group> listSet = new ArrayList<>();
         Set<Integer> setNumbersGroups = new TreeSet<>();

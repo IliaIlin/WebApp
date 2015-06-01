@@ -34,6 +34,8 @@ public interface DataBaseStudentDao {
 
     public void importStudents(FileReader fileReader) throws JAXBException, IOException, SQLException;
 
+    public void importStudents(ArrayList<Student> students) throws JAXBException, IOException, SQLException;
+
     public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
 
