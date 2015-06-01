@@ -36,5 +36,4 @@ public interface DataBaseStudentDao {
 
     public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
-
 }
