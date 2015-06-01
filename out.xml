@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><groups>
+    <group groupNumber="2090" faculty="d" id="12">
+        <students>
+            <student name="Frodo" date="07.05.2015" id="151">
+                <curator id="120"></curator>
+            </student>
+        </students>
+    </group>
+    <group groupNumber="9602" faculty="d" id="18">
+        <students></students>
+    </group>
+    <group groupNumber="9600" faculty="Mechgg" id="16">
+        <students>
+            <student name="Bilbo" date="06.05.2015" id="150">
+                <curator id="122"></curator>
+            </student>
+            <student name="Harry" date="31.12.2015" id="152">
+                <curator id="115"></curator>
+            </student>
+        </students>
+    </group>
+</groups>

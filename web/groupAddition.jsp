@@ -48,5 +48,7 @@
                 }
             %>
         </form>
+        <% studentBean.remove();
+            groupBean.remove();%>
     </body>
 </html>

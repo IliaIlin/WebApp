@@ -68,13 +68,13 @@ ment   : groupsTable
                     for (int i = 0; i < checkedId.length; i++) {
                         id.add(Long.parseLong(checkedId[i]));
                     }
-                    FileWriter fw=new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
+                    FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
                     groupBean.exportGroups(fw, id);
                 }
             }
             if (request.getParameter("import_sub") != null) {
                 //    if(request.getParameter("file_to_import")!=null){
-               // groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
+                // groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
                 // }
             }
         %>
@@ -126,5 +126,6 @@ ment   : groupsTable
                 </table>
             </form>
         </div>
+        <% groupBean.remove();%>
     </body>
 </html>

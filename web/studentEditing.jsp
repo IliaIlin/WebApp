@@ -64,5 +64,7 @@
                 <input type="submit" value="Submit" />
             </div>
         </form>
+        <% studentBean.remove();
+            groupBean.remove();%>
     </body>
 </html>

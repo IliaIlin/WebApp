@@ -95,5 +95,6 @@
                 </table> 
             </form>
         </div>
+        <% studentBean.remove();%>
     </body>
 </html>

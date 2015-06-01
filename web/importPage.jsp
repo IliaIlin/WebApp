@@ -94,6 +94,7 @@
                 out.println("</body>");
                 out.println("</html>");
             }
+             studentBean.remove();
         %>
     </body>
 </html>
