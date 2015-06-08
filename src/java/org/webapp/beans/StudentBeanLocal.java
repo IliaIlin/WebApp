@@ -46,4 +46,6 @@ public interface StudentBeanLocal extends EJBObject{
     public void exportStudents(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
     public void importStudents(FileReader fileName) throws JAXBException, IOException, SQLException;
+    
+    public void importStudents(ArrayList<Student> students) throws JAXBException, IOException, SQLException;
 }

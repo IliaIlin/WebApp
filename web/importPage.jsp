@@ -4,6 +4,12 @@
     Author     : Илья
 --%>
 
+<%@page import="org.webapp.Student"%>
+<%@page import="org.webapp.Student"%>
+<%@page import="org.webapp.Group"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="org.webapp.xml.DataGroupAndStudents"%>
+<%@page import="org.webapp.xml.XmlWriteRead"%>
 <%@page import="java.io.FileReader"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.InputStreamReader"%>
@@ -19,10 +25,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/Style.css">
-        <title>JSP Page</title>
+        <title>Import Page</title>
     </head>
     <body>
         <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
+        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
         <%
             File file;
             int maxFileSize = 5000 * 1024;
@@ -73,9 +80,16 @@
                             }
                             fi.write(file);
                             FileReader fr = new FileReader(filePath + fileName);
-                            studentBean.importStudents(fr); %>
+                            DataGroupAndStudents d = XmlWriteRead.readGroupAndStudents(fr);
+                            ArrayList<Group> groupsNew = d.getGroups();
+                            ArrayList<Student> studentsNew = d.getStudents();
+                            groupBean.importGroups(groupsNew);
+                            studentBean.importStudents(studentsNew); %>
         <h2 class="header">Successful Upload! </h2>
         <a href="studentsTable.jsp">Students Table</a>
+        <br>
+        <br>
+        <a href="groupsTable.jsp">Groups Table</a>
         <%
                         }
                     }
@@ -94,7 +108,8 @@
                 out.println("</body>");
                 out.println("</html>");
             }
-             studentBean.remove();
+            studentBean.remove();
+            groupBean.remove();
         %>
     </body>
 </html>

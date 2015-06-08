@@ -42,4 +42,6 @@ public interface GroupBeanLocal extends EJBObject {
     public void exportGroups(FileWriter fileName, ArrayList<Long> id) throws JAXBException, SQLException, IOException;
 
     public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException;
+
+    public void importGroups(ArrayList<Group> groups) throws JAXBException, SQLException, IOException;
 }

@@ -27,19 +27,23 @@ public class TestConnect {
 
 
         ArrayList<Group> groupsOld = XmlWriteRead.readGroups(new FileReader("groups.xml"));
-        ArrayList<Student> studentsOld = XmlWriteRead.readStudents(new FileReader("students.xml"));
+        System.out.println(groupsOld.toString());
+        //ArrayList<Student> studentsOld = XmlWriteRead.readStudents(new FileReader("students.xml"));
+        
+        //XmlWriteRead.writeGroupsAndStudents(groupsOld, studentsOld, new FileWriter("out.xml"));
 
-      //  XmlWriteRead.writeGroupsAndStudents(groupsOld, studentsOld, new FileWriter("out.xml"));
 
-
-        DataGroupAndStudents d = XmlWriteRead.readGroupAndStudents(new FileReader("out.xml"));
-
-        ArrayList<Group> groupsNew= d.getGroups();
-        ArrayList<Student> studentsNew = d.getStudents();
-        System.out.println(groupsNew.toString());
-        System.out.println(studentsNew.toString());
-       // System.out.println(groupsNew.equals(groupsOld));
-     //   System.out.println(studentsNew.equals(studentsOld));
+          DataGroupAndStudents d = XmlWriteRead.readGroupAndStudents(new FileReader("out.xml"));
+          ArrayList<Group> groupsNew= d.getGroups();
+          ArrayList<Student> studentsNew = d.getStudents();
+          dataBaseGroupDao.importGroups(groupsNew);
+          dataBaseStudentDao.importStudents(studentsNew);
+          
+        //  System.out.println(groupsNew.toString());
+        //  System.out.println(studentsNew.toString());
+        // XmlWriteRead.readGroupAndStudents(null)
+        // System.out.println(groupsNew.equals(groupsOld));
+        //   System.out.println(studentsNew.equals(studentsOld));
 
 
 

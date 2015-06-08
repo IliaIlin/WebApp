@@ -83,6 +83,10 @@ public class GroupBean implements GroupBeanLocal {
     public void importGroups(FileReader fileName) throws JAXBException, SQLException, IOException {
         groupDao.importGroups(fileName);
     }
+    @Override
+    public void importGroups(ArrayList<Group> groups) throws JAXBException, SQLException, IOException{
+        groupDao.importGroups(groups);
+    }
 
     // end of business logic
     @Override

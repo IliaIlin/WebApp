@@ -94,6 +94,10 @@ public class StudentBean implements StudentBeanLocal {
     public void importStudents(FileReader fileName) throws JAXBException, IOException, SQLException {
         studentDao.importStudents(fileName);
     }
+    @Override
+    public void importStudents(ArrayList<Student> students) throws JAXBException, IOException, SQLException{
+        studentDao.importStudents(students);
+    }
 
     // end of business logic
     @Override

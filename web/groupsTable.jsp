@@ -72,11 +72,11 @@ ment   : groupsTable
                     groupBean.exportGroups(fw, id);
                 }
             }
-            if (request.getParameter("import_sub") != null) {
+         //   if (request.getParameter("import_sub") != null) {
                 //    if(request.getParameter("file_to_import")!=null){
                 // groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
                 // }
-            }
+          //  }
         %>
         <div class="header">
             <h1>Groups Table</h1>
@@ -86,7 +86,7 @@ ment   : groupsTable
             <form name="Add" action="groupAddition.jsp">
                 <input type="submit" value="Add Group"/>
             </form>
-            <form name="import" action="groupsTable.jsp" method="POST">
+            <form name="import" action="importPage.jsp" method="POST"  enctype="multipart/form-data">
                 <input type="file" name="file_to_import" value="Choose_File"/>
                 <input type="submit" name="import_sub" value="Import"/>
             </form>
