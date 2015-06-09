@@ -7,6 +7,7 @@
 
 
 
+<%@page import="org.webapp.xml.XmlWriteRead"%>
 <%@page import="java.io.FileWriter"%>
 <%@page import="org.webapp.Group"%>
 <%@page import="org.webapp.Student"%>
@@ -62,9 +63,34 @@
                 if (request.getParameter("export") == null) {     // remove checked students (got from this jsp)
                     studentBean.removeStudents(id);
                 } else {                                         // export
-                    FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\students.xml");
-                    studentBean.exportStudents(fw, id);
-                    
+                    ArrayList<Student> studentsToExport = new ArrayList<>();
+                    ArrayList<Group> groupsToExport = new ArrayList<>();
+                    ArrayList<String> param = new ArrayList<>();
+                    ArrayList<String> arg = new ArrayList<>();
+                    for (int i = 0; i < checkedId.length; i++) {
+                        param.add("ID_STUDENT");
+                        arg.add(checkedId[i]);
+                        ArrayList<Student> studentsFromSelect = studentBean.getStudentsByCriterium(param, arg);
+                        param.clear();
+                        arg.clear();
+                        studentsToExport.add(studentsFromSelect.get(0));
+                        int groupNumber = studentsFromSelect.get(0).getGROUP_STUDENT();
+                        param.add("GROUP_NUMBER");
+                        arg.add(String.valueOf(groupNumber));
+                        ArrayList<Group> groupsFromSelect = groupBean.getGroupsByCriterium(param, arg);
+                        param.clear();
+                        arg.clear();
+                        if(groupsToExport.isEmpty()){
+                           groupsToExport.add(groupsFromSelect.get(0)); 
+                        }
+                        else if(!groupsToExport.contains(groupsFromSelect.get(0))){
+                        groupsToExport.add(groupsFromSelect.get(0));
+                        }
+                    }
+                    FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\export.xml");
+                    //studentBean.exportStudents(fw, id);
+                    XmlWriteRead.writeGroupsAndStudents(groupsToExport, studentsToExport, fw);
+
                 }
             }
         %>

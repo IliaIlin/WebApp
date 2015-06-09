@@ -7,6 +7,8 @@ ment   : groupsTable
 --%>
 
 
+<%@page import="org.webapp.xml.XmlWriteRead"%>
+<%@page import="org.webapp.Student"%>
 <%@page import="java.io.FileWriter"%>
 <%@page import="org.webapp.Group"%>
 <%@page import="org.webapp.beans.WebAppBean"%>
@@ -21,6 +23,7 @@ ment   : groupsTable
     </head>
     <body>
         <a href=index.jsp>Main Page</a>
+        <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
         <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
         <%    if (request.getParameter("GroupNo") != null) {
                 ArrayList<Integer> groupNumbers = groupBean.getGroupNumbers();
@@ -64,19 +67,27 @@ ment   : groupsTable
                         groupBean.removeGroups(id);
                     }
                 } else {
-                    long[] idArray = new long[checkedId.length];
+                    ArrayList<Student> studentsToExport = new ArrayList<>();
+                    ArrayList<Group> groupsToExport = new ArrayList<>();
+                    ArrayList<String> param = new ArrayList<>();
+                    ArrayList<String> arg = new ArrayList<>();
+                    param.add("ID_GROUP");
                     for (int i = 0; i < checkedId.length; i++) {
-                        id.add(Long.parseLong(checkedId[i]));
+                        arg.add(checkedId[i]);
+                        ArrayList<Group> groupsFromSelect = groupBean.getGroupsByCriterium(param, arg);
+                        ArrayList<Student> studentsFromSelect = studentBean.getStudentsByCriterium(param, arg);
+                        for (int j = 0; j < groupsFromSelect.size(); j++) {
+                            groupsToExport.add(groupsFromSelect.get(j));
+                        }
+                        for (int j = 0; j < studentsFromSelect.size(); j++) {
+                            studentsToExport.add(studentsFromSelect.get(j));
+                        }
+                        arg.clear();
                     }
-                    FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
-                    groupBean.exportGroups(fw, id);
+                    FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\export.xml");
+                    XmlWriteRead.writeGroupsAndStudents(groupsToExport, studentsToExport, fw);
                 }
             }
-         //   if (request.getParameter("import_sub") != null) {
-                //    if(request.getParameter("file_to_import")!=null){
-                // groupBean.importGroups("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\groups.xml");
-                // }
-          //  }
         %>
         <div class="header">
             <h1>Groups Table</h1>
@@ -126,6 +137,7 @@ ment   : groupsTable
                 </table>
             </form>
         </div>
-        <% groupBean.remove();%>
+        <% studentBean.remove();
+            groupBean.remove();%>
     </body>
 </html>

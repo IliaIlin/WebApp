@@ -1,0 +1,13 @@
+<?xml version="1.0" ?><groups>
+    <group groupNumber="2041" faculty="hh" id="8">
+        <students>
+            <student name="Adam" date="02.06.2015" id="154"></student>
+        </students>
+    </group>
+    <group groupNumber="1001" faculty="Mechanics" id="10">
+        <students>
+            <student name="Fred" date="07.05.2015" id="121"></student>
+            <student name="Freddie" date="08.05.2015" id="112"></student>
+        </students>
+    </group>
+</groups>
