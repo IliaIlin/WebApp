@@ -275,7 +275,11 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
      */
     @Override
     public ArrayList<Student> selectStudents(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {  //OK
+        FileWriter writer = new FileWriter("log.txt");
+        writer.write("start\n");
+        writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
         String statement = SELECT_STUDENTS;
+        writer.write(statement);
         for (int i = 0; i < param.size(); i++) {
             switch (param.get(i).toUpperCase()) {
                 case NAME:
@@ -298,6 +302,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                     break;
             }
         }
+        writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
 
         if (nameParam.size() > 0) {
             statement += " AND STUDENTS.NAME IN ( ?";
@@ -341,6 +346,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             }
             statement += " )";
         }
+        writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
 
         preparedStatement = connection.prepareStatement(statement);
         int j = 1;
@@ -362,9 +368,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         for (int i = 0; i < groupIdParam.size(); i++) {
             preparedStatement.setString(j++, arg.get(groupIdParam.get(i)));
         }
-
+        writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
         resultSet = preparedStatement.executeQuery();
         createStudents();
+        writer.write("finish\n");
+        writer.flush();
+        writer.close();
         return students;
     }
 
