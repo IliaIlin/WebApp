@@ -147,7 +147,9 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
      * @throws JAXBException
      */
     @Override
-    public ArrayList<Group> selectGroups(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException { //????
+    public ArrayList<Group> selectGroups(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {
+        if(param.size() != arg.size())
+            return new ArrayList<Group>();
         String statement = SELECT_GROUPS;
         for (int i = 0; i < param.size(); i++) {
             statement += " " + param.get(i) + " = ? ";
@@ -175,7 +177,7 @@ public class DataBaseGroupDaoImpl implements DataBaseGroupDao {
      * @throws JAXBException
      */
     @Override
-    public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException {  //ok
+    public ArrayList<Group> getAllGroups() throws SQLException, IOException, JAXBException {
         preparedStatement = connection.prepareStatement(SELECT_ALL_GROUPS);
         resultSet = preparedStatement.executeQuery();
         createGroups();

@@ -275,33 +275,45 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
      */
     @Override
     public ArrayList<Student> selectStudents(ArrayList<String> param, ArrayList<String> arg) throws SQLException, IOException, JAXBException {  //OK
+        if(param.size() != arg.size())
+            return new ArrayList<Student>();
         FileWriter writer = new FileWriter("log.txt");
         writer.write("start\n");
         writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
         String statement = SELECT_STUDENTS;
-        writer.write(statement);
+        writer.write("statement " + statement + "\n");
+
+        boolean isGood = false;
         for (int i = 0; i < param.size(); i++) {
             switch (param.get(i).toUpperCase()) {
                 case NAME:
                     nameParam.add(i);
+                    isGood = true;
                     break;
                 case ID_STUDENT:
                     idParam.add(i);
+                    isGood = true;
                     break;
                 case GROUP_NUMBER:
                     groupParam.add(i);
+                    isGood = true;
                     break;
                 case ID_GROUP:
                     groupIdParam.add(i);
+                    isGood = true;
                     break;
                 case DATE:
                     dateParam.add(i);
+                    isGood = true;
                     break;
                 case CURATOR:
                     curatorParam.add(i);
+                    isGood = true;
                     break;
             }
         }
+        if(!isGood)
+            return new ArrayList<Student>();
         writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
 
         if (nameParam.size() > 0) {
@@ -346,6 +358,7 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
             }
             statement += " )";
         }
+        writer.write("statement " + statement + "\n");
         writer.write("param.size() " + param.size() + " arg.size() " + arg.size() + "\n");
 
         preparedStatement = connection.prepareStatement(statement);
@@ -374,6 +387,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         writer.write("finish\n");
         writer.flush();
         writer.close();
+        nameParam.clear();
+        idParam.clear();
+        curatorParam.clear();
+        dateParam.clear();
+        groupIdParam.clear();
+        groupParam.clear();
         return students;
     }
 
