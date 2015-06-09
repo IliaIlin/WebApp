@@ -87,12 +87,14 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
     final private static int INDEX_COLUMB_ID_CURATOR = 5;
 
     final private static String NAME = "NAME";
+    final private static String ID_STUDENT = "ID_STUDENT";
     final private static String GROUP_NUMBER = "GROUP_NUMBER";
     final private static String ID_GROUP = "ID_GROUP";
     final private static String DATE = "DATE";
     final private static String CURATOR = "CURATOR";
 
     final private ArrayList<Integer> nameParam = new ArrayList<>();
+    final private ArrayList<Integer> idParam = new ArrayList<>();
     final private ArrayList<Integer> groupParam = new ArrayList<>();
     final private ArrayList<Integer> groupIdParam = new ArrayList<>();
     final private ArrayList<Integer> dateParam = new ArrayList<>();
@@ -279,6 +281,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                 case NAME:
                     nameParam.add(i);
                     break;
+                case ID_STUDENT:
+                    idParam.add(i);
+                    break;
                 case GROUP_NUMBER:
                     groupParam.add(i);
                     break;
@@ -297,6 +302,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         if (nameParam.size() > 0) {
             statement += " AND STUDENTS.NAME IN ( ?";
             for (int i = 1; i < nameParam.size(); i++) {
+                statement += " , ? ";
+            }
+            statement += " )";
+        }
+        if (idParam.size() > 0) {
+            statement += " AND STUDENTS.ID_STUDENT IN ( ?";
+            for (int i = 1; i < idParam.size(); i++) {
                 statement += " , ? ";
             }
             statement += " )";
@@ -321,7 +333,8 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                 statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }
             statement += " )";
-        }if (groupIdParam.size() > 0) {
+        }
+        if (groupIdParam.size() > 0) {
             statement += " AND GROUPS.ID_GROUP IN ( ?  ";
             for (int i = 1; i < groupIdParam.size(); i++) {
                 statement += " ,  ?  ";
@@ -333,6 +346,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         int j = 1;
         for (int i = 0; i < nameParam.size(); i++) {
             preparedStatement.setString(j++, arg.get(nameParam.get(i)));
+        }
+        for (int i = 0; i < idParam.size(); i++) {
+            preparedStatement.setString(j++, arg.get(idParam.get(i)));
         }
         for (int i = 0; i < dateParam.size(); i++) {
             preparedStatement.setString(j++, arg.get(dateParam.get(i)));

@@ -23,8 +23,7 @@ public class TestConnect {
         DataBaseStudentDaoImpl dataBaseStudentDao = new DataBaseStudentDaoImpl(dataSource.getConnection());
         DataBaseGroupDaoImpl dataBaseGroupDao = new DataBaseGroupDaoImpl(dataSource.getConnection());
 
-
-        String[] checkedId = {"5", "78"};
+        String[] checkedId = {"8", "10"};
         ArrayList<Student> studentsToExport = new ArrayList<>();
         ArrayList<Group> groupsToExport = new ArrayList<>();
         ArrayList<String> param = new ArrayList<>();
@@ -35,8 +34,8 @@ public class TestConnect {
             param.add("ID_GROUP");
             arg.add(checkedId[i]);
             ArrayList<Group> groupsFromSelect = dataBaseGroupDao.selectGroups(param, arg);
-            param.clear();
-            param.add("ID_GROUP");
+// param.clear();
+// param.add("ID_GROUP");
             ArrayList<Student> studentsFromSelect = dataBaseStudentDao.selectStudents(param, arg);
             for (int j = 0; j < groupsFromSelect.size(); j++) {
                 groupsToExport.add(groupsFromSelect.get(j));
@@ -44,7 +43,7 @@ public class TestConnect {
             for (int j = 0; j < studentsFromSelect.size(); j++) {
                 studentsToExport.add(studentsFromSelect.get(j));
             }
-            param.clear();
+// param.clear();
             arg.clear();
         }
         FileWriter fw = new FileWriter("export.xml");
