@@ -88,11 +88,13 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
 
     final private static String NAME = "NAME";
     final private static String GROUP_NUMBER = "GROUP_NUMBER";
+    final private static String ID_GROUP = "ID_GROUP";
     final private static String DATE = "DATE";
     final private static String CURATOR = "CURATOR";
 
     final private ArrayList<Integer> nameParam = new ArrayList<>();
     final private ArrayList<Integer> groupParam = new ArrayList<>();
+    final private ArrayList<Integer> groupIdParam = new ArrayList<>();
     final private ArrayList<Integer> dateParam = new ArrayList<>();
     final private ArrayList<Integer> curatorParam = new ArrayList<>();
 
@@ -280,6 +282,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                 case GROUP_NUMBER:
                     groupParam.add(i);
                     break;
+                case ID_GROUP:
+                    groupIdParam.add(i);
+                    break;
                 case DATE:
                     dateParam.add(i);
                     break;
@@ -316,6 +321,12 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
                 statement += " , (SELECT ID_GROUP FROM GROUPS WHERE GROUP_NUMBER = ? ) ";
             }
             statement += " )";
+        }if (groupIdParam.size() > 0) {
+            statement += " AND GROUPS.ID_GROUP IN ( ?  ";
+            for (int i = 1; i < groupIdParam.size(); i++) {
+                statement += " ,  ?  ";
+            }
+            statement += " )";
         }
 
         preparedStatement = connection.prepareStatement(statement);
@@ -331,6 +342,9 @@ public class DataBaseStudentDaoImpl implements DataBaseStudentDao {
         }
         for (int i = 0; i < groupParam.size(); i++) {
             preparedStatement.setString(j++, arg.get(groupParam.get(i)));
+        }
+        for (int i = 0; i < groupIdParam.size(); i++) {
+            preparedStatement.setString(j++, arg.get(groupIdParam.get(i)));
         }
 
         resultSet = preparedStatement.executeQuery();
