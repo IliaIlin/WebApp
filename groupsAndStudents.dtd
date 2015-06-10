@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/groupsAndStudents.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE groups SYSTEM "groupsAndStudents.dtd">
+
+    <groups>
+    ...
+    </groups>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT groups (group)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT group (students)*>
+<!ATTLIST group
+    groupNumber CDATA #IMPLIED
+    faculty CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT students (student)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT student (curator)*>
+<!ATTLIST student
+    name CDATA #IMPLIED
+    date CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT curator EMPTY>
+<!ATTLIST curator
+    id CDATA #IMPLIED
+  >

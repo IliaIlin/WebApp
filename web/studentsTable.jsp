@@ -23,19 +23,7 @@
     </head>
     <body>
         <jsp:useBean id="studentBean" scope="request" class="org.webapp.beans.StudentBean" />
-        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />
-        <%
-
-           // WebAppBean bean = new WebAppBean();
-            // WebAppLocal bean = (WebAppLocal) new InitialContext().lookup("java:app/WebApp/WebAppBean");
-            // Properties props = new Properties();
-            // props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-            // InitialContext context = new InitialContext(props);
-            //WebAppLocal bean = (WebAppLocal) context.lookup("java:app/WebApp/WebAppBean");
-            // WebAppLocal bean=(WebAppLocal)context.lookup("WebAppLocal");
-            // bean.create();
-
-        %>     
+        <jsp:useBean id="groupBean" scope="request" class="org.webapp.beans.GroupBean" />  
         <a href=index.jsp>Main Page</a>
         <% if (request.getParameter("NameEditing") != null) {  // enables editing of student
                 long id = Long.parseLong(request.getParameter("ID"));
@@ -80,15 +68,14 @@
                         ArrayList<Group> groupsFromSelect = groupBean.getGroupsByCriterium(param, arg);
                         param.clear();
                         arg.clear();
-                        if(groupsToExport.isEmpty()){
-                           groupsToExport.add(groupsFromSelect.get(0)); 
-                        }
-                        else if(!groupsToExport.contains(groupsFromSelect.get(0))){
-                        groupsToExport.add(groupsFromSelect.get(0));
+                        if (groupsToExport.isEmpty()) {
+                            groupsToExport.add(groupsFromSelect.get(0));
+                        } else if (!groupsToExport.contains(groupsFromSelect.get(0))) {
+                            groupsToExport.add(groupsFromSelect.get(0));
+
                         }
                     }
                     FileWriter fw = new FileWriter("C:\\Users\\Илья\\Documents\\NetBeansProjects\\WebApp\\export.xml");
-                    //studentBean.exportStudents(fw, id);
                     XmlWriteRead.writeGroupsAndStudents(groupsToExport, studentsToExport, fw);
 
                 }
@@ -155,7 +142,6 @@
                     </thead>
                     <tbody>
                         <%
-                            students = studentBean.getAllStudents();
                             String name = request.getParameter("NameCriteria");
                             String groupNumber = request.getParameter("GroupNumbersCriteria");
                             String dateInput = request.getParameter("DateCriteria");
@@ -182,7 +168,12 @@
                                     arg.add(curator);
                                 }
                             }
+                            if(param.isEmpty() && arg.isEmpty()){
+                                students=studentBean.getAllStudents();
+                            }
+                            else{
                             students = studentBean.getStudentsByCriterium(param, arg);
+                            }
                             ArrayList<Student> studentsFull = studentBean.getAllStudents();
                             for (int i = 0; i < students.size(); i++) {
                                 Student student = students.get(i);
@@ -223,7 +214,7 @@
                             <%
                                 }%>
                             <td>
-                                <a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>">
+                                <a href="http://localhost:8080/WebApp/studentEditing.jsp?StudentID=<%=String.valueOf(student.getID())%>&StudentNameToEdit=<%=student.getNAME()%>&StudentGroupToEdit=<%=String.valueOf(student.getGROUP_STUDENT())%>&StudentDateToEdit=<%=String.valueOf(student.getDATE_ENROLLMENT())%>&StudentCuratorToEdit=<%=student.getID_CURATOR()%>"> 
                                     <input type="button" name="Edit" value="Edit"/></a></td>
                         </tr>
                         <%}%>
