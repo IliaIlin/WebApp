@@ -98,7 +98,7 @@ ment   : groupsTable
                 <input type="submit" value="Add Group"/>
             </form>
             <form name="import" action="importPage.jsp" method="POST"  enctype="multipart/form-data">
-                <input type="file" name="file_to_import" value="Choose_File"/>
+                <input type="file" name="file_to_import" value="Choose_File" accept="text/xml"/>
                 <input type="submit" name="import_sub" value="Import"/>
             </form>
         </div>
